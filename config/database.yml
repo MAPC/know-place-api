@@ -12,6 +12,8 @@ development: &development
   <<: *default
 
 production: &production
+  # Intentionally no fallback
+  database: <%= ENV.fetch('DB_NAME') %>
   <<: *default
 
 # Warning: The database defined as "test" will be erased and
@@ -19,6 +21,6 @@ production: &production
 # Do not set this db to the same as development or production.
 test: &test
   <<: *default
-  database: dc3_test
+  database: knowplace_test
   host:     localhost
   schema_search_path: public

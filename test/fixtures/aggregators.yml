@@ -1,0 +1,17 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+sum:
+  name: sum
+  modifier: total
+  description: Sums a column of numeric (integer or decimal) values.
+  operation: >
+    SELECT 1 as a;
+
+
+percent:
+  name: percent
+  modifier: percentage
+  description: Sums a column of percentage (integer or decimal) values.
+  operation: >
+    SELECT 1 as aba;
