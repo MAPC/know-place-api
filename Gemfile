@@ -26,7 +26,6 @@ group :development do
   gem 'guard', '>= 2.2.2',       require: false # Autorun tests
   gem 'guard-minitest',          require: false # MiniTest adapter
   gem 'rb-fsevent',              require: false # Mac file system watch
-  gem 'terminal-notifier-guard', require: false
 end
 
 group :development, :test do
