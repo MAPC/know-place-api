@@ -1,0 +1,14 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+pop_2000:
+  data_source: one
+  column_name: pop_2000
+
+pop_2010:
+  data_source: one
+  column_name: pop_2010
+
+two:
+  data_source: two
+  column_name: MyString

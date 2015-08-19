@@ -1,4 +1,6 @@
-guard :minitest, spring: true do
+require 'active_support/inflector'
+
+guard :minitest, spring: true, all_after_pass: true do
   watch(%r{^app/(.+)\.rb$})                               { |m| "test/#{m[1]}_test.rb" }
   watch(%r{^app/controllers/application_controller\.rb$}) { "test/controllers" }
   watch(%r{^app/controllers/(.+)_controller\.rb$})        { |m| "test/integration/#{m[1]}_test.rb" }
@@ -8,4 +10,5 @@ guard :minitest, spring: true do
   watch(%r{^lib/tasks/(.+)\.rake$})                       { |m| "test/unit/lib/tasks/#{m[1]}_test.rb" }
   watch(%r{^test/.+_test\.rb$})
   watch(%r{^test/test_helper\.rb$}) { "test" }
+  watch(%r{^test/fixtures/(.+)\.yml$})                     { |m| "test/models/#{m[1].singularize}_test.rb" }
 end

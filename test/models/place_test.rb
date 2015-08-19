@@ -2,11 +2,7 @@ require "test_helper"
 
 class PlaceTest < ActiveSupport::TestCase
   def place
-    @place ||= Place.new(
-      name:        places(:dudley).name,
-      description: places(:dudley).description,
-      geometry:    places(:dudley).geometry
-    )
+    @place ||= places(:dudley)
   end
 
   def test_valid
