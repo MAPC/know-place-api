@@ -3,6 +3,8 @@ require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 require "minitest/rails"
 
+require "minitest/hell" # Random ordering
+
 # Improved Minitest output (color and progress bar)
 require "minitest/reporters"
 Minitest::Reporters.use!(
