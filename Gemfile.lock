@@ -147,6 +147,9 @@ GEM
     rb-fsevent (0.9.5)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
+    rgeo (0.3.20)
+    rgeo-geojson (0.3.1)
+      rgeo (~> 0.3)
     ruby-progressbar (1.7.5)
     shellany (0.0.1)
     slop (3.6.0)
@@ -185,5 +188,6 @@ DEPENDENCIES
   rails (= 4.2.3)
   rails-api
   rb-fsevent
+  rgeo-geojson
   spring
   wannabe_bool
