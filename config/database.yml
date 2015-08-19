@@ -1,0 +1,24 @@
+default: &default
+  adapter:  postgresql
+  database: <%= ENV.fetch('DB_NAME') { 'knowplace_dev' } %>
+  username: <%= ENV.fetch('DB_USERNAME') { nil } %>
+  password: <%= ENV.fetch('DB_PASSWORD') { nil } %>
+  host:     <%= ENV.fetch('DB_PORT_5432_TCP_ADDR') { 'localhost' } %>
+  port:     <%= ENV.fetch('DB_PORT_5432_TCP_PORT') { '5432' }      %>
+  timeout:  5000
+  pool:     5
+
+development: &development
+  <<: *default
+
+production: &production
+  <<: *default
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test: &test
+  <<: *default
+  database: dc3_test
+  host:     localhost
+  schema_search_path: public
