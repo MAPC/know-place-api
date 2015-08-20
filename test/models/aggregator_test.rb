@@ -38,7 +38,8 @@ class AggregatorTest < ActiveSupport::TestCase
     assert_not aggregator.valid?
   end
 
-  def test_relates_to_fields
-    assert_respond_to aggregator, :fields
+  def test_habtm_data_points
+    assert_respond_to aggregator, :data_points
   end
+
 end

@@ -1,6 +1,6 @@
-require 'uri'
-
 class DataSource < ActiveRecord::Base
+
+  has_many :fields
 
   validates :database_url, presence: true
   validate :parseable_uri

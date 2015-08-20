@@ -1,0 +1,14 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+total:
+  id: 1
+  name: "Adults with Bachelor's Degree or Higher"
+  aggregator_id: 11
+  field_mapping: [{ field_id: 41, param: "b" }, { field_id: "40", param: "a" }]
+
+percent:
+  id: 2
+  name: "Percent of Adults with Bachelor's Degree or Higher"
+  aggregator_id: 12
+  field_mapping: [{ field_id: 41, param: "a" }, { field_id: "40", param: "b" }]

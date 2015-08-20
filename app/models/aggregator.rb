@@ -1,6 +1,6 @@
 class Aggregator < ActiveRecord::Base
 
-  has_and_belongs_to_many :fields
+  has_and_belongs_to_many :data_points
 
   validates :name, presence: true, length: {
     minimum: 3, maximum: 140
@@ -9,6 +9,14 @@ class Aggregator < ActiveRecord::Base
     minimum: 10, maximum: 1000
   }
   validate :valid_syntax
+
+  # def params
+  #   raise NotImplementedError
+  # end
+
+  # def ordered_params
+  #   raise NotImplementedError
+  # end
 
   private
 

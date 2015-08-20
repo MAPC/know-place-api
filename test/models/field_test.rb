@@ -20,4 +20,13 @@ class FieldTest < ActiveSupport::TestCase
     field.data_source = nil
     assert_not field.valid?
   end
+
+  def test_belongs_to_data_source
+    assert_respond_to field, :data_source
+  end
+
+  def test_relates_to_data_points
+    assert_respond_to field, :data_points
+    assert_equal DataPoint::ActiveRecord_Associations_CollectionProxy, field.data_points.class
+  end
 end

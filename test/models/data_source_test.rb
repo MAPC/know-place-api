@@ -23,4 +23,8 @@ class DataSourceTest < ActiveSupport::TestCase
     assert_raises(URI::InvalidURIError) { URI.parse(url) }
     assert_not data_source.valid?
   end
+
+  def test_has_fields
+    assert_respond_to data_source, :fields
+  end
 end

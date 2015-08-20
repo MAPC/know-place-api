@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819211820) do
+ActiveRecord::Schema.define(version: 20150820190801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,24 @@ ActiveRecord::Schema.define(version: 20150819211820) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "data_points", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "aggregator_id"
+    t.json     "field_mapping"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "data_points", ["aggregator_id"], name: "index_data_points_on_aggregator_id", using: :btree
+
+  create_table "data_points_fields", force: :cascade do |t|
+    t.integer "data_point_id"
+    t.integer "field_id"
+  end
+
+  add_index "data_points_fields", ["data_point_id"], name: "index_data_points_fields_on_data_point_id", using: :btree
+  add_index "data_points_fields", ["field_id"], name: "index_data_points_fields_on_field_id", using: :btree
 
   create_table "data_sources", force: :cascade do |t|
     t.string   "database_url", null: false
@@ -48,5 +66,6 @@ ActiveRecord::Schema.define(version: 20150819211820) do
     t.datetime "updated_at",  null: false
   end
 
+  add_foreign_key "data_points", "aggregators"
   add_foreign_key "fields", "data_sources"
 end
