@@ -12,8 +12,6 @@ development: &development
   <<: *default
 
 production: &production
-  # Intentionally no fallback
-  database: <%= ENV.fetch('DB_NAME') %>
   <<: *default
 
 # Warning: The database defined as "test" will be erased and
