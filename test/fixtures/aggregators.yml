@@ -1,7 +1,7 @@
 # Read about fixtures at
 # http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-sum:
+inc:
   name: inc
   modifier: total
   description: Increases an integer by a value.

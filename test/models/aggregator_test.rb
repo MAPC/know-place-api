@@ -2,7 +2,7 @@ require "test_helper"
 
 class AggregatorTest < ActiveSupport::TestCase
   def aggregator
-    @aggregator ||= aggregators(:sum)
+    @aggregator ||= aggregators(:inc)
   end
 
   def test_valid
