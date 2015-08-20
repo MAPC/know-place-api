@@ -39,12 +39,17 @@ class AggregatorTest < ActiveSupport::TestCase
     assert_not aggregator.valid?
   end
 
-  def test_habtm_data_points
+  def test_relates_to_data_points
     assert_respond_to aggregator, :data_points
   end
 
+  def test_requires_return_type
+    aggregator.return_type = ""
+    assert_not aggregator.valid?
+  end
+
   def test_limits_return_types
-    aggregator.return_type = "not a real type"
+    aggregator.return_type = "not_a_real_type"
     assert_not aggregator.valid?
   end
 

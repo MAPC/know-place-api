@@ -14,6 +14,7 @@ class Aggregator < ActiveRecord::Base
     minimum: 10, maximum: 1000
   }
   # validate :valid_operation_syntax
+  validates :return_type, presence: true, inclusion: { in: TYPES }
   validate :valid_function_syntax
 
   def params
