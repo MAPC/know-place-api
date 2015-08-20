@@ -2,12 +2,15 @@
 # http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 sum:
-  name: sum
+  name: inc
   modifier: total
-  description: Sums a column of numeric (integer or decimal) values.
+  description: Increases an integer by a value.
   operation: >
-    SELECT 1 as a;
-
+    BEGIN
+      RETURN i + val;
+    END
+  parameters: "IN i integer, IN val integer"
+  return_type: integer
 
 percent:
   name: percent
@@ -15,3 +18,4 @@ percent:
   description: Sums a column of percentage (integer or decimal) values.
   operation: >
     SELECT 1 as aba;
+  return_type: numeric

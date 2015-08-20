@@ -19,8 +19,10 @@ ActiveRecord::Schema.define(version: 20150820190801) do
   create_table "aggregators", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
+    t.string   "return_type"
     t.string   "modifier"
     t.string   "operation"
+    t.string   "parameters"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

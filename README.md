@@ -57,3 +57,14 @@ Familiarize yourself with Foreman and how .env is used to store environment vari
 #### Beginners
 
 Start by learning how to set up Ruby and Rails on your machine. That's outside the scope of this README for the moment, but we plan to provide links later.
+
+
+## Notes
+
+- When you create an aggregator, we cannot tell whether the plpgsql or SQL you are making into the function definition is valid. Ensure your SQL/plpgsql works beforehand using PgAdmin or some other tool, and only then set it to be the function body.
+
+
+
+
+
+
