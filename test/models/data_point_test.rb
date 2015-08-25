@@ -12,4 +12,9 @@ class DataPointTest < ActiveSupport::TestCase
   def test_relates_to_fields
     assert_respond_to data_point, :fields
   end
+
+  def test_relates_to_data_collections
+    assert_respond_to data_point, :data_collections
+    assert_equal DataCollection::ActiveRecord_Associations_CollectionProxy, data_point.data_collections.class
+  end
 end

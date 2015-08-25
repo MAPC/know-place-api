@@ -9,11 +9,13 @@ class Place < ActiveRecord::Base
     minimum: 10, maximum: 140
   }
 
+  alias_attribute :title, :name
+
   private
 
   def valid_geojson
-    if RGeo::GeoJSON.decode(geometry, json_parser: :json).nil?
-      errors.add(:geometry, "must be valid GeoJSON")
+    if RGeo::GeoJSON.decode(geometry.to_json, json_parser: :json).nil?
+      errors.add(:geometry, "must be valid GeoJSON, but was #{geometry.inspect}")
     end
   end
 

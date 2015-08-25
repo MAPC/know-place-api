@@ -33,11 +33,11 @@ class AggregatorTest < ActiveSupport::TestCase
     assert_not aggregator.valid?
   end
 
-  def test_requires_valid_sql_or_plpgsql
-    skip "This is a difficult challenge."
-    aggregator.operation = "SELERCT 1 as a;"
-    assert_not aggregator.valid?
-  end
+  # def test_requires_valid_sql_or_plpgsql
+  #   skip "This is a difficult challenge."
+  #   aggregator.operation = "SELERCT 1 as a;"
+  #   assert_not aggregator.valid?
+  # end
 
   def test_relates_to_data_points
     assert_respond_to aggregator, :data_points

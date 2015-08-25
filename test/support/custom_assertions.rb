@@ -23,7 +23,39 @@ module Minitest::Assertions
   alias_method :assert_json_key, :assert_json_keys
   alias_method :refute_json_key, :refute_json_keys
 
+  #
+  #  Fails if +obj is not a collection proxy for +class
+  #
+  def assert_collection_proxy(klass, collection)
+    assert collection_proxy(klass, collection),
+      """
+      Expected collection #{ collection.inspect } to be a
+      #{ collection_proxy_class_for(klass) }
+      """
+  end
+  #
+  #  Fails if +obj is a collection proxy for +class
+  #
+  def refute_collection_proxy(klass, collection)
+    refute collection_proxy(klass, collection),
+      """
+      Expected collection #{ collection.inspect } to not be a
+      #{ collection_proxy_class_for(klass) }, but it was.
+      """
+  end
+
   private
+
+  def collection_proxy(klass, collection)
+    collection_proxy_class = collection_proxy_class_for(klass)
+    collection_class = collection.class
+    collection_proxy_class == collection_class
+  end
+
+  def collection_proxy_class_for(klass)
+    c = klass.to_s
+    Kernel.const_get "#{c}::ActiveRecord_Associations_CollectionProxy"
+  end
 
   def json_keys(json, keys)
     Array(keys).each { |key|

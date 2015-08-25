@@ -6,8 +6,12 @@ class DataPoint < ActiveRecord::Base
   validates :aggregator_id, presence: true
   validates :field_mapping, presence: true
 
+  has_and_belongs_to_many :data_collections
+  has_and_belongs_to_many :reports
+
   #  This doesn't belong in the model, but rather in a
   #  custom validator.
+  # TODO COMPLETE THESE
   # validate  :field_mapping_structure
   # validate  :field_mapping_has_related_fields
 

@@ -1,0 +1,14 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+tod:
+  title: Transit Oriented Development
+  description: This is the official MAPC approach to studying TOD
+  official: true
+  tags: ["transportation", "equity", "smart growth"]
+
+demo:
+  title: Demographics Overview
+  description: A list of the most commonly-requested demographics fields
+  official: false
+  tags: ["population", "race", "income"]

@@ -1,0 +1,14 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+adult_ed:
+  id: 1
+  title: Adults and Education
+  data_points: total, percent
+  ordered_data_points: [{field_id: 2, order: 1}, {field_id: 1, order: 2}]
+
+race:
+  id: 2
+  title: Race
+  data_points: total, percent
+  ordered_data_points: [{field_id: 2, order: 1}, {field_id: 1, order: 2}]
