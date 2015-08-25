@@ -3,15 +3,15 @@ class PlaceSerializer < ApplicationSerializer
     object.to_param.to_s
   end
 
-  def name
+  attribute :name do
     object.name
   end
 
-  def description
+  attribute :description do
     object.description
   end
 
-  def geometry
+  attribute :geometry do
     object.geometry
   end
 end

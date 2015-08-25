@@ -1,11 +1,15 @@
 require "test_helper"
 
-class PlaceSerializerTest < ActiveSupport::TestCase
+class ProfileSerializerTest < ActiveSupport::TestCase
   include JsonApiSerializerHelper
   include Common::TestJsonApiConventions
 
   def resource
-    @resource ||= places(:dudley)
+    @resource ||= profiles(:dtod)
+  end
+
+  def test_title
+    assert_equal resource.title, attributes['title']
   end
 
   # def test_includes_when_given

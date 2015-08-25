@@ -3,15 +3,19 @@ class AggregatorSerializer < ApplicationSerializer
     object.to_param.to_s
   end
 
-  def name
+  attribute :name do
     object.name
   end
 
-  def modifier
+  attribute :modifier do
     object.modifier
   end
 
-  def description
+  attribute :description do
     object.description
+  end
+
+  attribute :type do
+    object.return_type
   end
 end
