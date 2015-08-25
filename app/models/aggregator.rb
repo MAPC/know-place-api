@@ -64,19 +64,16 @@ class Aggregator < ActiveRecord::Base
     "Contributed by KnowPlace (mapc.org)."
   end
 
-  #  This presents a significant challenge, trying to parse plpgsql without
-  #  its use in a function.
-  # def valid_operation_syntax
-  #   PgQuery.parse operation
-  # rescue PgQuery::ParseError => e
-  #   errors.add :operation, "must be valid PostgreSQL syntax, instead is #{ operation }."
-  # end
+  # This presents a significant challenge, trying to parse the
+  # plpgsql on its own, without calling it.
 
   def valid_function_syntax
-    PgQuery.parse to_function_definition
-  rescue PgQuery::ParseError => e
+    ActiveRecord::Base.connection.execute to_function_definition
+  rescue Exception => e
     errors.add :operation,
       "must be valid PostgreSQL syntax. Function definition: \n\n #{to_function_definition.inspect} \n\n\n Error: \n\n #{e}"
+  # ensure
+  #   ActiveRecord::Base.connection.execute "DROP FUNCTION IF EXISTS #{sql_function_name}"
   end
 
 end

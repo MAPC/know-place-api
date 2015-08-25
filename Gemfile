@@ -5,11 +5,6 @@ gem 'rails-api'
 
 # Database
 gem 'pg'
-# Parse SQL to validate operation. This is an expensive method and
-# might get weird when deploying, so we could also send deferred-
-# execution queries to Postgres itself to validate.
-#    Basically, this is the quick-and-dirty way.
-gem 'pg_query'
 
 # JSON API
 gem 'jsonapi-serializers' # Serialize with JSONAPI.org standard
