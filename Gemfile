@@ -31,12 +31,16 @@ group :development do
 
   gem 'guard', '>= 2.2.2',       require: false # Autorun tests
   gem 'guard-minitest',          require: false # MiniTest adapter
-  gem 'rb-fsevent',              require: false # Mac file system watch
+  # Watch Mac filesystem events
+  gem 'rb-fsevent', require: RUBY_PLATFORM.include?('darwin') && 'rb-fsevent'
 end
 
 group :development, :test do
   gem 'minitest-rails'     # Test library
   gem 'minitest-reporters' # For progress bar, etc.
+  # OSX Notification Center reporter
+  # gem 'minitest-osx', require: RUBY_PLATFORM.include?('darwin') && 'minitest/osx'
+
   # From https://mattbrictson.com/minitest-and-rails#set-up-your-project
   # Maybe not needed but good to have the link around
   # gem 'connection_pool'
