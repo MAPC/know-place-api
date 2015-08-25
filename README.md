@@ -59,11 +59,51 @@ Familiarize yourself with Foreman and how .env is used to store environment vari
 Start by learning how to set up Ruby and Rails on your machine. That's outside the scope of this README for the moment, but we plan to provide links later.
 
 
+
+## Basic Data Structure
+
+We first combine fields (columns) from our databases with summation operations (Aggregators) in order to get DataPoints. In other words, DataPoints consist of several columns that have been operated on over a given set of records (more on that shortly).
+
+    For example:
+
+    In order to get a DataPoint called "Proportion of Adults with Bachelor's Degrees or Higher" We take the total number of adults (column `pop25`) and the number of adults with a bachelor's degree or higher (column `bapl`), and operate on those columns with an Aggregator that takes the sums of both columns, then divides to get the proportion.
+
+
+How do we know which records (rows) to take when we are summarizing? Well, first of all, each row is represented by either a single geographic point, or by a value assigned to a [Census Tract](https://en.wikipedia.org/wiki/Census_tract).
+
+
+At the core, this application takes a defined geographic boundary ("Place") and combines it with a set of DataPoints, called a "Report" or "Template", and creates what we call a "Place Profile", or simply a Profile.
+
+On its own, a Report doesn't have any numerical values -- it _needs_ a Place in order to figure out which points and tracks to query.
+
+When a user creates a geography, we first query for all of the Census Tracts that touch the user-defined geographic boundary. Next, we run the queries for all the DataPoints in the user's current Report, limiting the query to only the rows associated with the Census Tracts in the user's Place.
+
+This produces the Profile, which is static unless someone changes the related Place or Report -- then the Profile is run again, in order to update its values.
+
+
+## Core Functionality
+
+#### Aggregators
+
+Aggregators sum up all the data for a given set of records, in a query like:
+
+```sql
+SELECT aggregator_name(column, column) WHERE geoid IN (list, of, geoids)
+```
+
+
+#### API
+
+At the moment, the API is not CORS-enabled, meaning that only applications on the same domain are allowed to read from it. However, we plan to open it up once we rate-limit it.
+
+External services will be able to ask for a Place Profile by posting a GeoJSON polygon and a set of DataPoints to the API endpoint, and get back the evaluated profile and the associated Census Tracts (and other underlying geographies, if any).
+
+
+
+
 ## Notes
 
-- When you create an aggregator, we cannot tell whether the plpgsql or SQL you are making into the function definition is valid. Ensure your SQL/plpgsql works beforehand using PgAdmin or some other tool, and only then set it to be the function body.
-
-
+- When you create an aggregator, we do not presently validate whether the plpgsql or SQL you are making into the function definition is valid. Ensure your SQL/plpgsql works beforehand using PgAdmin or some other tool, and only then set it to be the function body.
 
 
 
