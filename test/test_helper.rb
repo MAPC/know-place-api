@@ -2,9 +2,12 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 require "minitest/rails"
-require "custom_assertions"
-
+# require "minitest/osx" # Uses terminal-reporter, which hangs.
 require "minitest/hell" # Random ordering
+require "minitest/benchmark" if ENV["BENCH"]
+
+# Require entire support tree
+Dir[File.expand_path("test/support/**/*")].each { |file| require file }
 
 # Improved Minitest output (color and progress bar)
 require "minitest/reporters"

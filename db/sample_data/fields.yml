@@ -1,0 +1,50 @@
+---
+fields:
+  -
+    id: 1
+    name:          Adult Population
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   pop25
+  -
+    id: 2
+    name:          Adult Population - Margin of Error
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   pop25_me
+  -
+    id: 3
+    name:          High School
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   hs
+  -
+    id: 4
+    name:          High School - Margin of Error
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   hs_me
+  -
+    id: 5
+    name:          Some College
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   sc
+  -
+    id: 6
+    name:          Some College - Margin of Error
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   sc_me
+  -
+    id: 7
+    name:          Bachelor's or Higher
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   bapl
+  -
+    id: 8
+    name:          Bachelor's or Higher - Margin of Error
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   bapl_me

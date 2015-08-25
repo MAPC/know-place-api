@@ -1,0 +1,17 @@
+---
+data_points:
+  -
+    id: 1
+    aggregator_id: 1
+    field_ids: [1, 2, 3, 4]
+    field_mapping: [{ field_id: 1, param: 1 }, { field_id: 2, param: 2 }, { field_id: 3, param: 3 }, { field_id: 4, param: 4 }]
+  -
+    id: 2
+    aggregator_id: 1
+    field_ids: [3]
+    field_mapping: [{ field_id: 3, param: 1 }]
+  -
+    id: 3
+    aggregator_id: 1
+    field_ids: [5]
+    field_mapping: [{ field_id: 5, param: 1 }]

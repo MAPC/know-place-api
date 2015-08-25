@@ -1,0 +1,12 @@
+---
+data_collections:
+  -
+    id: 1
+    title: Adults and Education
+    data_point_ids: [1, 2]
+    ordered_data_points: [{field_id: 1, order: 1}, {field_id: 2, order: 2}]
+  -
+    id: 2
+    title: Education and Adults
+    data_point_ids: [1, 2]
+    ordered_data_points: [{field_id: 2, order: 1}, {field_id: 1, order: 2}]

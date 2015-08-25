@@ -1,0 +1,10 @@
+---
+reports:
+  -
+    id:          1
+    title:       Transit Oriented Development
+    description: This is the official MAPC approach to studying TOD
+    official:    true
+    tags:        ["transportation","equity","smart growth"]
+    data_point_ids: [1, 2]
+    data_collection_ids: [1]

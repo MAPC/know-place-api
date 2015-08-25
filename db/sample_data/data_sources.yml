@@ -1,0 +1,10 @@
+---
+data_sources:
+  -
+    id: 1
+    database_url: postgres://viewer:mapc.viewer@db.dev.mapc.org:5432/sandbox
+# TODO: add schema_search_path to database
+#    schema_search_path: tabular,public
+#    "name": "MAPC Spatial Data",
+#            "maintainer": "Susan Brunton",
+#            "email": "sbrunton@mapc.org"

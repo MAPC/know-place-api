@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820190801) do
+ActiveRecord::Schema.define(version: 20150825181622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,29 @@ ActiveRecord::Schema.define(version: 20150820190801) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "data_collections", force: :cascade do |t|
+    t.string   "title"
+    t.json     "ordered_data_points"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  create_table "data_collections_points", force: :cascade do |t|
+    t.integer "data_point_id"
+    t.integer "data_collection_id"
+  end
+
+  add_index "data_collections_points", ["data_collection_id"], name: "index_data_collections_points_on_data_collection_id", using: :btree
+  add_index "data_collections_points", ["data_point_id"], name: "index_data_collections_points_on_data_point_id", using: :btree
+
+  create_table "data_collections_reports", force: :cascade do |t|
+    t.integer "data_collection_id"
+    t.integer "report_id"
+  end
+
+  add_index "data_collections_reports", ["data_collection_id"], name: "index_data_collections_reports_on_data_collection_id", using: :btree
+  add_index "data_collections_reports", ["report_id"], name: "index_data_collections_reports_on_report_id", using: :btree
 
   create_table "data_points", force: :cascade do |t|
     t.string   "name"
@@ -45,6 +68,14 @@ ActiveRecord::Schema.define(version: 20150820190801) do
   add_index "data_points_fields", ["data_point_id"], name: "index_data_points_fields_on_data_point_id", using: :btree
   add_index "data_points_fields", ["field_id"], name: "index_data_points_fields_on_field_id", using: :btree
 
+  create_table "data_points_reports", force: :cascade do |t|
+    t.integer "data_point_id"
+    t.integer "report_id"
+  end
+
+  add_index "data_points_reports", ["data_point_id"], name: "index_data_points_reports_on_data_point_id", using: :btree
+  add_index "data_points_reports", ["report_id"], name: "index_data_points_reports_on_report_id", using: :btree
+
   create_table "data_sources", force: :cascade do |t|
     t.string   "database_url", null: false
     t.datetime "created_at",   null: false
@@ -53,6 +84,8 @@ ActiveRecord::Schema.define(version: 20150820190801) do
 
   create_table "fields", force: :cascade do |t|
     t.integer  "data_source_id"
+    t.string   "name"
+    t.string   "table_name"
     t.string   "column_name"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
@@ -64,10 +97,39 @@ ActiveRecord::Schema.define(version: 20150820190801) do
     t.string   "name"
     t.string   "description"
     t.json     "geometry"
+    t.json     "tags"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "place_id"
+    t.integer  "report_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "profiles", ["place_id"], name: "index_profiles_on_place_id", using: :btree
+  add_index "profiles", ["report_id"], name: "index_profiles_on_report_id", using: :btree
+
+  create_table "reports", force: :cascade do |t|
+    t.string   "title"
+    t.string   "description"
+    t.boolean  "official"
+    t.json     "tags"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "sort_order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "data_points", "aggregators"
   add_foreign_key "fields", "data_sources"
+  add_foreign_key "profiles", "places"
+  add_foreign_key "profiles", "reports"
 end

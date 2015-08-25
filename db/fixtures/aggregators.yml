@@ -1,0 +1,21 @@
+---
+aggregators:
+  -
+    id: 1
+    name: inc
+    modifier: total
+    description: Increases an integer by a value.
+    operation: >
+      BEGIN
+        RETURN i + val;
+      END
+    parameters: "IN i integer, IN val integer"
+    return_type: integer
+  -
+    id: 2
+    name: percent
+    modifier: percentage of
+    description: Sums a column of percentages (integer or decimal) values.
+    operation: >
+      SELECT 1 as aba;
+    return_type: numeric
