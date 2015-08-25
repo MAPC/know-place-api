@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :places, only: [:index, :show]
+  resources :profiles, only: [:index, :show, :create, :update]
+  resources :places,   only: [:index, :show, :create, :update]
+  resources :reports,  only: [:index, :show, :create, :update]
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

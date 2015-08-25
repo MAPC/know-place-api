@@ -33,6 +33,19 @@ class ApplicationController < ActionController::API
     JSONAPI::Serializer.serialize(models, options)
   end
 
+  def serialized_object(object)
+    JSONAPI::Serializer.serialize(
+      object, include: includes, is_collection: false
+    )
+  end
+
+  def serialized_collection(collection)
+    json = JSONAPI::Serializer.serialize(
+      collection, include: includes, is_collection: true
+    )
+    json[:links] = paginate(collection)
+  end
+
   private
 
     def page
