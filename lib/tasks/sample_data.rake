@@ -31,11 +31,11 @@ namespace :db do
 end
 
 def files
-  ["/Users/mapcuser/Projects/Neighborhood Drawing Tool/know-place-api/db/sample_data/data_sources.yml",
-  "/Users/mapcuser/Projects/Neighborhood Drawing Tool/know-place-api/db/sample_data/fields.yml",
-  "/Users/mapcuser/Projects/Neighborhood Drawing Tool/know-place-api/db/sample_data/data_points.yml",
-  "/Users/mapcuser/Projects/Neighborhood Drawing Tool/know-place-api/db/sample_data/data_collections.yml",
-  "/Users/mapcuser/Projects/Neighborhood Drawing Tool/know-place-api/db/sample_data/reports.yml",
-  "/Users/mapcuser/Projects/Neighborhood Drawing Tool/know-place-api/db/sample_data/places.yml",
-  "/Users/mapcuser/Projects/Neighborhood Drawing Tool/know-place-api/db/sample_data/profiles.yml"]
+  [File.expand_path(".", "db/sample_data/data_sources.yml",
+   File.expand_path(".", "db/sample_data/fields.yml",
+   File.expand_path(".", "db/sample_data/data_points.yml",
+   File.expand_path(".", "db/sample_data/data_collections.yml",
+   File.expand_path(".", "db/sample_data/reports.yml",
+   File.expand_path(".", "db/sample_data/places.yml",
+   File.expand_path(".", "db/sample_data/profiles.yml"]
 end
