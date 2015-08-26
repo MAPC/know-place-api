@@ -1,6 +1,6 @@
 class DataSource < ActiveRecord::Base
 
-  has_many :fields
+  has_many :fields, dependent: :nullify
 
   validates :database_url, presence: true
   validate :parseable_uri

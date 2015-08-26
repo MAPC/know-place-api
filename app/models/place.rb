@@ -1,6 +1,9 @@
 class Place < ActiveRecord::Base
+
+  has_many :profiles, dependent: :nullify
   # belongs_to :creator,  class_name: "User"
   # belongs_to :based_on, class_name: "Place"
+
   validate :valid_geojson
   validates :name, presence: true, length: {
     minimum: 5, maximum: 70

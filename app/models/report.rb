@@ -1,5 +1,6 @@
 class Report < ActiveRecord::Base
 
+  has_many :profiles, dependent: :nullify
   has_and_belongs_to_many :data_points
   has_and_belongs_to_many :data_collections
 
