@@ -1,14 +1,58 @@
 # Read about fixtures at
 # http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-pop_2000:
-  data_source: one
-  column_name: pop_2000
+pop25:
+    id: 1
+    name:          Adult Population
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   pop25
 
-pop_2010:
-  data_source: one
-  column_name: pop_2010
+pop25_me:
+    id: 2
+    name:          Adult Population - Margin of Error
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   pop25_me
 
-two:
-  data_source: two
-  column_name: MyString
+hs:
+    id: 3
+    name:          High School
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   hs
+
+hs_me:
+    id: 4
+    name:          High School - Margin of Error
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   hs_me
+
+sc:
+    id: 5
+    name:          Some College
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   sc
+
+sc_me:
+    id: 6
+    name:          Some College - Margin of Error
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   sc_me
+
+bapl:
+    id: 7
+    name:          Bachelor's or Higher
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   bapl
+
+bapl_me:
+    id: 8
+    name:          Bachelor's or Higher - Margin of Error
+    data_source_id: 1
+    table_name:    tabular.b15002_educational_attainment_acs_ct
+    column_name:   bapl_me

@@ -2,7 +2,7 @@ require "test_helper"
 
 class FieldTest < ActiveSupport::TestCase
   def field
-    @field ||= fields(:pop_2000)
+    @field ||= fields(:pop25)
   end
 
   def test_valid

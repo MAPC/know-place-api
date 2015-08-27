@@ -1,6 +1,15 @@
 # Read about fixtures at
 # http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
+sum_moe:
+  name: sum_moe
+  modifier: total
+  description: Produces a summation and margin of error for a subset of a universe.
+  operation: >
+    SELECT 1000 as value, 2 as margin;
+  parameters: "IN i integer, IN val integer"
+  return_type: integer
+
 inc:
   name: inc
   modifier: total
