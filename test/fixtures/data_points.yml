@@ -6,10 +6,11 @@ total:
   name: "Adults with Bachelor's Degree or Higher"
   aggregator_id: sum_moe
   fields: pop25, pop25_me, bapl, bapl_me
-  field_mapping: [{ field_id: 1, order: 1 }, { field_id: 2, order: 2 }, { field_id: 3, order: 3 }, { field_id: 4, order: 4 }]
+  field_mapping: [{ field_id: 1, order: 1 }, { field_id: 2, order: 2 }, { field_id: 7, order: 3 }, { field_id: 8, order: 4 }]
 
 percent:
   id: 2
   name: "Percent of Adults with Bachelor's Degree or Higher"
   aggregator_id: percent
-  field_mapping: [{ field_id: 41, param: "a" }, { field_id: "40", param: "b" }]
+  fields: pop25, pop25_me
+  field_mapping: [{ field_id: 2, order: 1 }, { field_id: 2, order: 1 }]

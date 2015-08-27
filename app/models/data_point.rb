@@ -9,11 +9,10 @@ class DataPoint < ActiveRecord::Base
   has_and_belongs_to_many :data_collections
   has_and_belongs_to_many :reports
 
-  #  This doesn't belong in the model, but rather in a
+  # TODO This doesn't belong in the model, but rather in a
   #  custom validator.
-  # TODO COMPLETE THESE
-  # validate  :field_mapping_structure
-  # validate  :field_mapping_has_related_fields
+  validate  :field_mapping_structure
+  validate  :field_mapping_has_related_fields
 
   #  validates that field_mapping is the right structure and that
   #  it only has field ids to which it is related
@@ -31,10 +30,10 @@ class DataPoint < ActiveRecord::Base
   end
 
   def field_mapping_has_related_fields
-    vals = fmap.map {|f| self.fields.pluck(:id).include? field_id}
+    vals = fmap.map {|f| fields.map(&:id).include? f["field_id"]}
     if vals.uniq.include? false
       errors.add :field_mapping,
-        "must only contain IDs of related fields"
+        "must only contain IDs of related fields. Mapping contains #{ fmap.map{|f| f['field_id']} }, while fields are #{fields.map(&:id)}."
     end
   end
 

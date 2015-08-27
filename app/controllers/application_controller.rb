@@ -21,18 +21,6 @@ class ApplicationController < ActionController::API
   end
 
   # Convenience methods for serializing models
-  def serialize_model(model, options = {})
-    options[:is_collection] = false
-    options[:includes] = includes
-    JSONAPI::Serializer.serialize(model, options)
-  end
-
-  def serialize_models(models, options = {})
-    options[:is_collection] = true
-    options[:includes] = includes
-    JSONAPI::Serializer.serialize(models, options)
-  end
-
   def serialized_object(object)
     JSONAPI::Serializer.serialize(
       object, include: includes, is_collection: false
