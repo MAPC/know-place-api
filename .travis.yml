@@ -9,5 +9,6 @@ notifications:
   slack:
     secure: aObmYdbc5gcPCHcXBdSIgiVNlugePt7pekg3AQUuL1LJcZCBSCV1Q+no3f1wGwI90fTJyRVJ8CMVoqcfnWyS5bFEv4p25BYuwbgsslrkh7sULN696Nyh9nYLovtuE1qoAKesKiA78ex2rTQnLJbQMcnorqe8I5o86fvJb9UmKpI=
 addons:
+  postgresql: '9.3'
   code_climate:
     repo_token: f8dea1aae779480699e472027f72a972ce5042aebe7a47636d72e832a64b7b2f
