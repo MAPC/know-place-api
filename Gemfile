@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.1.5'
+
 gem 'rails', '4.2.3'
 gem 'rails-api'
 
@@ -41,6 +43,12 @@ group :development, :test do
   # gem 'connection_pool'
   # gem 'test_after_commit'
 end
+
+group :test do
+  gem 'rake' # Comes default, but specifying for Travis CI
+  gem 'codeclimate-test-reporter', require: nil
+end
+
 
 group :production do
   gem 'puma' # App server
