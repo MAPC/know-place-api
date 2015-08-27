@@ -33,11 +33,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'minitest-rails'     # Test library
-  gem 'minitest-reporters' # For progress bar, etc.
-  # OSX Notification Center reporter
-  # gem 'minitest-osx', require: RUBY_PLATFORM.include?('darwin') && 'minitest/osx'
-
   # From https://mattbrictson.com/minitest-and-rails#set-up-your-project
   # Maybe not needed but good to have the link around
   # gem 'connection_pool'
@@ -47,6 +42,12 @@ end
 group :test do
   gem 'rake' # Comes default, but specifying for Travis CI
   gem 'codeclimate-test-reporter', require: nil
+
+  gem 'minitest-rails'     # Test library
+  gem 'minitest-reporters' # For progress bar, etc.
+  # OSX Notification Center reporter
+  # NOTE: Doesn't run in TMUX, and freezes Guard.
+  # gem 'minitest-osx', require: RUBY_PLATFORM.include?('darwin') && 'minitest/osx'
 end
 
 

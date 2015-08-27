@@ -1,6 +1,9 @@
 language: ruby
 rvm:
   - 2.1.5
+before_script:
+  - bundle exec rake db:create RAILS_ENV=test
+  - bundle exec rake db:schema:load RAILS_ENV=test
 bundler_args: --without production
 notifications:
   slack:
