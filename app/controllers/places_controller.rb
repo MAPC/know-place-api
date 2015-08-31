@@ -31,12 +31,19 @@ class PlacesController < ApplicationController
   end
 
 
+  # POST /places/intersect
+  # def intersect
+  #   geom = params.fetch(:geojson)
+  #   render json: response
+  # end
+
+
   private
 
 
   def place_params
     params.require(:place).permit(
-        :name, :description, :tags,
+        :name, :description, :tags, :completed,
         :geometry, :user_id, :place_id)
   end
 end

@@ -9,6 +9,10 @@ class Place < ActiveRecord::Base
   # belongs_to :creator,  class_name: "User"
   # belongs_to :based_on, class_name: "Place"
 
+  def self.complete
+    where(completed: true)
+  end
+
   # TODO: Add a Complete flag, an intersecting_geometries field,
   # and a geoids method which stores geoids or grabs them on the fly
   # from the intersecting_geometries field
@@ -49,11 +53,21 @@ class Place < ActiveRecord::Base
   end
 
   def coordinate_count
+    # TODO I'm clunky and there are dependencies in me. Refactor me.
     return 0 if !geometry
     coords = geometry.fetch('coordinates', [[]]).first
     # Handles a weird case when geometry.coordinates = []
     coords.present? ? coords.count : 0
   end
+
+  alias_attribute :complete,   :completed
+  alias_attribute :complete?,  :completed
+  alias_attribute :completed?, :completed
+
+  def incomplete?
+    !complete?
+  end
+
 
   private
 

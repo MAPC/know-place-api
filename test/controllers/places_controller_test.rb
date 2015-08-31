@@ -40,6 +40,13 @@ class PlacesControllerTest < ActionController::TestCase
     assert_raise { post :update, id: place.id, place: {name: ""} }
   end
 
+  def test_make_complete
+    p = Place.create(name: "Inman Square", description: "It's got some nice restaurants, for sure.", geometry: places(:dudley).geometry)
+    post :update, id: p.id, place: {completed: 'true'}
+    # And that's why you always reload your record.
+    assert p.reload.completed
+  end
+
   # def test_index_with_filter
   #   skip "Haven't yet implemented filters."
   # end

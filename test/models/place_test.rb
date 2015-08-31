@@ -99,5 +99,21 @@ class PlaceTest < ActiveSupport::TestCase
     assert_not pl.valid?, pl.errors.full_messages
   end
 
+  def test_default_incomplete
+    p = Place.new
+    assert_not p.completed?
+    assert_not p.complete?
+    assert_not p.complete
+    assert p.incomplete?
+  end
+
+  def test_complete
+    p = Place.new(completed: true)
+    assert p.completed?
+    assert p.complete?
+    assert p.complete
+    assert_not p.incomplete?
+  end
+
 
 end
