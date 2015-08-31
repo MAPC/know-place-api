@@ -198,6 +198,7 @@ DEPENDENCIES
   rails-api
   rake
   rb-fsevent
+  rgeo
   rgeo-geojson
   spring
   wannabe_bool

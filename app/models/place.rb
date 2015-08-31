@@ -4,6 +4,7 @@ class Place < ActiveRecord::Base
   # the spatial database for the GeoIDs of intersecting
   # underlying geometries, and store those.
   # before_validate :use_or_find_geoids # TODO
+  # before_validate :get_underlying_geometries # TODO
 
   has_many :profiles, dependent: :nullify
   # belongs_to :creator,  class_name: "User"
@@ -13,9 +14,9 @@ class Place < ActiveRecord::Base
     where(completed: true)
   end
 
-  # TODO: Add a Complete flag, an intersecting_geometries field,
+  # TODO: Add a Complete flag, an underlying_geometries field,
   # and a geoids method which stores geoids or grabs them on the fly
-  # from the intersecting_geometries field
+  # from the underlying_geometries field
 
   # Also, set a before_save hook to look up the intersecting
   # geometries before persisting.
