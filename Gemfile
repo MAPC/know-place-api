@@ -15,9 +15,9 @@ gem 'api-pagination'      # Paginates API in headers
 gem 'rack-cors', require: 'rack/cors' # CORS Headers
 
 # Utilities
-gem 'rgeo'
+gem 'rgeo',         require: 'rgeo'
 gem 'rgeo-geojson', require: 'rgeo/geo_json' # GeoJSON parsing
-gem 'foreman', require: false
+gem 'foreman',      require: false
 gem 'wannabe_bool'        # Convert boolean-ish values to booleans
 gem 'httparty'            # HTTP requests
 
