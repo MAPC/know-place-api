@@ -32,6 +32,7 @@ class ApplicationController < ActionController::API
       collection, include: includes, is_collection: true
     )
     json[:links] = paginate(collection)
+    json
   end
 
   private
