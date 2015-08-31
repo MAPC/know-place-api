@@ -6,7 +6,13 @@ class PlaceTest < ActiveSupport::TestCase
   end
 
   def test_valid
-    assert place.valid?
+    assert place.valid?, place.inspect
+  end
+
+  def test_requires_geometry
+    pl = place.dup
+    pl.geometry = nil
+    assert_not pl.valid?
   end
 
   def test_rejects_invalid_geojson
@@ -36,4 +42,62 @@ class PlaceTest < ActiveSupport::TestCase
     place.description = "X" * 141
     assert_not place.valid?
   end
+
+  def test_coordinate_count_no_error_when_empty
+    place.geometry = nil
+    assert_nothing_raised { place.valid? }
+  end
+
+  def test_prevents_too_long_geojson
+    pl = place.dup
+    pl.geometry = places(:invalid).geometry
+    assert_not pl.valid?
+  end
+
+  def test_invalid_when_too_short_geojson
+    pl = place.dup
+    pl.geometry = {"type"=>"Polygon", "coordinates"=>[[]]}
+    assert_not pl.valid?
+  end
+
+  def test_invalid_when_weird_geojson
+    pl = place.dup
+    pl.geometry = {"type"=>"Polygon", "coordinates"=>[]}
+    assert_not pl.valid?
+  end
+
+  def test_not_too_big_an_area
+    pl = place.dup
+    pl.geometry = {"type"=>"Polygon","coordinates"=>[[[-71.00, 42.00],[-73.00, 42.00],[-73.00, 43.00],[-71.00, 43.00],[-71.00, 42.00]]]}
+    assert_not pl.valid?, "Area: #{pl.area}"
+  end
+
+  # def test_must_be_simple
+  #   skip "Surprised that this isn't simple."
+  #   pl = place.dup
+  #   pl.geometry = {"type"=>"Polygon","coordinates"=>[[[-77.0,35.1],[-77.4,35.3],[-77.0,35],[-77.1,35.1],[-77.2,35.1],[-77.2,35.3],[-77.1,35.1],[-77.0,35.1]]]}
+  #   assert pl.valid?, pl.errors.full_messages
+  # end
+
+  def test_must_be_a_polygon
+    pl = place.dup
+    pl.geometry = {"type"=>"LineString","coordinates"=>[[-101.744384765625,39.32155002466662],[-100.9149169921875,39.24501680713314],[-97.635498046875,38.87392853923629]]}
+    assert_not pl.valid?, pl.errors.full_messages
+  end
+
+  def test_invalid_when_too_many_geoids
+    skip 'Next round'
+    pl = place.dup
+    pl.geoids = (0..101).to_a.collect { 'GEOIDUS202LOL' }
+    assert_not pl.valid?, pl.errors.full_messages
+  end
+
+  def test_invalid_when_not_enough_geoids
+    skip 'Next round'
+    pl = place.dup
+    pl.geoids = ['GEOIDUS202LOL']
+    assert_not pl.valid?, pl.errors.full_messages
+  end
+
+
 end
