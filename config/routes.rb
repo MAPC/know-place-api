@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :profiles, only: [:index, :show, :create, :update]
-  resources :places,   only: [:index, :show, :create, :update]
-  resources :reports,  only: [:index, :show, :create, :update]
+  jsonapi_resources :profiles, except: [:delete]
+  jsonapi_resources :places,   except: [:delete]
+  jsonapi_resources :reports,  except: [:delete]
 
 
   # The priority is based upon order of creation: first created -> highest priority.

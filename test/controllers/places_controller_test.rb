@@ -1,6 +1,12 @@
 require "test_helper"
 
 class PlacesControllerTest < ActionController::TestCase
+  include Common
+
+  def setup
+    JSONAPI.configuration.raise_if_parameters_not_allowed = true
+  end
+
   def place
     @place ||= places(:dudley)
   end
@@ -16,35 +22,44 @@ class PlacesControllerTest < ActionController::TestCase
   end
 
   def test_create
-    attrs = place.attributes
-    attrs['geometry'] = attrs['geometry'].to_json
-
-    post :create, place: attrs
+    set_content_type_header!
+    post :create,
+         {
+           data: {
+             type: 'places',
+             attributes: {
+               name: place.name,
+               description: place.description,
+               geometry: place.geometry.to_json
+             }
+           }
+         }
     assert_response :created
   end
 
   def test_create_with_invalid_data
-    # Becomes a Bad Request "with no effort"
-    # => http://guides.rubyonrails.org/action_controller_overview.html#strong-parameters
-    assert_raise( ActionController::ParameterMissing ) {
-      post :create, place: {}
-    }
+    set_content_type_header!
+    post :create, place: {}
+    assert_response :bad_request
   end
 
   def test_update
-    post :update, id: place.id, place: {name: "West Roxbury"}
+    set_content_type_header!
+    patch :update, id: place.id, data: { id: place.id, type: 'places', attributes: {name: "West Roxbury"} }
     assert_response :ok
   end
 
   def test_update_with_invalid
-    assert_raise { post :update, id: place.id, place: {name: ""} }
+    set_content_type_header!
+    patch :update, id: place.id, data: { id: place.id, type: 'places', attributes: {name: "A"*71 } }
+    assert_response :unprocessable_entity
   end
 
   def test_make_complete
+    set_content_type_header!
     p = Place.create(name: "Inman Square", description: "It's got some nice restaurants, for sure.", geometry: places(:dudley).geometry)
-    post :update, id: p.id, place: {completed: 'true'}
-    # And that's why you always reload your record.
-    assert p.reload.completed
+    patch :update, id: p.id, data: { id: p.id, type: 'places', attributes: {completed: 'true'} }
+    assert p.reload.completed, @response.body.inspect
   end
 
   # def test_index_with_filter

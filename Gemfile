@@ -9,7 +9,8 @@ gem 'rails-api'
 gem 'pg'
 
 # JSON API
-gem 'jsonapi-serializers' # Serialize with JSONAPI.org standard
+gem 'jsonapi-resources'
+# gem 'jsonapi-serializers' # Serialize with JSONAPI.org standard
 gem 'kaminari'            # Pagination
 gem 'api-pagination'      # Paginates API in headers
 gem 'rack-cors', require: 'rack/cors' # CORS Headers

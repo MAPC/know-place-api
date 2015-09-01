@@ -1,6 +1,8 @@
 require "test_helper"
 
 class ProfilesControllerTest < ActionController::TestCase
+  include Common
+
   def profile
     @profile ||= profiles(:dtod)
   end
@@ -16,28 +18,68 @@ class ProfilesControllerTest < ActionController::TestCase
   end
 
   def test_create
-    post :create, profile: profile.attributes
+    set_content_type_header!
+    post :create, data: { type: 'profiles',
+      attributes: {},
+      relationships: {
+        report: {data: { type: 'reports', id: reports(:tod).id }},
+        place:  {data: { type: 'places',  id: places(:dudley).id }}
+      }
+    }
     assert_response :success
   end
 
   def test_create_invalid
-    assert_raise { post :create }
+    set_content_type_header!
+    post :create
+    assert_response :bad_request
   end
 
   def test_update
-    post :update, id: profile.id, profile: { report_id: reports(:demo).id }
+    set_content_type_header!
+    patch :update, id: profile.id, data: {
+     id: profile.id,
+     type: 'profiles',
+      relationships: {
+        report: {data: { type: 'reports', id: reports(:demo).id }},
+      }
+    }
     assert_response :success
   end
 
   def test_update_with_same_id
-    get :update, id: profile.id, profile: { report_id: profile.report.id }
+    set_content_type_header!
+    patch :update, id: profile.id, data: {
+      id: profile.id,
+      type: 'profiles',
+      relationships: {
+        report: {data: { type: 'reports', id: profile.report.id }}
+      }
+    }
     assert_response :success
-    # TODO Should not update if given the same ID.
-    # assert_response :not_modified
   end
 
-  def test_update_invalid
-    assert_raise { post :update, id: profile.id }
+  def test_update_invalid_field
+    set_content_type_header!
+    patch :update, id: profile.id, data: {
+      id: profile.id,
+      type: 'profiles',
+      attributes: { title: "hello" }
+    }
+    puts @response.body.inspect
+    assert_response :bad_request
+  end
+
+  def test_update_invalid_data
+    set_content_type_header!
+    patch :update, id: profile.id, data: {
+      id: profile.id,
+      type: 'profiles',
+      relationships: {
+        place: {data: { type: 'reports', id: profile.report.id }}
+      }
+    }
+    assert_response :bad_request
   end
 
 end

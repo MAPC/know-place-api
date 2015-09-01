@@ -85,19 +85,19 @@ class PlaceTest < ActiveSupport::TestCase
     assert_not pl.valid?, pl.errors.full_messages
   end
 
-  def test_invalid_when_too_many_geoids
-    skip 'Next round'
-    pl = place.dup
-    pl.geoids = (0..101).to_a.collect { 'GEOIDUS202LOL' }
-    assert_not pl.valid?, pl.errors.full_messages
-  end
+  # def test_invalid_when_too_many_geoids
+  #   skip 'Next round'
+  #   pl = place.dup
+  #   pl.geoids = (0..101).to_a.collect { 'GEOIDUS202LOL' }
+  #   assert_not pl.valid?, pl.errors.full_messages
+  # end
 
-  def test_invalid_when_not_enough_geoids
-    skip 'Next round'
-    pl = place.dup
-    pl.geoids = ['GEOIDUS202LOL']
-    assert_not pl.valid?, pl.errors.full_messages
-  end
+  # def test_invalid_when_not_enough_geoids
+  #   skip 'Next round'
+  #   pl = place.dup
+  #   pl.geoids = ['GEOIDUS202LOL']
+  #   assert_not pl.valid?, pl.errors.full_messages
+  # end
 
   def test_default_incomplete
     p = Place.new

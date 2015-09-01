@@ -77,8 +77,8 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
     json (1.8.3)
-    jsonapi-serializers (0.2.6)
-      activesupport
+    jsonapi-resources (0.5.7)
+      rails (>= 4.0)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -187,7 +187,7 @@ DEPENDENCIES
   guard (>= 2.2.2)
   guard-minitest
   httparty
-  jsonapi-serializers
+  jsonapi-resources
   kaminari
   minitest-rails
   minitest-reporters
