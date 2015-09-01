@@ -1,6 +1,9 @@
 language: ruby
 rvm:
   - 2.1.5
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install libgeos-dev libproj-dev
 before_script:
   - bundle exec rake db:create RAILS_ENV=test
   - bundle exec rake db:schema:load RAILS_ENV=test

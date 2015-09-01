@@ -66,7 +66,6 @@ class ProfilesControllerTest < ActionController::TestCase
       type: 'profiles',
       attributes: { title: "hello" }
     }
-    puts @response.body.inspect
     assert_response :bad_request
   end
 

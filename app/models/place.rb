@@ -32,10 +32,10 @@ class Place < ActiveRecord::Base
   validates :geometry, presence: true
   # TODO validates :tags -> array, some other things
 
-  validate :valid_geojson
-  validate :valid_coordinate_count
-  validate :valid_polygon
-  validate :valid_area
+  validate :valid_geojson?
+  validate :valid_coordinate_count?
+  validate :valid_polygon?
+  validate :valid_area?
   # validate :valid_geoids # TODO
 
   VALID_AREA = 1.0
@@ -76,13 +76,34 @@ class Place < ActiveRecord::Base
     @parsed ||= RGeo::GeoJSON.decode(geometry.to_json, json_parser: :json)
   end
 
-  def valid_geojson
+  def valid_geojson?
     if parsed_geojson.nil?
       errors.add(:geometry, "must be valid GeoJSON, but was #{geometry.inspect}")
     end
   end
 
-  # def valid_geoids # TODO
+  def valid_polygon?
+    type = parsed_geojson.try(:geometry_type)
+    if type != RGeo::Feature::Polygon
+      errors.add(:geometry, "must be a polygon, but was type #{type}")
+    end
+  end
+
+  def valid_area?
+    if area > VALID_AREA
+      errors.add(:geometry, "must be <= #{VALID_AREA}, but was #{area}")
+    end
+  end
+
+  def valid_coordinate_count?
+    if coordinate_count < 4
+      errors.add(:geometry, "must have enough points to make a polygon (4)")
+    elsif coordinate_count > 100
+      errors.add(:geometry, "must have fewer than 100 points")
+    end
+  end
+
+    # def valid_geoids? # TODO
   #   ct = geoids.count
   #   if ct == 0 || ct > 100
   #     errors.add(:geometry, "Too many intersecting geometries. Should be between 1 - 100, but was #{ct}")
@@ -91,27 +112,6 @@ class Place < ActiveRecord::Base
 
   # def simple_geojson
   # end
-
-  def valid_polygon
-    type = parsed_geojson.try(:geometry_type)
-    if type != RGeo::Feature::Polygon
-      errors.add(:geometry, "must be a polygon, but was type #{type}")
-    end
-  end
-
-  def valid_area
-    if area > VALID_AREA
-      errors.add(:geometry, "must be <= #{VALID_AREA}, but was #{area}")
-    end
-  end
-
-  def valid_coordinate_count
-    if coordinate_count < 4
-      errors.add(:geometry, "must have enough points to make a polygon (4)")
-    elsif coordinate_count > 100
-      errors.add(:geometry, "must have fewer than 100 points")
-    end
-  end
 
 
 end
