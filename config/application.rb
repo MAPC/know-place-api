@@ -22,5 +22,21 @@ module KnowPlaceApi
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # In production, only the client should be able to POST data to the server.
+    # Set the KNOWN_HOSTS environment variable to '*' in the development and staging environments.
+    # to allow any host to connect to it. In production, set it to a comma-separated list of
+    # domains where the client application is known to be hosted.
+    # # => KNOWN_HOSTS=clientside.knowplace.com,another.pla.ce
+    KNOWN_HOSTS = ENV.fetch('KNOWN_HOSTS') { 'todo.productionsi.te' }
+    DEBUG_CORS  = ENV.fetch('DEBUG_CORS')  { false }
+
+    config.middleware.insert_before 0, "Rack::Cors", debug: DEBUG_CORS, logger: (-> { Rails.logger }) do
+      allow do
+        origins  KNOWN_HOSTS.split(',')
+        resource '*', headers: :any, methods: [:get, :post, :put, :patch]
+      end
+    end
+
   end
 end
