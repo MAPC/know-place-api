@@ -68,6 +68,7 @@ class Place < ActiveRecord::Base
     !complete?
   end
 
+  alias_attribute :underlying, :underlying_geometries
   alias_attribute :ugeo, :underlying_geometries
 
   def geometry_query
