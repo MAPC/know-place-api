@@ -2,11 +2,13 @@ require "test_helper"
 
 class PlaceTest < ActiveSupport::TestCase
   def place
-    @place ||= places(:dudley)
+    attributes = places(:dudley).attributes
+    attributes.delete("id")
+    @place ||= Place.new( attributes )
   end
 
   def test_valid
-    assert place.valid?, place.inspect
+    assert place.valid?, "#{place.errors.full_messages}\n\n#{place.inspect}"
   end
 
   def test_requires_geometry
@@ -85,19 +87,18 @@ class PlaceTest < ActiveSupport::TestCase
     assert_not pl.valid?, pl.errors.full_messages
   end
 
-  # def test_invalid_when_too_many_geoids
-  #   skip 'Next round'
-  #   pl = place.dup
-  #   pl.geoids = (0..101).to_a.collect { 'GEOIDUS202LOL' }
-  #   assert_not pl.valid?, pl.errors.full_messages
-  # end
+  def test_invalid_when_too_many_geoids
+    # TODO make geoids unique
+    place.save
+    place.geoids = (0..101).to_a.collect { 'GEOIDUS202LOL' }
+    assert_not place.valid?, place.errors.full_messages
+  end
 
-  # def test_invalid_when_not_enough_geoids
-  #   skip 'Next round'
-  #   pl = place.dup
-  #   pl.geoids = ['GEOIDUS202LOL']
-  #   assert_not pl.valid?, pl.errors.full_messages
-  # end
+  def test_invalid_when_not_enough_geoids
+    place.save
+    place.geoids = []
+    assert_not place.valid?, place.errors.full_messages
+  end
 
   def test_default_incomplete
     p = Place.new
@@ -142,8 +143,8 @@ class PlaceTest < ActiveSupport::TestCase
 
   def test_saves_underlying_geometries
     p = place.dup
-    p.validate
-    assert p.ugeo, "Turns out it's empty: #{p.ugeo.inspect}, but should have been #{ p.geometry_query.execute.first['row_to_json'][0..50] }"
+    p.save
+    assert p.reload.underlying_geometries
   end
 
   def test_underlying_geometries_without_geometry
@@ -155,8 +156,8 @@ class PlaceTest < ActiveSupport::TestCase
 
   def test_saves_geoids
     p = place.dup
-    p.validate
-    assert p.geoids, "Turns out it's empty: #{p.geoids.inspect}, but should have been #{ JSON.parse( p.geometry_query.execute.first['row_to_json'] )['features'].collect{|f| f['properties']['geoid10']} }"
+    p.save
+    assert p.reload.geoids, "Turns out it's empty: #{p.geoids.inspect}, but should have been #{ JSON.parse( p.geometry_query.execute.first['row_to_json'] )['features'].collect{|f| f['properties']['geoid10']} }"
   end
 
 

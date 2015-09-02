@@ -45,7 +45,8 @@ class PlacesControllerTest < ActionController::TestCase
 
   def test_update
     set_content_type_header!
-    patch :update, id: place.id, data: { id: place.id, type: 'places', attributes: {name: "West Roxbury"} }
+    p = places(:saved)
+    patch :update, id: p.id, data: { id: p.id, type: 'places', attributes: {name: "West Roxbury"} }
     assert_response :ok
   end
 

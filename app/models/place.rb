@@ -4,7 +4,7 @@ class Place < ActiveRecord::Base
   # the spatial database for the GeoIDs of intersecting
   # underlying geometries, and store those.
   # before_validate :use_or_find_geoids # TODO
-  after_validation :get_underlying_geometries
+  before_save :get_underlying_geometries
 
   has_many :profiles, dependent: :nullify
   # belongs_to :creator,  class_name: "User"
@@ -30,6 +30,8 @@ class Place < ActiveRecord::Base
     minimum: 10, maximum: 140
   }
   validates :geometry, presence: true
+  validates :underlying_geometries, presence: true, on: :update
+  validates :geoids, presence: true, length: { minimum: 1, maximum: 100 }, on: :update
   # TODO validates :tags -> array, some other things
 
   validate :valid_geojson?
