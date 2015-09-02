@@ -18,9 +18,9 @@ class PlaceTest < ActiveSupport::TestCase
   end
 
   def test_rejects_invalid_geojson
-    invalid_geojson = '{"geometry": {"type": "Polygon","coordinates": [[[-70.85,42.23],[-70.84,42.26],[-70.78,42.22],[-70.84,42.21],[-70.85,42.23]]]}}'
+    invalid_geojson = '{"geoRmetry": {"type": "Polygon","coordinates": [[[-70.85,42.23],[-70.84,42.26],[-70.78,42.22],[-70.84,42.21],[-70.85,42.23]]]}}'
     new_place = Place.new(geometry: invalid_geojson)
-    assert_not new_place.valid?
+    assert_not new_place.valid?, new_place.inspect
   end
 
   def test_when_incomplete_requires_little
@@ -175,6 +175,14 @@ class PlaceTest < ActiveSupport::TestCase
     p = place.dup
     p.save
     assert p.reload.geoids, "Turns out it's empty: #{p.geoids.inspect}, but should have been #{ JSON.parse( p.geometry_query.execute.first['row_to_json'] )['features'].collect{|f| f['properties']['geoid10']} }"
+  end
+
+  def test_can_accept_feature
+    p = place.dup
+    g = places(:feature).geometry
+    p.geometry = g
+    p.validate
+    assert_not_equal g, p.geometry
   end
 
 

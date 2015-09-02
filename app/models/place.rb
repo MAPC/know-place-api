@@ -4,7 +4,14 @@ class Place < ActiveRecord::Base
   # the spatial database for the GeoIDs of intersecting
   # underlying geometries, and store those.
   # before_validate :use_or_find_geoids # TODO
+  before_validation :shift_geometry
   before_save :get_underlying_geometries
+
+  def shift_geometry
+    if geometry && geometry.has_key?("geometry")
+      assign_attributes(geometry: geometry["geometry"])
+    end
+  end
 
   has_many :profiles, dependent: :nullify
   # belongs_to :creator,  class_name: "User"
@@ -98,6 +105,7 @@ class Place < ActiveRecord::Base
   # end
 
   def parsed_geojson
+    # Should be able to accept either a GeoJSON Feature or a Polygon
     @parsed ||= RGeo::GeoJSON.decode(geometry.to_json, json_parser: :json)
   end
 
