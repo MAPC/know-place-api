@@ -8,6 +8,10 @@ default: &default
   timeout:  5000
   pool:     5
 
+geographic:
+  <<: *default
+  database: geographic
+
 development: &development
   <<: *default
 

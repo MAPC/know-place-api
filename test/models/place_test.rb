@@ -115,5 +115,51 @@ class PlaceTest < ActiveSupport::TestCase
     assert_not p.incomplete?
   end
 
+  def test_underlying_geometries
+    assert_respond_to place, :underlying_geometries
+    assert_respond_to place, :ugeo
+  end
+
+  def test_geoids
+    assert_respond_to place, :geoids
+  end
+
+  def test_geometry_query
+    expected_query = "
+      SELECT row_to_json(fc)
+        FROM ( SELECT 'FeatureCollection' AS type, array_to_json(array_agg(f)) AS features
+          FROM ( SELECT 'Feature' AS type
+            , ST_AsGeoJSON(ct.geom)::json AS geometry
+            , row_to_json(
+                (SELECT l FROM (SELECT id, geoid10) AS l)
+              ) AS properties
+            FROM census_tracts_2010 AS ct WHERE ST_Intersects(ST_SetSRID(geom,4326),ST_SetSRID(ST_GeomFromGeoJSON('#{ place.geometry.to_json }'), 4326))
+          ) AS f
+        ) AS fc;
+    "
+    assert_equal expected_query, place.geometry_query.to_sql
+  end
+
+  def test_saves_underlying_geometries
+    p = place.dup
+    p.validate
+    assert p.ugeo, "Turns out it's empty: #{p.ugeo.inspect}, but should have been #{ p.geometry_query.execute.first['row_to_json'][0..50] }"
+  end
+
+  def test_underlying_geometries_without_geometry
+    p = place.dup
+    p.geometry = nil
+    assert_not p.valid?
+    assert_not p.ugeo
+  end
+
+  def test_saves_geoids
+    p = place.dup
+    p.validate
+    assert p.geoids, "Turns out it's empty: #{p.geoids.inspect}, but should have been #{ JSON.parse( p.geometry_query.execute.first['row_to_json'] )['features'].collect{|f| f['properties']['geoid10']} }"
+  end
+
+
+
 
 end

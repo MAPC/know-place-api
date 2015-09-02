@@ -4,7 +4,7 @@ class Place < ActiveRecord::Base
   # the spatial database for the GeoIDs of intersecting
   # underlying geometries, and store those.
   # before_validate :use_or_find_geoids # TODO
-  # before_validate :get_underlying_geometries # TODO
+  after_validation :get_underlying_geometries
 
   has_many :profiles, dependent: :nullify
   # belongs_to :creator,  class_name: "User"
@@ -41,9 +41,6 @@ class Place < ActiveRecord::Base
   VALID_AREA = 1.0
   alias_attribute :title, :name
 
-  # def geoids
-  #   []
-  # end
 
   def area
     if parsed_geojson && parsed_geojson.geometry_type == RGeo::Feature::Polygon
@@ -69,8 +66,33 @@ class Place < ActiveRecord::Base
     !complete?
   end
 
+  alias_attribute :ugeo, :underlying_geometries
+
+  def geometry_query
+    ::UnderlyingGeometryQuery.new( geometry.to_json )
+  end
 
   private
+
+  def get_underlying_geometries
+    unless parsed_geojson.nil?
+      begin
+        ugeo = JSON.parse( geometry_query.execute.first['row_to_json'] )
+        geoids = ugeo['features'].collect{|feature|
+          feature['properties']['geoid10']
+        }.uniq
+        self.assign_attributes(underlying_geometries: ugeo)
+        self.assign_attributes(geoids: geoids)
+      rescue
+        # NOOP
+      ensure
+        # NOOP
+      end
+    end
+  end
+
+  # def geojson_property_map(geojson:, property:)
+  # end
 
   def parsed_geojson
     @parsed ||= RGeo::GeoJSON.decode(geometry.to_json, json_parser: :json)
