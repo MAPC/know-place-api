@@ -23,22 +23,39 @@ class PlaceTest < ActiveSupport::TestCase
     assert_not new_place.valid?
   end
 
-  def test_requires_name
+  def test_when_incomplete_requires_little
     place.name = ""
-    assert_not place.valid?
-  end
-
-  def test_requires_name_to_not_be_too_long
+    assert place.valid?
     place.name = "X" * 71
+    assert place.valid?
+    place.name = "X" * 4
+    assert place.valid?
+    place.description = "X" * 9
+    assert place.valid?
+    place.description = "X" * 141
+    assert place.valid?
+  end
+
+  def test_when_complete_requires_name
+    place.name = ""
+    place.complete = true
     assert_not place.valid?
   end
 
-  def test_requires_name_of_certain_length
+  def test_when_complete_requires_name_to_not_be_too_long
+    place.name = "X" * 71
+    place.complete = true
+    assert_not place.valid?
+  end
+
+  def test_when_complete_requires_name_of_certain_length
+    place.complete = true
     place.name = "X" * 4
     assert_not place.valid?
   end
 
-  def test_requires_description_of_certain_length
+  def test_when_complete_requires_description_of_certain_length
+    place.complete = true
     place.description = "X" * 9
     assert_not place.valid?
     place.description = "X" * 141

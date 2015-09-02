@@ -25,10 +25,10 @@ class Place < ActiveRecord::Base
 
   validates :name, presence: true, length: {
     minimum: 5, maximum: 70
-  }
+  }, if: :complete?
   validates :description, presence: true, length: {
     minimum: 10, maximum: 140
-  }
+  }, if: :complete?
   validates :geometry, presence: true
   validates :underlying_geometries, presence: true, on: :update
   validates :geoids, presence: true, length: { minimum: 1, maximum: 100 }, on: :update
