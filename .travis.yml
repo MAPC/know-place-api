@@ -3,10 +3,10 @@ rvm:
   - 2.1.5
 before_script:
   - which proj
+  - find / -name geos
   - bundle exec rake db:create RAILS_ENV=test
   - bundle exec rake db:schema:load RAILS_ENV=test
 bundler_args: --without production
-cache: bundler
 notifications:
   slack:
     secure: aObmYdbc5gcPCHcXBdSIgiVNlugePt7pekg3AQUuL1LJcZCBSCV1Q+no3f1wGwI90fTJyRVJ8CMVoqcfnWyS5bFEv4p25BYuwbgsslrkh7sULN696Nyh9nYLovtuE1qoAKesKiA78ex2rTQnLJbQMcnorqe8I5o86fvJb9UmKpI=
