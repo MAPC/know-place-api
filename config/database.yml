@@ -11,6 +11,7 @@ default: &default
 geographic:
   <<: *default
   database: geographic
+  schema_search_path: "tabular,spatial,metadata,public"
 
 development: &development
   <<: *default
