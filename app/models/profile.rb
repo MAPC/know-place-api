@@ -5,9 +5,14 @@ class Profile < ActiveRecord::Base
   belongs_to :report
 
   def title
-    "#{ report.title } in #{ place.title }"
+    # TODO - Be more deliberate about handling titles
+    # when we know it's not completed.
+    "#{ report.try(:title) } in #{ place.try(:title) }"
   end
 
+  # TODO
+  # Make this a process object, with a complete! method
+  # that completes things and sets the flags.
   def complete?
     place.present? && report.present?
   end
