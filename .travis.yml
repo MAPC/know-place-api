@@ -2,6 +2,8 @@ language: ruby
 rvm:
   - 2.1.5
 before_script:
+  - ls -l /usr/bin/proj
+  - ls -l /usr/include/geos
   - bundle exec rake db:create RAILS_ENV=test
   - bundle exec rake db:schema:load RAILS_ENV=test
 bundler_args: --without production
