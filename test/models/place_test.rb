@@ -91,8 +91,14 @@ class PlaceTest < ActiveSupport::TestCase
     assert_not pl.valid?, "Area: #{pl.area}"
   end
 
+  def test_not_too_small_an_area
+    pl = place.dup
+    pl.geometry = {"type"=>"Polygon","coordinates"=>[[[-71.00, 42.00],[-71.00, 42.00],[-71.00, 42.00]]]}
+    assert_not pl.valid?, "Area: #{pl.area}"
+  end
+
   # def test_must_be_simple
-  #   skip "Surprised that this isn't simple."
+  #    "Surprised that this isn't simple."
   #   pl = place.dup
   #   pl.geometry = {"type"=>"Polygon","coordinates"=>[[[-77.0,35.1],[-77.4,35.3],[-77.0,35],[-77.1,35.1],[-77.2,35.1],[-77.2,35.3],[-77.1,35.1],[-77.0,35.1]]]}
   #   assert pl.valid?, pl.errors.full_messages
@@ -159,12 +165,14 @@ class PlaceTest < ActiveSupport::TestCase
   end
 
   def test_saves_underlying_geometries
+
     p = place.dup
     p.save
     assert p.reload.underlying_geometries
   end
 
   def test_underlying_geometries_without_geometry
+
     p = place.dup
     p.geometry = nil
     assert_not p.valid?
@@ -172,6 +180,7 @@ class PlaceTest < ActiveSupport::TestCase
   end
 
   def test_saves_geoids
+
     p = place.dup
     p.save
     assert p.reload.geoids, "Turns out it's empty: #{p.geoids.inspect}, but should have been #{ JSON.parse( p.geometry_query.execute.first['row_to_json'] )['features'].collect{|f| f['properties']['geoid10']} }"
