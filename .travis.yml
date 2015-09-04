@@ -2,6 +2,7 @@ language: ruby
 rvm:
   - 2.1.5
 before_script:
+  - which proj
   - bundle exec rake db:create RAILS_ENV=test
   - bundle exec rake db:schema:load RAILS_ENV=test
 bundler_args: --without production
@@ -13,7 +14,7 @@ addons:
   postgresql: '9.3'
   apt:
     packages:
-      - libgeos-dev
-      - libproj-dev
+    - libgeos-dev
+    - libproj-dev
   code_climate:
     repo_token: f8dea1aae779480699e472027f72a972ce5042aebe7a47636d72e832a64b7b2f
