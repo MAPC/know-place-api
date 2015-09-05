@@ -2,8 +2,11 @@ language: ruby
 rvm:
   - 2.1.5
 before_script:
-  - ls -l /usr/bin/proj
-  - ls -l /usr/include/geos
+  # Set up geographic database. This is not done in migrations
+  # because the database is a backing service outside of the app.
+  - psql -c 'CREATE DATABASE geographic;' -U postgres
+  - psql -c 'CREATE EXTENSION postgis;' -U postgres -d geographic
+  - psql -c 'CREATE EXTENSION postgis_topology;' -U postgres -d geographic
   - bundle exec rake db:create RAILS_ENV=test
   - bundle exec rake db:schema:load RAILS_ENV=test
 bundler_args: --without production
@@ -13,9 +16,5 @@ notifications:
     secure: aObmYdbc5gcPCHcXBdSIgiVNlugePt7pekg3AQUuL1LJcZCBSCV1Q+no3f1wGwI90fTJyRVJ8CMVoqcfnWyS5bFEv4p25BYuwbgsslrkh7sULN696Nyh9nYLovtuE1qoAKesKiA78ex2rTQnLJbQMcnorqe8I5o86fvJb9UmKpI=
 addons:
   postgresql: '9.3'
-  apt:
-    packages:
-    - libgeos-dev
-    - libproj-dev
   code_climate:
     repo_token: f8dea1aae779480699e472027f72a972ce5042aebe7a47636d72e832a64b7b2f
