@@ -111,10 +111,22 @@ class PlaceTest < ActiveSupport::TestCase
   end
 
   def test_invalid_when_too_many_geoids
-    # TODO make geoids unique
     place.save
-    place.geoids = (0..101).to_a.collect { 'GEOIDUS202LOL' }
+    place.geoids = (0..101).to_a.map {|el| "GEOIDUS#{el}LOL" }
     assert_not place.valid?, place.errors.full_messages
+  end
+
+  def test_makes_geoids_uniq_before_saving
+    place.save
+    place.geoids = (0..101).to_a.map {|el| "GEOIDUS101LOL" }
+    assert place.valid?, place.errors.full_messages
+    assert_equal 1, place.geoids.count
+  end
+
+  def test_validates_geoid_elements_not_characters
+    place.save
+    place.geoids = (0..98).to_a.collect { 'G' }
+    assert place.valid?, place.errors.full_messages
   end
 
   def test_invalid_when_not_enough_geoids

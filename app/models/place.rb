@@ -2,6 +2,7 @@ class Place < ActiveRecord::Base
 
   # Ensure we grab only the geometry, even when passed a Feature.
   before_validation :shift_geometry
+  before_validation :uniq_geoids
 
   # Either use the GeoIDs given in the update, or query
   # the spatial database for the GeoIDs of intersecting
@@ -23,8 +24,11 @@ class Place < ActiveRecord::Base
   validates :description, presence: true, length: {
     minimum: 10, maximum: 140
   }, if: :complete?
-  validates :underlying_geometries, presence: true, on: :update
-  validates :geoids, presence: true, length: { minimum: 1, maximum: 100 }, on: :update
+  validates :underlying_geometries, presence: true,
+    on: :update
+  validates :geoids, presence: true, length:
+    { minimum: 1, maximum: 100, message: "must be between 1 and 100 geoids, was %{value}" },
+    on: :update
   # TODO validates :tags -> array, some other things
 
   # Does this really take care of all the following validations?
@@ -73,6 +77,10 @@ class Place < ActiveRecord::Base
     if geometry && geometry.has_key?("geometry")
       assign_attributes(geometry: geometry["geometry"])
     end
+  end
+
+  def uniq_geoids
+    Array(geoids).uniq!
   end
 
 
