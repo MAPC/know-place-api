@@ -1,4 +1,5 @@
 class Report < ActiveRecord::Base
+  include PgSearch
 
   has_many :profiles, dependent: :nullify
   has_and_belongs_to_many :data_points
@@ -10,4 +11,17 @@ class Report < ActiveRecord::Base
   validates :description, presence: true, length: {
     minimum: 20, maximum: 140
   }
+
+  pg_search_scope(
+    :search,
+    against: {
+      title:       'A',
+      tags:        'B',
+      description: 'C'
+    },
+    using: { tsearch: {
+      dictionary: "english",
+      prefix: true
+    } }
+  )
 end

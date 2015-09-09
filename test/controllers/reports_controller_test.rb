@@ -11,6 +11,12 @@ class ReportsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  def test_search
+    get :index, filter: { search: 'trans' }
+    assert_response :ok
+    assert_equal 1, JSON(@response.body)['data'].count
+  end
+
   # def test_index_with_filter
   #   skip "Haven't yet implemented filters."
   # end
