@@ -63,6 +63,12 @@ class PlacesControllerTest < ActionController::TestCase
     assert p.reload.completed, @response.body.inspect
   end
 
+  def test_search
+    get :index, filter: { search: 'bos' }
+    assert_response :ok
+    assert_equal 3, JSON.parse(response.body)['data'].count
+  end
+
   # def test_index_with_filter
   #   skip "Haven't yet implemented filters."
   # end

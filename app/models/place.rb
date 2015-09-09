@@ -1,4 +1,5 @@
 class Place < ActiveRecord::Base
+  include PgSearch
 
   # Ensure we grab only the geometry, even when passed a Feature.
   before_validation :shift_geometry
@@ -16,6 +17,19 @@ class Place < ActiveRecord::Base
   def self.complete
     where(completed: true)
   end
+
+  pg_search_scope(
+    :search,
+    against: {
+      name:        'A',
+      tags:        'B',
+      description: 'C'
+    },
+    using: { tsearch: {
+      dictionary: "english",
+      prefix: true
+    } }
+  )
 
   validates :geometry, presence: true
   validates :name, presence: true, length: {
