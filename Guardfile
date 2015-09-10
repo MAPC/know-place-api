@@ -1,11 +1,10 @@
 require 'active_support/inflector'
 
-# all_after_pass: true
-guard :minitest, spring: true do
+guard :minitest, spring: true, all_after_pass: true do
   watch(%r{^app/(.+)\.rb$})                               { |m| "test/#{m[1]}_test.rb" }
   watch(%r{^app/controllers/application_controller\.rb$}) { "test/controllers" }
   watch(%r{^app/controllers/(.+)_controller\.rb$})        { |m| "test/integration/#{m[1]}_test.rb" }
-  watch(%r{^app/resources/(.+)_resource\.rb$})            { |m| "test/controllers/#{m[1]}_test.rb" }
+  watch(%r{^app/resources/(.+)_resource\.rb$})            { "test/controllers" }
   watch(%r{^app/views/(.+)_mailer/.+})                    { |m| "test/mailers/#{m[1]}_mailer_test.rb" }
   watch(%r{^app/workers/(.+)\.rb$})                       { |m| "test/unit/workers/#{m[1]}_test.rb" }
   watch(%r{^lib/(.+)\.rb$})                               { |m| "test/unit/lib/#{m[1]}_test.rb" }
