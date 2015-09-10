@@ -4,7 +4,7 @@ class DataPointEvaluation
 
   def initialize(_d=nil, _p=nil, data_point: _d, place: _p)
     data_point && place or raise ArgumentError,
-      "Must supply DataPoint and Place objects or ids"
+      "Must supply DataPoint and Place objects or ids, but got DataPoint: #{data_point.inspect} and Place: #{place.inspect}"
     @data_point = object_for data_point, DataPoint
     @place      = object_for place,      Place
   end
@@ -34,7 +34,7 @@ class DataPointEvaluation
     """
       SELECT #{ @data_point.aggregator.name }(ARRAY[ARRAY[#{ @data_point.fields }]])
       FROM #{ @data_point.tables }
-      WHERE geoid IN (#{ @place.geoids.map{|e| "'#{e}'"}.join(",") });
+      WHERE geoid IN (#{ Array( @place.geoids ).map{|e| "'#{e}'"}.join(",") });
     """
   end
 

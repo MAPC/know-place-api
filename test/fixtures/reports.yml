@@ -5,6 +5,8 @@ tod:
   title: Transit Oriented Development
   description: This is the official MAPC approach to studying TOD
   official: true
+  data_points: total, bach
+  data_collections: adult_ed
   tags: ["transportation", "equity", "smart growth"]
 
 demo:
