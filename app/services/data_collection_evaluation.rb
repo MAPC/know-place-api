@@ -20,7 +20,16 @@ class DataCollectionEvaluation
         place: @place
       ).perform
     end
-    { data: data }
+
+    {
+      id: @data_collection.id.to_s,
+      type: "evaluated-data-collection",
+      attributes: {
+        title: @data_collection.title
+      },
+      relationships: { "data-points" => { data: data } }
+    }
+
   end
 
   private
