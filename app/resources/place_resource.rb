@@ -7,7 +7,8 @@ class PlaceResource < JSONAPI::Resource
   def self.apply_filter(records, filter, value, options)
     case filter
     when :search
-      return records.search(value.first)
+      q = value.first
+      return q ? records.search(q) : records
     else
       return super(records, filter, value)
     end
