@@ -45,7 +45,7 @@ class DataPointEvaluationTest < ActiveSupport::TestCase
       id:   "36692321",
       type: "evaluated-data-point",
       attributes: {
-        title:      "Adults with Bachelor's Degree or Higher",
+        title:      "Total Population",
         modifier:   "total",
         aggregator: "sum_and_moe",
         value:      10543.0,

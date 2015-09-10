@@ -2,9 +2,15 @@
 # http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 total:
-  name: "Adults with Bachelor's Degree or Higher"
+  name: "Total Population"
   aggregator: sum_and_moe
   fields: "pop25, pop25_me"
+  tables: tabular.b15002_educational_attainment_acs_ct
+
+bach:
+  name: "Adults with Bachelor's Degree or Higher"
+  aggregator: sum_and_moe
+  fields: "bapl, bapl_me"
   tables: tabular.b15002_educational_attainment_acs_ct
 
 percent:
