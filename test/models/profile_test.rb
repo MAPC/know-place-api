@@ -57,4 +57,13 @@ class ProfileTest < ActiveSupport::TestCase
     profile.evaluate!
     assert profile.evaluated?
   end
+
+  def test_evaluate
+    p = profiles(:dtod)
+    assert p.not_yet_evaluated?
+    p.evaluate!
+    assert p.evaluated?
+    assert_equal Hash, p.evaluation.class
+    assert p.evaluation.has_key?("data"), p.evaluation.inspect
+  end
 end

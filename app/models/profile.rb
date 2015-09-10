@@ -38,11 +38,9 @@ class Profile < ActiveRecord::Base
   def evaluate
     if complete?
       assign_attributes(
-        evaluation:   {},
+        evaluation:   ProfileEvaluation.new(profile: self).perform,
         evaluated_at: Time.now
       )
     end
-  #   update_attribute(:evaluation,
-  #     ProfileEvaluator.new(place: place, report: report))
   end
 end
