@@ -2,15 +2,13 @@
 # http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 total:
-  id: 1
   name: "Adults with Bachelor's Degree or Higher"
-  aggregator_id: sum_moe
-  fields: pop25, pop25_me, bapl, bapl_me
-  field_mapping: [{ field_id: 1, order: 1 }, { field_id: 2, order: 2 }, { field_id: 7, order: 3 }, { field_id: 8, order: 4 }]
+  aggregator: sum_and_moe
+  fields: "pop25, pop25_me"
+  tables: tabular.b15002_educational_attainment_acs_ct
 
 percent:
-  id: 2
   name: "Percent of Adults with Bachelor's Degree or Higher"
-  aggregator_id: percent
-  fields: pop25, pop25_me
-  field_mapping: [{ field_id: 2, order: 1 }, { field_id: 2, order: 1 }]
+  aggregator: percent
+  fields: "pop25, pop25_me, bapl, bapl_me"
+  tables: tabular.b15002_educational_attainment_acs_ct

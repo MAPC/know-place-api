@@ -1,0 +1,65 @@
+---
+array_prepend:
+  definition: >
+    CREATE FUNCTION array_prepend(anyarray, anyarray)
+      RETURNS anyarray AS
+      $$
+          SELECT array_cat($2,$1);
+      $$
+      LANGUAGE 'sql' IMMUTABLE;
+  drop: >
+    DROP FUNCTION IF EXISTS array_prepend(anyarray, anyarray) CASCADE;
+
+
+array_remove_elem:
+  definition: >
+    CREATE OR REPLACE FUNCTION array_remove_elem(anyarray, int)
+      RETURNS anyarray LANGUAGE sql IMMUTABLE AS
+    'SELECT $1[1:$2-1] || $1[$2+1:2147483647]';
+  drop: >
+    DROP FUNCTION IF EXISTS array_remove_elem(anyarray, int) CASCADE;
+
+
+array_cat_moe:
+  drop: >
+    DROP FUNCTION IF EXISTS array_cat_moe(IN anyarray, IN anyarray) CASCADE;
+  definition: >
+    CREATE OR REPLACE FUNCTION array_cat_moe(IN existing anyarray, IN incoming anyarray)
+      RETURNS anyarray AS
+      $$
+        DECLARE
+          -- Current value and margin of the first element of the array.
+          -- The only zero value is always kept at the head of the array,
+          -- so finding the first value tells us whether there are any
+          -- zero values in the array.
+          first_value     NUMERIC;
+          first_margin    NUMERIC;
+          incoming_value  NUMERIC;
+          incoming_margin NUMERIC;
+        BEGIN
+          first_value  := unnest(existing[1:1][1:1]);
+          first_margin := unnest(existing[1:1][2:2]);
+          incoming_value  := unnest(incoming[1:1][1:1]);
+          incoming_margin := unnest(incoming[1:1][2:2]);
+          IF incoming_value = 0.0 THEN
+            IF first_value != 0.0 THEN
+              RETURN array_prepend(existing, incoming);
+            ELSE
+              IF first_margin > incoming_margin THEN
+                -- NO OP
+              RETURN existing;
+              ELSE
+                -- Remove the existing array's first value and
+                -- replace it with incoming.
+                RETURN array_prepend(
+                  array_remove_elem(existing, 1), -- Remove first value
+                  incoming
+                );
+              END IF;
+            END IF;
+          ELSE
+            RETURN array_cat(existing::numeric[], incoming::numeric[]);
+          END IF;
+        END;
+      $$ LANGUAGE 'plpgsql'
+    ;

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910144327) do
+ActiveRecord::Schema.define(version: 20150910204556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,10 +19,8 @@ ActiveRecord::Schema.define(version: 20150910144327) do
   create_table "aggregators", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.string   "return_type"
     t.string   "modifier"
     t.string   "operation"
-    t.string   "parameters"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -53,9 +51,10 @@ ActiveRecord::Schema.define(version: 20150910144327) do
   create_table "data_points", force: :cascade do |t|
     t.string   "name"
     t.integer  "aggregator_id"
-    t.json     "field_mapping"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "fields"
+    t.string   "tables"
   end
 
   add_index "data_points", ["aggregator_id"], name: "index_data_points_on_aggregator_id", using: :btree
