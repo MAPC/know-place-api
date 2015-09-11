@@ -1,12 +1,19 @@
 # Read about fixtures at
 # http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
+sum:
+  name: sum
+  modifier: total
+  description: Sums the values in a column.
+  drop_statement:
+  definition:
+
 sum_and_moe:
   name: sum_and_moe
   modifier: total
-  description: Produces a summation and margin of error for a subset of a universe.
-  operation: >
-    DROP AGGREGATE IF EXISTS sum_and_moe(anyarray);
+  description: Sums a value column and a margin of error column.
+  drop_statement: DROP AGGREGATE IF EXISTS sum_and_moe(anyarray);
+  definition: >
     CREATE AGGREGATE sum_and_moe(anyarray)(
         SFUNC     = array_cat_moe
       , STYPE     = anyarray
@@ -14,18 +21,15 @@ sum_and_moe:
       , INITCOND  = '{}'
     );
 
-inc:
-  name: inc
-  modifier: total
-  description: Increases an integer by a value.
-  operation: >
-    BEGIN
-      RETURN i + val;
-    END
-
 percent:
   name: percent
-  modifier: percentage
-  description: Sums a column of percentage (integer or decimal) values.
-  operation: >
-    SELECT 1 as aba;
+  modifier: percentage of
+  description: Takes the percent of two columns (subset and universe).
+  drop_statement: DROP AGGREGATE IF EXISTS percent(anyarray);
+  definition: >
+    CREATE AGGREGATE percent(anyarray)(
+        SFUNC     = array_cat  -- see note at end
+      , STYPE     = anyarray
+      , FINALFUNC = _final_percent
+      , INITCOND  = '{}'
+    );

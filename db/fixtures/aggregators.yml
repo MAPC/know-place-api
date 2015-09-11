@@ -2,9 +2,17 @@
 aggregators:
   -
     id: 1
+    name: sum
+    modifier: total
+    description: Sums the values in a column.
+    drop_statement:
+    definition:
+
+  -
+    id: 2
     name: sum_and_moe
     modifier: total
-    description: Produces a summation and margin of error for a subset of a universe.
+    description: Sums a value column and a margin of error column.
     drop_statement: DROP AGGREGATE IF EXISTS sum_and_moe(anyarray);
     definition: >
       CREATE AGGREGATE sum_and_moe(anyarray)(
@@ -15,11 +23,11 @@ aggregators:
       );
 
   -
-    id: 2
+    id: 3
     name: percent
     modifier: percentage of
     description: Takes the percent of two columns (subset and universe).
-    drop_statement: DROP AGGREGATE IF EXISTS percent(anyarray)
+    drop_statement: DROP AGGREGATE IF EXISTS percent(anyarray);
     definition: >
       CREATE AGGREGATE percent(anyarray)(
           SFUNC     = array_cat  -- see note at end

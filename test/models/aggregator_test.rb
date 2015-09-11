@@ -2,7 +2,7 @@ require "test_helper"
 
 class AggregatorTest < ActiveSupport::TestCase
   def aggregator
-    @aggregator ||= aggregators(:inc)
+    @aggregator ||= aggregators(:sum_and_moe)
   end
 
   def test_valid
@@ -21,17 +21,17 @@ class AggregatorTest < ActiveSupport::TestCase
     assert_not aggregator.valid?
   end
 
-  def test_requires_an_operation
-    aggregator.operation = ""
-    assert_not aggregator.valid?
-  end
+  # def test_requires_an_operation
+  #   aggregator.operation = ""
+  #   assert_not aggregator.valid?
+  # end
 
-  def test_requires_an_operation_of_certain_length
-    aggregator.operation = "x" * 9
-    assert_not aggregator.valid?
-    aggregator.operation = "x" * 1001
-    assert_not aggregator.valid?
-  end
+  # def test_requires_an_operation_of_certain_length
+  #   aggregator.operation = "x" * 9
+  #   assert_not aggregator.valid?
+  #   aggregator.operation = "x" * 1001
+  #   assert_not aggregator.valid?
+  # end
 
   # def test_requires_valid_sql_or_plpgsql
   #   skip "This is a difficult challenge."
