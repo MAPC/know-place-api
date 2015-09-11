@@ -1,6 +1,6 @@
 class PlaceResource < JSONAPI::Resource
-  attributes :name, :description, :tags, :geometry, :completed,
-             :underlying, :geoids
+  attributes :name, :municipality, :description, :tags, :geometry,
+             :completed, :underlying, :geoids
 
   filters :search
 
@@ -15,10 +15,10 @@ class PlaceResource < JSONAPI::Resource
   end
 
   def self.updatable_fields(context)
-    super - [:underlying]
+    super - [:underlying, :municipality]
   end
 
   def self.creatable_fields(context)
-    super - [:underlying]
+    super - [:underlying, :municipality]
   end
 end

@@ -2,20 +2,28 @@
 aggregators:
   -
     id: 1
-    name: inc
+    name: sum_and_moe
     modifier: total
-    description: Increases an integer by a value.
-    operation: >
-      BEGIN
-        RETURN i + val;
-      END
-    parameters: "IN i integer, IN val integer"
-    return_type: integer
+    description: Produces a summation and margin of error for a subset of a universe.
+    drop_statement: DROP AGGREGATE IF EXISTS sum_and_moe(anyarray);
+    definition: >
+      CREATE AGGREGATE sum_and_moe(anyarray)(
+          SFUNC     = array_cat_moe
+        , STYPE     = anyarray
+        , FINALFUNC = _final_sum_and_moe
+        , INITCOND  = '{}'
+      );
+
   -
     id: 2
     name: percent
     modifier: percentage of
-    description: Sums a column of percentages (integer or decimal) values.
-    operation: >
-      SELECT 1 as aba;
-    return_type: numeric
+    description: Takes the percent of two columns (subset and universe).
+    drop_statement: DROP AGGREGATE IF EXISTS percent(anyarray)
+    definition: >
+      CREATE AGGREGATE percent(anyarray)(
+          SFUNC     = array_cat  -- see note at end
+        , STYPE     = anyarray
+        , FINALFUNC = _final_percent
+        , INITCOND  = '{}'
+      );

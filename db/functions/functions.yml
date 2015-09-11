@@ -63,3 +63,47 @@ array_cat_moe:
         END;
       $$ LANGUAGE 'plpgsql'
     ;
+
+
+_final_percent:
+  definition: >
+    CREATE OR REPLACE FUNCTION _final_percent(anyarray)
+      RETURNS JSON AS
+    $$
+      WITH  subset AS( SELECT unnest($1[1:100][1:1]) AS value ),
+          universe AS( SELECT unnest($1[1:100][2:2]) AS value )
+      SELECT -- builds a JSON object like {"value" : 6.04, "margin" : null}
+        json_build_object(
+          'value', --  key
+          round( ((sum(subset.value) / sum(universe.value)::numeric) * 100)::numeric, 2 ),
+          'margin', -- key
+          NULL
+        )
+      FROM subset, universe;
+    $$
+    LANGUAGE 'sql' IMMUTABLE;
+  drop: >
+    DROP FUNCTION IF EXISTS _final_percent(anyarray) CASCADE;
+
+
+_final_sum_and_moe:
+  definition: >
+    CREATE OR REPLACE FUNCTION _final_sum_and_moe(anyarray)
+      RETURNS JSON AS
+    $$
+      SELECT
+        json_build_object(
+          'value',
+          round(  sum(subquery.values),  2),
+          'margin',
+          round(  sqrt( sum( power(subquery.margins,2)::numeric ) ), 2)
+        )
+      FROM (
+      SELECT unnest($1[1:100][1:1])::numeric AS values,
+           unnest($1[1:100][2:2])::numeric AS margins
+      ) subquery
+    $$
+    LANGUAGE 'sql' IMMUTABLE;
+  drop: >
+    DROP FUNCTION IF EXISTS _final_sum_and_moe(anyarray) CASCADE;
+
