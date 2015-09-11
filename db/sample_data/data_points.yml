@@ -2,16 +2,164 @@
 data_points:
   -
     id: 1
+    name:     Population (2010)
+    fields:   totpop
+    tables:   tabular.census2010_p5_race_ethnicity_ct
+    topic_id: 1
     aggregator_id: 1
-    field_ids: [1, 2, 3, 4]
-    field_mapping: [{ field_id: 1, param: 1 }, { field_id: 2, param: 2 }, { field_id: 3, param: 3 }, { field_id: 4, param: 4 }]
+    # data_collection: Total Population
   -
     id: 2
+    name:     DRAFT Population (2000)
+    fields:   totpop
+    tables:   tabular.census2010_p5_race_ethnicity_ct
+    topic_id: 1
     aggregator_id: 1
-    field_ids: [3]
-    field_mapping: [{ field_id: 3, param: 1 }]
+    # data_collection: Total Population
   -
     id: 3
+    name:     DRAFT Population (1990)
+    fields:   totpop
+    tables:   tabular.census2010_p5_race_ethnicity_ct
+    topic_id: 1
     aggregator_id: 1
-    field_ids: [5]
-    field_mapping: [{ field_id: 5, param: 1 }]
+    # data_collection: Total Population
+  -
+    id: 4
+    name:     "Latino"
+    fields:   "lat,totpop"
+    tables:   tabular.census2010_p5_race_ethnicity_ct
+    topic_id: 1
+    aggregator_id: 3
+    # data_collection: Race and Ethnicity
+  -
+    id: 5
+    name:     "Non-Latino Black"
+    fields:   "nhaa,totpop"
+    tables:   tabular.census2010_p5_race_ethnicity_ct
+    topic_id: 1
+    aggregator_id: 3
+    # data_collection: Race and Ethnicity
+  -
+    id: 6
+    name:     "Non-Latino Asian"
+    fields:   "nhas,totpop"
+    tables:   tabular.census2010_p5_race_ethnicity_ct
+    topic_id: 1
+    aggregator_id: 3
+    # data_collection: Race and Ethnicity
+  -
+    id: 7
+    name:     DRAFT Non-Latino Other and Multiracial
+    fields:   "totpop,totpop"
+    tables:   tabular.census2010_p5_race_ethnicity_ct
+    topic_id: 1
+    aggregator_id: 3
+    # data_collection: Race and Ethnicity
+  -
+    id: 8
+    name:     "Non-Latino White"
+    fields:   "nhwhi,totpop"
+    tables:   tabular.census2010_p5_race_ethnicity_ct
+    topic_id: 1
+    aggregator_id: 3
+    # data_collection: Race and Ethnicity
+  -
+    id: 9
+    name:     "Households"
+    fields:   hh
+    tables: tabular.b19001_hh_income_acs_ct
+    topic_id: 4
+    aggregator_id: 1
+  -
+    id: 10
+    name:     "Under $20,000"
+    fields:   "incu20,hh"
+    tables:   tabular.b19001_hh_income_acs_ct
+    topic_id: 4
+    aggregator_id: 3
+    # data_collection: Household Income
+  -
+    id: 11
+    name:     "$20,000 - $39,999"
+    fields:   "inc2039,hh"
+    tables:   tabular.b19001_hh_income_acs_ct
+    topic_id: 4
+    aggregator_id: 3
+    # data_collection: Household Income
+  -
+    id: 12
+    name:     "$40,000 - $59,999"
+    fields:   "inc4059,hh"
+    tables:   tabular.b19001_hh_income_acs_ct
+    topic_id: 4
+    aggregator_id: 3
+    # data_collection: Household Income
+  -
+    id: 13
+    name:     "$60,000 - $74,999"
+    fields:   "inc6074,hh"
+    tables:   tabular.b19001_hh_income_acs_ct
+    topic_id: 4
+    aggregator_id: 3
+    # data_collection: Household Income
+  -
+    id: 14
+    name:     "$75,000 - $99,999"
+    fields:   "inc7599,hh"
+    tables:   tabular.b19001_hh_income_acs_ct
+    topic_id: 4
+    aggregator_id: 3
+    # data_collection: Household Income
+  -
+    id: 15
+    name:     "$100,000 or more"
+    fields:   "in100o,hh"
+    tables:   tabular.b19001_hh_income_acs_ct
+    topic_id: 4
+    aggregator_id: 3
+    # data_collection: Household Income
+  -
+    id: 16
+    name:     "Less than High School"
+    fields:   "lths,pop25"
+    tables:   tabular.b15002_educational_attainment_acs_ct
+    topic_id: 5
+    aggregator_id: 3
+    # data_collection: Educational Attainment
+  -
+    id: 17
+    name:     "High School Diploma"
+    fields:   "hs,pop25"
+    tables:   tabular.b15002_educational_attainment_acs_ct
+    topic_id: 5
+    aggregator_id: 3
+    # data_collection: Educational Attainment
+  -
+    id: 18
+    name:     "Some College"
+    fields:   "sc,pop25"
+    tables:   tabular.b15002_educational_attainment_acs_ct
+    topic_id: 5
+    aggregator_id: 3
+    # data_collection: Educational Attainment
+  -
+    id: 19
+    name:     "Associates Degree"
+    fields:   "assoc,pop25"
+    tables:   tabular.b15002_educational_attainment_acs_ct
+    topic_id: 5
+    aggregator_id: 3
+    # data_collection: Educational Attainment
+  -
+    id: 20
+    name:     "Bachelors Degree or Higher"
+    fields:   "bapl,pop25"
+    tables:   tabular.b15002_educational_attainment_acs_ct
+    topic_id: 5
+    aggregator_id: 3
+    # data_collection: Educational Attainment
+
+
+
+

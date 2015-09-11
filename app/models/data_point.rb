@@ -8,6 +8,7 @@ class DataPoint < ActiveRecord::Base
 
   has_and_belongs_to_many :data_collections
   has_and_belongs_to_many :reports
+  belongs_to :topic
 
   # TODO This doesn't belong in the model, but rather in a
   #  custom validator.
