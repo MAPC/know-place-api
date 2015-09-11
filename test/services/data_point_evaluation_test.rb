@@ -35,7 +35,20 @@ class DataPointEvaluationTest < ActiveSupport::TestCase
     expected = """
       SELECT sum_and_moe(ARRAY[ARRAY[pop25, pop25_me]])
       FROM tabular.b15002_educational_attainment_acs_ct
-      WHERE geoid IN ('14000US25001010100');
+      WHERE geoid IN ('14000US25001010100')
+      ;
+    """
+    assert_equal expected, evaluation.to_sql
+  end
+
+  def test_generates_sql
+    flunk(' Need to set up DataPointEvaluation with a datapoint that has the sum aggregator ')
+    expected = """
+      SELECT sum(pop25)
+      FROM tabular.b15002_educational_attainment_acs_ct
+      WHERE geoid IN ('14000US25001010100')
+        AND acs_year = '2009-13'
+      ;
     """
     assert_equal expected, evaluation.to_sql
   end

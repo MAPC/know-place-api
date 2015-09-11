@@ -2,5 +2,13 @@
 profiles:
   -
     id: 1
-    place_id:  1
+    place_id:  31
     report_id: 1
+  -
+    id: 2
+    place_id:  51
+    report_id: 2
+  -
+    id: 3
+    place_id: 45
+    report_id: 3

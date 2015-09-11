@@ -15,7 +15,14 @@ class DataPointEvaluation
 
   def perform
     raw_result = GeographicDatabase.connection.execute to_sql
-    result = JSON.parse( raw_result.first['sum_and_moe'] )
+    row = raw_result.first[ @data_point.aggregator.name ]
+    # TODO this method is doing too much. There should be a parse method
+    # in here doing the extra logic, forming it into a correct object.
+    if @data_point.aggregator.name == "sum"
+      result = { value: row.to_i, margin: nil }
+    else
+      result = JSON.parse( row )
+    end
     attributes = {
       title:      data_point.name,
       modifier:   data_point.aggregator.modifier,
@@ -28,14 +35,18 @@ class DataPointEvaluation
       type: 'evaluated-data-point',
       attributes: attributes
     }
+  rescue JSON::ParserError
+    raise StandardError, row.inspect
   end
 
   def to_sql
     """
-      SELECT #{ @data_point.aggregator.name }(ARRAY[ARRAY[#{ @data_point.fields }]])
+      SELECT #{ @data_point.aggregator.name }(#{ @data_point.aggregator.before_fields }#{ @data_point.fields }#{ @data_point.aggregator.after_fields })
       FROM #{ @data_point.tables }
-      WHERE geoid IN (#{ Array( @place.geoids ).map{|e| "'#{e}'"}.join(",") });
-    """
+      WHERE geoid IN (#{ @place.geoids.map{|e| "'#{e}'"}.join(",") })
+      #{"AND " if @data_point.where}#{ @data_point.where }
+      ;
+    """.strip
   end
 
   private

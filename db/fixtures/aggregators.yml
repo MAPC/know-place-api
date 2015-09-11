@@ -13,6 +13,8 @@ aggregators:
     name: sum_and_moe
     modifier: total
     description: Sums a value column and a margin of error column.
+    before_fields: "ARRAY[ARRAY["
+    after_fields:  "]]"
     drop_statement: DROP AGGREGATE IF EXISTS sum_and_moe(anyarray);
     definition: >
       CREATE AGGREGATE sum_and_moe(anyarray)(
@@ -27,10 +29,12 @@ aggregators:
     name: percent
     modifier: percentage of
     description: Takes the percent of two columns (subset and universe).
+    before_fields: "ARRAY[ARRAY["
+    after_fields:  "]]"
     drop_statement: DROP AGGREGATE IF EXISTS percent(anyarray);
     definition: >
       CREATE AGGREGATE percent(anyarray)(
-          SFUNC     = array_cat  -- see note at end
+          SFUNC     = array_cat
         , STYPE     = anyarray
         , FINALFUNC = _final_percent
         , INITCOND  = '{}'

@@ -1,10 +1,26 @@
 ---
 reports:
   -
-    id:          1
-    title:       Transit Oriented Development
-    description: This is the official MAPC approach to studying TOD
-    official:    true
-    tags:        ["transportation","equity","smart growth"]
-    data_point_ids: [1, 2]
-    data_collection_ids: [1]
+    id: 1
+    title: Demographics Overview
+    description: "Collection of commonly sought general demographic statistics."
+    official: true
+    tags: ['population', 'race', 'households']
+    data_collection_ids: [ 1, 2 ]
+    data_point_ids: [ 1, 9 ]
+  -
+    id: 2
+    title: Equity and Prosperity
+    description: "What makes an equitable, prosperous region?"
+    official: true
+    tags: ['equity', 'economy', 'income', 'race']
+    data_collection_ids: [ 2, 3 ]
+    data_point_ids: [ 9 ]
+  -
+    id: 3
+    title: Educational Attainment Gaps
+    description: "Are educational outcomes equitable?"
+    official: false
+    tags: ['equity', 'education', 'college', 'high school', 'graduation', 'race']
+    data_collection_ids: [ 2, 4 ]
+    data_point_ids: [ 17, 19 ]

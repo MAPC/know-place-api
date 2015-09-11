@@ -8,7 +8,8 @@ class ProfileEvaluation
         "Must supply Profile object or ID"
 
     @profile = object_for profile, Profile
-    @profile.place.geoids = ['14000US25001010100']
+    # TODO this should have gone into the test
+    # @profile.place.geoids = ['14000US25001010100']
 
     @profile.complete? or raise ArgumentError,
         "Profile to be evaluated must be complete"
