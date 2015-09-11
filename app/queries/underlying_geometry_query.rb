@@ -23,7 +23,30 @@ class UnderlyingGeometryQuery
             , row_to_json(
                 (SELECT l FROM (SELECT id, geoid10) AS l)
               ) AS properties
-            FROM census_tracts_2010 AS ct WHERE ST_Intersects(ST_SetSRID(geom,4326),ST_SetSRID(ST_GeomFromGeoJSON('#{ @geojson }'), 4326))
+
+
+            FROM (
+              SELECT
+                ct.id,
+                ct.geom,
+                ct.geoid10,
+                ST_Area(ST_SetSRID(geom,4326)) as d,
+                ST_Area(
+                  ST_Intersection(
+                    ST_SetSRID( ST_GeomFromGeoJSON('#{ @geojson }'), 4326),
+                    ST_SetSRID(geom,4326)
+                  )
+                ) as n
+              FROM census_tracts_2010 AS ct
+              WHERE
+                ST_Intersects(
+                  ST_SetSRID(geom,4326),
+                  ST_SetSRID( ST_GeomFromGeoJSON('#{ @geojson }'), 4326)
+                )
+            ) subquery
+            WHERE (n/d*100) >= 15
+
+
           ) AS f
         ) AS fc;
     "

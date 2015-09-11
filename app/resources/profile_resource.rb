@@ -2,7 +2,7 @@ class ProfileResource < JSONAPI::Resource
   has_one :place
   has_one :report
 
-  attributes :title, :complete
+  attributes :title, :complete, :evaluation
 
   filters :complete
 
