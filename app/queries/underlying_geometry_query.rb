@@ -19,11 +19,10 @@ class UnderlyingGeometryQuery
       SELECT row_to_json(fc)
         FROM ( SELECT 'FeatureCollection' AS type, array_to_json(array_agg(f)) AS features
           FROM ( SELECT 'Feature' AS type
-            , ST_AsGeoJSON(ct.geom)::json AS geometry
+            , ST_AsGeoJSON(subquery.geom)::json AS geometry
             , row_to_json(
                 (SELECT l FROM (SELECT id, geoid10) AS l)
               ) AS properties
-
 
             FROM (
               SELECT
