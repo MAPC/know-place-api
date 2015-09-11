@@ -10,12 +10,17 @@ class Profile < ActiveRecord::Base
     "#{ report.try(:title) } in #{ place.try(:title) }"
   end
 
+  def self.complete
+    where('place_id IS NOT NULL AND report_id IS NOT NULL')
+  end
+
   # TODO
   # Make this a process object, with a complete! method
   # that completes things and sets the flags.
   def complete?
     place.present? && report.present?
   end
+  alias_method :complete, :complete?
 
   def incomplete?
     !complete?

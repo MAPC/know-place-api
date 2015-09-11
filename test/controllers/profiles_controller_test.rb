@@ -81,4 +81,11 @@ class ProfilesControllerTest < ActionController::TestCase
     assert_response :bad_request
   end
 
+  def test_filter_on_complete
+    get :index, "filter['complete']"
+    assert_response :ok, response.inspect
+    ids = JSON.parse(response.body)['data'].map{|i| i['id']}
+    assert_not_includes ids, profiles(:incomplete).id
+  end
+
 end
