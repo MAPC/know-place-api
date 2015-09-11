@@ -73,7 +73,6 @@ class Place < ActiveRecord::Base
   alias_attribute :underlying, :underlying_geometries
   alias_attribute :ugeo, :underlying_geometries
 
-
   def geometry_query
     ::UnderlyingGeometryQuery.new( geometry.to_json )
   end
@@ -82,13 +81,15 @@ class Place < ActiveRecord::Base
 
   def valid_area?
     if area > VALID_AREA || area == 0
-      errors.add(:geometry, "must be > 0 and <= #{VALID_AREA}, but was #{area}")
+      errors.add(:geometry, "area must be > 0 and <= #{VALID_AREA}, but was #{area}")
     end
+  rescue PG::InternalError => e
+    errors.add(:geometry, e.to_s)
   end
-
 
   def shift_geometry
     if geometry && geometry.has_key?("geometry")
+      Rails.logger.debug "Shifted geometry on #{self.id}"
       assign_attributes(geometry: geometry["geometry"])
     end
   end
