@@ -2,11 +2,17 @@
 data_collections:
   -
     id: 1
-    title: Adults and Education
-    data_point_ids: [1, 2]
-    ordered_data_points: [{field_id: 1, order: 1}, {field_id: 2, order: 2}]
+    title: Total Population
+    data_point_ids: [1, 2, 3]
   -
     id: 2
-    title: Education and Adults
-    data_point_ids: [1, 2]
-    ordered_data_points: [{field_id: 2, order: 1}, {field_id: 1, order: 2}]
+    title: Race and Ethnicity
+    data_point_ids: [1, 4, 5, 6, 7, 8]
+  -
+    id: 3
+    title: Household Income
+    data_point_ids: [9, 10, 11, 12, 13, 14, 15]
+  -
+    id: 4
+    title: Educational Attainment
+    data_point_ids: [1, 17, 18, 19, 20]

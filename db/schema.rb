@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911133650) do
+ActiveRecord::Schema.define(version: 20150911154339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,9 +20,10 @@ ActiveRecord::Schema.define(version: 20150911133650) do
     t.string   "name"
     t.string   "description"
     t.string   "modifier"
-    t.string   "operation"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "definition"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "drop_statement"
   end
 
   create_table "data_collections", force: :cascade do |t|
@@ -55,9 +56,11 @@ ActiveRecord::Schema.define(version: 20150911133650) do
     t.datetime "updated_at",    null: false
     t.string   "fields"
     t.string   "tables"
+    t.integer  "topic_id"
   end
 
   add_index "data_points", ["aggregator_id"], name: "index_data_points_on_aggregator_id", using: :btree
+  add_index "data_points", ["topic_id"], name: "index_data_points_on_topic_id", using: :btree
 
   create_table "data_points_fields", force: :cascade do |t|
     t.integer "data_point_id"
@@ -134,6 +137,7 @@ ActiveRecord::Schema.define(version: 20150911133650) do
   end
 
   add_foreign_key "data_points", "aggregators"
+  add_foreign_key "data_points", "topics"
   add_foreign_key "fields", "data_sources"
   add_foreign_key "profiles", "places"
   add_foreign_key "profiles", "reports"
