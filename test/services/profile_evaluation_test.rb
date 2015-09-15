@@ -2,7 +2,9 @@ require "test_helper"
 
 class ProfileEvaluationTest < ActiveSupport::TestCase
   def evaluation
-    @ev ||= ProfileEvaluation.new(profile: profiles(:dtod))
+    profile = profiles(:dtod)
+    profile.place.geoids = ['14000US25001010100']
+    @ev ||= ProfileEvaluation.new(profile: profile)
   end
 
   def test_valid
@@ -28,18 +30,15 @@ class ProfileEvaluationTest < ActiveSupport::TestCase
   end
 
   def test_performs_and_returns_hash
-    expected = expected_evaluated_profile
-    assert_equal expected, evaluation.perform
+    assert_equal expected_evaluated_profile, evaluation.perform
   end
-
-
 
   def expected_evaluated_profile
     {
       data: [
         {
           id: "36692321", type: "evaluated-data-point",
-          attributes: {title: "Total Population", modifier: "total", aggregator: "sum_and_moe", value: 10543.0, margin: 270.98}
+          attributes: {title: "Total Population", modifier: "total", aggregator: "sum_and_moe", value: 2616.0, margin: 134.0 }
         },
         {
           id: "885493904", type: "evaluated-data-point",
@@ -53,7 +52,7 @@ class ProfileEvaluationTest < ActiveSupport::TestCase
               data: [
                 {
                   id: "36692321", type: "evaluated-data-point",
-                  attributes: {title: "Total Population", modifier: "total", aggregator: "sum_and_moe", value: 10543.0, margin: 270.98}
+                  attributes: {title: "Total Population", modifier: "total", aggregator: "sum_and_moe", value: 2616.0, margin: 134.0 }
                 },
                 {
                   id: "885493904", type: "evaluated-data-point",

@@ -6,6 +6,7 @@ total:
   aggregator: sum_and_moe
   fields: "pop25, pop25_me"
   tables: tabular.b15002_educational_attainment_acs_ct
+  where:  acs_year = '2009-13'
 
 bach:
   name: "Adults with Bachelor's Degree or Higher"

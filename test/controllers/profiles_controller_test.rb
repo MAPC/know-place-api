@@ -26,7 +26,7 @@ class ProfilesControllerTest < ActionController::TestCase
         place:  {data: { type: 'places',  id: places(:dudley).id }}
       }
     }
-    assert_response :success
+    assert_response :success, response.body
   end
 
   def test_create_invalid
@@ -56,7 +56,7 @@ class ProfilesControllerTest < ActionController::TestCase
         report: {data: { type: 'reports', id: profile.report.id }}
       }
     }
-    assert_response :success
+    assert_response :success, response.body
   end
 
   def test_update_invalid_field

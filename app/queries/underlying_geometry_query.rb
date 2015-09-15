@@ -21,14 +21,14 @@ class UnderlyingGeometryQuery
           FROM ( SELECT 'Feature' AS type
             , ST_AsGeoJSON(subquery.geom)::json AS geometry
             , row_to_json(
-                (SELECT l FROM (SELECT id, geoid10) AS l)
+                (SELECT l FROM (SELECT id, geoid) AS l)
               ) AS properties
 
             FROM (
               SELECT
                 ct.id,
                 ct.geom,
-                ct.geoid10,
+                ct.geoid,
                 ST_Area(ST_SetSRID(geom,4326)) as d,
                 ST_Area(
                   ST_Intersection(

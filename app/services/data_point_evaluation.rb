@@ -44,7 +44,7 @@ class DataPointEvaluation
       SELECT #{ @data_point.aggregator.name }(#{ @data_point.aggregator.before_fields }#{ @data_point.fields }#{ @data_point.aggregator.after_fields })
       FROM #{ @data_point.tables }
       WHERE geoid IN (#{ @place.geoids.map{|e| "'#{e}'"}.join(",") })
-      #{"AND " if @data_point.where}#{ @data_point.where }
+        #{"AND " if @data_point.where}#{ @data_point.where }
       ;
     """.strip
   end

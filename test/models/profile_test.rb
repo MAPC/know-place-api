@@ -1,6 +1,11 @@
 require "test_helper"
 
 class ProfileTest < ActiveSupport::TestCase
+
+  def setup
+    Aggregator.find_each.map(&:save)
+  end
+
   def profile
     @profile ||= Profile.new
     @profile.report = reports(:demo)
@@ -60,6 +65,7 @@ class ProfileTest < ActiveSupport::TestCase
 
   def test_evaluate
     p = profiles(:dtod)
+    p.place.geoids = ['14000US25001010100']
     assert p.not_yet_evaluated?
     p.evaluate!
     assert p.evaluated?

@@ -36,20 +36,9 @@ class DataPointEvaluationTest < ActiveSupport::TestCase
       SELECT sum_and_moe(ARRAY[ARRAY[pop25, pop25_me]])
       FROM tabular.b15002_educational_attainment_acs_ct
       WHERE geoid IN ('14000US25001010100')
-      ;
-    """
-    assert_equal expected, evaluation.to_sql
-  end
-
-  def test_generates_sql
-    flunk(' Need to set up DataPointEvaluation with a datapoint that has the sum aggregator ')
-    expected = """
-      SELECT sum(pop25)
-      FROM tabular.b15002_educational_attainment_acs_ct
-      WHERE geoid IN ('14000US25001010100')
         AND acs_year = '2009-13'
       ;
-    """
+    """.strip!
     assert_equal expected, evaluation.to_sql
   end
 
@@ -61,8 +50,8 @@ class DataPointEvaluationTest < ActiveSupport::TestCase
         title:      "Total Population",
         modifier:   "total",
         aggregator: "sum_and_moe",
-        value:      10543.0,
-        margin:     270.98
+        value: 2616.0,
+        margin: 134.0
       }
     }
     assert_equal expected, evaluation.perform

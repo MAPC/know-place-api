@@ -1,6 +1,11 @@
 require "test_helper"
 
 class DataCollectionEvaluationTest < ActiveSupport::TestCase
+
+  def setup
+    Aggregator.find_each.map(&:save)
+  end
+
   def evaluation
     @ev ||= DataCollectionEvaluation.new(
               place: Place.new(geoids: ['14000US25001010100']),
@@ -42,7 +47,7 @@ class DataCollectionEvaluationTest < ActiveSupport::TestCase
           data: [
             {
               id:   "36692321", type: "evaluated-data-point",
-              attributes: { title: "Total Population", modifier: "total", aggregator: "sum_and_moe", value: 10543.0, margin: 270.98 }
+              attributes: { title: "Total Population", modifier: "total", aggregator: "sum_and_moe", value: 2616.0, margin: 134.0 }
             },
             {
               id: "885493904", type: "evaluated-data-point",

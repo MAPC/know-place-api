@@ -103,7 +103,7 @@ class Place < ActiveRecord::Base
     begin
       ugeo = JSON.parse( geometry_query.execute.first['row_to_json'] )
       geoids = ugeo['features'].collect{|feature|
-        feature['properties']['geoid10']
+        feature['properties']['geoid']
       }.uniq
       self.assign_attributes(underlying_geometries: ugeo)
       self.assign_attributes(geoids: geoids)
