@@ -20,6 +20,7 @@ gem 'rack-cors', require: 'rack/cors' # CORS Headers
 gem 'bcrypt' # Security
 gem 'warden' # Authentication
 gem 'pundit' # Authorization
+gem 'activerecord-session_store' # ActiveRecord Sessions (not cookies)
 
 
 # Utilities
