@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   jsonapi_resources :profiles, except: [:delete]
   jsonapi_resources :places,   except: [:delete]
   jsonapi_resources :reports,  except: [:delete]
+  jsonapi_resources :users,    only: [:show, :create]
 
   post '/users/sign_in' => 'sessions#create'
 
