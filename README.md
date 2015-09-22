@@ -6,7 +6,9 @@ The API for the Neighborhood Drawing Tool.
 
 ## Installation and Setup
 
-This is a Ruby on Rails app and uses a PostgreSQL database. See Code for America's "HowTo" on Rails for more information on deploying and maintaining apps using Rails: https://github.com/codeforamerica/howto/blob/master/Rails.md
+This is a Ruby on Rails app and uses a PostgreSQL 9.4+ database. See Code for America's "HowTo" on Rails for more information on deploying and maintaining apps using Rails: https://github.com/codeforamerica/howto/blob/master/Rails.md
+
+This will not work with PostgreSQL 9.3 or lower, as they do not support the JSON functions needed for the SQL functions in this application to run. We intend to make it backwards-compatible, but have not yet addressed this.
 
 #### Get it!
 
