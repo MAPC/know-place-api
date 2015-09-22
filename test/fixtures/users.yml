@@ -1,0 +1,9 @@
+exist:
+  email: matt@cloyd.ly
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  token: y7Uf-EwudUiI8zpsfdsYaQ
+
+new:
+  email: matt@gard.ner
+  password_digest: <%= BCrypt::Password.create("wordpass", cost: 4) %>
+  token:

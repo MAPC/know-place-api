@@ -75,6 +75,17 @@ class PlacesControllerTest < ActionController::TestCase
     assert JSON.parse(response.body)['data'].count > 0, response.body
   end
 
+  def user
+    @user ||= users(:exist)
+  end
+
+  test "context" do
+    @request.headers['Authorization'] = "Token token=#{user.token}, email=#{user.email}"
+    get :show, id: place.id
+    assert_includes response.body, "current-user"
+    assert_includes response.body, user.email
+  end
+
   # def test_index_with_filter
   #   skip "Haven't yet implemented filters."
   # end

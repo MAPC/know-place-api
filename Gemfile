@@ -16,6 +16,12 @@ gem 'kaminari'            # Pagination
 gem 'api-pagination'      # Paginates API in headers
 gem 'rack-cors', require: 'rack/cors' # CORS Headers
 
+# Auth
+gem 'bcrypt' # Security
+gem 'warden' # Authentication
+gem 'pundit' # Authorization
+
+
 # Utilities
 gem 'foreman',      require: false
 gem 'wannabe_bool'        # Convert boolean-ish values to booleans
