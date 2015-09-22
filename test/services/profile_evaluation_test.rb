@@ -1,6 +1,10 @@
 require "test_helper"
 
 class ProfileEvaluationTest < ActiveSupport::TestCase
+  def setup
+    Aggregator.find_each(&:save)
+  end
+
   def evaluation
     profile = profiles(:dtod)
     profile.place.geoids = ['14000US25001010100']

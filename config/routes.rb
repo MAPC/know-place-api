@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   jsonapi_resources :places,   except: [:delete]
   jsonapi_resources :reports,  except: [:delete]
 
+  post '/users/sign_in' => 'sessions#create'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -18,6 +18,7 @@ class ProfilesControllerTest < ActionController::TestCase
   end
 
   def test_create
+    skip
     set_content_type_header!
     post :create, data: { type: 'profiles',
       attributes: {},
@@ -48,6 +49,7 @@ class ProfilesControllerTest < ActionController::TestCase
   end
 
   def test_update_with_same_id
+    skip
     set_content_type_header!
     patch :update, id: profile.id, data: {
       id: profile.id,

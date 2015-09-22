@@ -1,6 +1,10 @@
 require "test_helper"
 
 class DataPointEvaluationTest < ActiveSupport::TestCase
+  def setup
+    Aggregator.find_each(&:save)
+  end
+
   def evaluation
     @ev ||= DataPointEvaluation.new(
               place:      Place.new(geoids: ['14000US25001010100']),
