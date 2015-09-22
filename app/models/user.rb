@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   has_secure_password
 
+  has_many :places
+  has_many :profiles
+
   before_save :ensure_token
 
   private

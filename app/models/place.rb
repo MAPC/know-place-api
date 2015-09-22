@@ -11,6 +11,7 @@ class Place < ActiveRecord::Base
   before_save :get_underlying_geometries
 
   has_many :profiles, dependent: :nullify
+  belongs_to :user
   # belongs_to :creator,  class_name: "User"
   # belongs_to :based_on, class_name: "Place"
 

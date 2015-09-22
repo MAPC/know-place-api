@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922181729) do
+ActiveRecord::Schema.define(version: 20150922210013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,7 +109,10 @@ ActiveRecord::Schema.define(version: 20150922181729) do
     t.json     "underlying_geometries"
     t.text     "geoids",                                             array: true
     t.string   "municipality"
+    t.integer  "user_id"
   end
+
+  add_index "places", ["user_id"], name: "index_places_on_user_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "place_id"
@@ -118,10 +121,12 @@ ActiveRecord::Schema.define(version: 20150922181729) do
     t.datetime "updated_at",   null: false
     t.json     "evaluation"
     t.datetime "evaluated_at"
+    t.integer  "user_id"
   end
 
   add_index "profiles", ["place_id"], name: "index_profiles_on_place_id", using: :btree
   add_index "profiles", ["report_id"], name: "index_profiles_on_report_id", using: :btree
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "reports", force: :cascade do |t|
     t.string   "title"
@@ -160,6 +165,8 @@ ActiveRecord::Schema.define(version: 20150922181729) do
   add_foreign_key "data_points", "aggregators"
   add_foreign_key "data_points", "topics"
   add_foreign_key "fields", "data_sources"
+  add_foreign_key "places", "users"
   add_foreign_key "profiles", "places"
   add_foreign_key "profiles", "reports"
+  add_foreign_key "profiles", "users"
 end

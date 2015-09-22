@@ -3,6 +3,7 @@ class Profile < ActiveRecord::Base
 
   belongs_to :place
   belongs_to :report
+  belongs_to :user
 
   def title
     # TODO - Be more deliberate about handling titles
