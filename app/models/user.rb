@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   before_save :ensure_token
 
+  validates :email, presence: true, uniqueness: true
+
   private
 
     def ensure_token
