@@ -1,6 +1,8 @@
 class ProfileResource < JSONAPI::Resource
+
   has_one :place
   has_one :report
+  has_one :user
 
   attributes :title, :complete, :evaluation
 

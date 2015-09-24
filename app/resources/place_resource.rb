@@ -4,6 +4,9 @@ class PlaceResource < JSONAPI::Resource
 
   filters :search
 
+  has_one :user
+  has_one :profile
+
   def current_user
     context && context[:current_user]
   end
