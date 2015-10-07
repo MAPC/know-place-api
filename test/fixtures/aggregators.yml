@@ -5,35 +5,13 @@ sum:
   name: sum
   modifier: total
   description: Sums the values in a column.
-  drop_statement:
-  definition:
 
 sum_and_moe:
   name: sum_and_moe
   modifier: total
   description: Sums a value column and a margin of error column.
-  before_fields: "ARRAY[ARRAY["
-  after_fields:  "]]"
-  drop_statement: DROP AGGREGATE IF EXISTS sum_and_moe(anyarray);
-  definition: >
-    CREATE AGGREGATE sum_and_moe(anyarray)(
-        SFUNC     = array_cat_moe
-      , STYPE     = anyarray
-      , FINALFUNC = _final_sum_and_moe
-      , INITCOND  = '{}'
-    );
 
 percent:
   name: percent
   modifier: percentage of
   description: Takes the percent of two columns (subset and universe).
-  before_fields: "ARRAY[ARRAY["
-  after_fields:  "]]"
-  drop_statement: DROP AGGREGATE IF EXISTS percent(anyarray);
-  definition: >
-    CREATE AGGREGATE percent(anyarray)(
-        SFUNC     = array_cat  -- see note at end
-      , STYPE     = anyarray
-      , FINALFUNC = _final_percent
-      , INITCOND  = '{}'
-    );

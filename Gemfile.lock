@@ -115,6 +115,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     pg (0.18.2)
+    pg_array_parser (0.0.9)
     pg_search (1.0.5)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
@@ -204,6 +205,7 @@ DEPENDENCIES
   minitest-rails
   minitest-reporters
   pg
+  pg_array_parser
   pg_search
   puma
   pundit

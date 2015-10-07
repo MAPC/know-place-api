@@ -8,6 +8,7 @@ gem 'rails-api'
 # Database
 gem 'pg'
 gem 'pg_search'
+gem 'pg_array_parser'
 
 # JSON API
 gem 'jsonapi-resources'
