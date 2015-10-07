@@ -46,7 +46,7 @@ class ProfileEvaluationTest < ActiveSupport::TestCase
         },
         {
           id: "885493904", type: "evaluated-data-point",
-          attributes: {title: "Adults with Bachelor's Degree or Higher", modifier: "total", aggregator: "sum_and_moe", value: 6023.0, margin: 499.33}
+          attributes: {title: "Adults with Bachelor's Degree or Higher", modifier: "total", aggregator: "sum_and_moe", value: 1442.0, margin: 211.0} # TODO double-check
         },
         {
           id: "274691428", type: "evaluated-data-collection",
@@ -60,7 +60,7 @@ class ProfileEvaluationTest < ActiveSupport::TestCase
                 },
                 {
                   id: "885493904", type: "evaluated-data-point",
-                  attributes: {title: "Adults with Bachelor's Degree or Higher", modifier: "total", aggregator: "sum_and_moe", value: 6023.0, margin: 499.33}
+                  attributes: {title: "Adults with Bachelor's Degree or Higher", modifier: "total", aggregator: "sum_and_moe", value: 1442.0, margin: 211.0} # TODO double-check
                 }
               ]
             }

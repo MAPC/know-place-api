@@ -13,6 +13,7 @@ bach:
   aggregator: sum_and_moe
   fields: "bapl, bapl_me"
   tables: tabular.b15002_educational_attainment_acs_ct
+  where:  acs_year = '2009-13'
 
 percent:
   name: "Percent of Adults with Bachelor's Degree or Higher"

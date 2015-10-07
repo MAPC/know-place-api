@@ -8,4 +8,3 @@ adult_ed:
 race:
   title: Race
   data_points: total, percent
-  ordered_data_points: [{field_id: 2, order: 1}, {field_id: 1, order: 2}]

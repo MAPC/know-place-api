@@ -7,4 +7,8 @@ class DataPoint < ActiveRecord::Base
 
   validates :aggregator_id, presence: true
 
+  def field_array
+    @field_arr ||= fields.split(',').map(&:strip)
+  end
+
 end

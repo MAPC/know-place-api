@@ -8,7 +8,7 @@ class DataCollectionEvaluationTest < ActiveSupport::TestCase
 
   def evaluation
     @ev ||= DataCollectionEvaluation.new(
-              place: Place.new(geoids: ['14000US25001010100']),
+              place: Place.new(geoids: ['14000US25001010100', '14000US25007990000', '14000US25023990003']),
               data_collection: data_collections(:adult_ed)
             )
   end
@@ -46,12 +46,12 @@ class DataCollectionEvaluationTest < ActiveSupport::TestCase
         "data-points" => {
           data: [
             {
-              id:   "36692321", type: "evaluated-data-point",
-              attributes: { title: "Total Population", modifier: "total", aggregator: "sum_and_moe", value: 2616.0, margin: 134.0 }
+              id: "36692321", type: "evaluated-data-point",
+              attributes: { title: "Total Population", modifier: "total", aggregator: "sum_and_moe", value: 2616.0, margin: 134.54 }
             },
             {
               id: "885493904", type: "evaluated-data-point",
-              attributes: { title: "Adults with Bachelor's Degree or Higher", modifier: "total", aggregator: "sum_and_moe", value: 6023.0, margin: 499.33}
+              attributes: { title: "Adults with Bachelor's Degree or Higher", modifier: "total", aggregator: "sum_and_moe", value: 1442.0, margin: 211.34} # TODO bug in rounding
             }
           ]
         }

@@ -1,4 +1,5 @@
 class DataPointEvaluation
+  include PgArrayParser
 
   attr_accessor :data_point, :place
 
@@ -14,34 +15,41 @@ class DataPointEvaluation
   end
 
   def perform
-    raw_result = GeographicDatabase.connection.execute to_sql
-    row = raw_result.first[ @data_point.aggregator.name ]
-    # TODO this method is doing too much. There should be a parse method
-    # in here doing the extra logic, forming it into a correct object.
-    if @data_point.aggregator.name == "sum"
-      result = { value: row.to_i, margin: nil }
-    else
-      result = JSON.parse( row )
-    end
+    result = GeographicDatabase.connection.execute(to_sql).first
+    # puts "\n\n#{to_sql}\n\n"
+    # puts "\n\n#{result}\n\n"
+    agg_variables = @data_point.field_array.map(&:to_sym)
+
+    # Collect fields, ordered to send as arguments
+    # into the aggregator function.
+    arguments = agg_variables.collect { |var|
+      Array(
+        parse_pg_array( result[var.to_s] )
+      ).map(&:to_i)
+    }
+
+    aggregation = AggregatorFunctions.send(
+      @data_point.aggregator.name,
+      *arguments
+    )
+
     attributes = {
       title:      data_point.name,
       modifier:   data_point.aggregator.modifier,
-      aggregator: data_point.aggregator.name,
-      value:      result['value'],
-      margin:     result['margin']
-    }
+      aggregator: data_point.aggregator.name
+    }.merge(aggregation)
+
     data = {
       id: data_point.id.to_s,
       type: 'evaluated-data-point',
       attributes: attributes
     }
-  rescue JSON::ParserError
-    raise StandardError, row.inspect
   end
+
 
   def to_sql
     """
-      SELECT #{ @data_point.aggregator.name }(#{ @data_point.aggregator.before_fields }#{ @data_point.fields }#{ @data_point.aggregator.after_fields })
+      SELECT #{ @data_point.field_array.map{|f| "array_agg(#{f}) as #{f}" }.join(",") }
       FROM #{ @data_point.tables }
       WHERE geoid IN (#{ @place.geoids.map{|e| "'#{e}'"}.join(",") })
         #{"AND " if @data_point.where}#{ @data_point.where }
