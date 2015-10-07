@@ -13,4 +13,8 @@ class UserResource < JSONAPI::Resource
     super - [:token]
   end
 
+  def self.fetchable_fields
+    super - [:password, :encrypted_password, :token]
+  end
+
 end
