@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006214123) do
+ActiveRecord::Schema.define(version: 20151008183132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20151006214123) do
     t.string   "tables"
     t.integer  "topic_id"
     t.string   "where"
+    t.string   "units"
   end
 
   add_index "data_points", ["aggregator_id"], name: "index_data_points_on_aggregator_id", using: :btree
