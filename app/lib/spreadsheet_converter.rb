@@ -67,7 +67,11 @@ class SpreadsheetConverter
         aggregator: aggregator,
         units: units
       )
-      data_point.save
+      if data_point.valid?
+        data_point.save
+      else
+        raise StandardError, "#{data_point.errors.full_messages}\n\n#{data_point.inspect}\n\n#{row}"
+      end
       associate_related_records(data_point, row)
     end
 

@@ -1,0 +1,23 @@
+Topic Area,Collection,Datapoint,Table,Subset Est,Subset MOE,Universe Est,Universe MOE,Estimate Units,Percent Units,Estimate Aggregator,Percent Aggregator,Estimate Fields,Percent Fields
+Demographics,Total Population,2010,census2010_p5_race_ethnicity_ct,totpop,,,,residents,,sum,,totpop,
+Demographics,Total Population,2000,,,,,,,,,,,
+Demographics,Total Population,1990,,,,,,,,,,,
+Demographics,Population by Age,Under 5,census2010_p12_pop_by_age_ct,pop_u5,,totpop,,residents,% of residents,sum,percent,pop_u5,"pop_u5,totpop"
+Demographics,Population by Age,Ages 5-9,census2010_p12_pop_by_age_ct,pop5_9,,totpop,,residents,% of residents,sum,percent,pop5_9,"pop5_9,totpop"
+Demographics,Population by Age,Ages 10-14,census2010_p12_pop_by_age_ct,pop10_14,,totpop,,residents,% of residents,sum,percent,pop10_14,"pop10_14,totpop"
+Demographics,Population by Age,Ages15-17,census2010_p12_pop_by_age_ct,pop15_17,,totpop,,residents,% of residents,sum,percent,pop15_17,"pop15_17,totpop"
+Demographics,Population by Age,Ages 18-24,census2010_p12_pop_by_age_ct,pop18_24,,totpop,,residents,% of residents,sum,percent,pop18_24,"pop18_24,totpop"
+Demographics,Population by Age,Ages 25-34,census2010_p12_pop_by_age_ct,pop25_34,,totpop,,residents,% of residents,sum,percent,pop25_34,"pop25_34,totpop"
+Demographics,Population by Age,Ages 35-64,census2010_p12_pop_by_age_ct,pop35_64,,totpop,,residents,% of residents,sum,percent,pop35_64,"pop35_64,totpop"
+Demographics,Population by Age,Ages 65 and Over,census2010_p12_pop_by_age_ct,pop65o,,totpop,,residents,% of residents,sum,percent,pop65o,"pop65o,totpop"
+Demographics,Population by race and ethnicity,Non-Latino White,census2010_p5_race_ethnicity_ct,nhwhi,,totpop,,residents,% of residents,sum,percent,nhwhi,"nhwhi,totpop"
+Demographics,Population by race and ethnicity,Latino,census2010_p5_race_ethnicity_ct,lat,,totpop,,residents,% of residents,sum,percent,lat,"lat,totpop"
+Demographics,Population by race and ethnicity,Non-Latino Black,census2010_p5_race_ethnicity_ct,nhaa,,totpop,,residents,% of residents,sum,percent,nhaa,"nhaa,totpop"
+Demographics,Population by race and ethnicity,Non-Latino Asian,census2010_p5_race_ethnicity_ct,nhas,,totpop,,residents,% of residents,sum,percent,nhas,"nhas,totpop"
+Demographics,Population by race and ethnicity,Non-Latino Native American,census2010_p5_race_ethnicity_ct,nhna,,totpop,,residents,% of residents,sum,percent,nhna,"nhna,totpop"
+Demographics,Population by race and ethnicity,Non-Latino Pacific Islander,census2010_p5_race_ethnicity_ct,nhpi,,totpop,,residents,% of residents,sum,percent,nhpi,"nhpi,totpop"
+Demographics,Population by race and ethnicity,Non-Latino Other Race,census2010_p5_race_ethnicity_ct,nhoth,,totpop,,residents,% of residents,sum,percent,nhoth,"nhoth,totpop"
+Demographics,Population by race and ethnicity,Non-Latino Multiracial,census2010_p5_race_ethnicity_ct,nhmult,,totpop,,residents,% of residents,sum,percent,nhmult,"nhmult,totpop"
+Demographics,Population under 18/over 65 with disability,Under 18 with disability,b18101_disability_by_gender_age_acs_ct,pu18d,pu18dme,pu18,pu18me,non-institutionalized residents,% of non-institutionalized residents under 18,sum_and_moe,percent_and_moe,"pu18d,pu18dme","pu18d,pu18dme,pu18,pu18me"
+Demographics,Population under 18/over 65 with disability,65-74 with disability,b18101_disability_by_gender_age_acs_ct,p6574d,p6574dme,p6574,p6574me,non-institutionalized residents,% of non-institutionalized residents 65-74,sum_and_moe,percent_and_moe,"p6574d,p6574dme","p6574d,p6574dme,p6574,p6574me"
+Demographics,Population under 18/over 65 with disability,Over 75 with disability,b18101_disability_by_gender_age_acs_ct,p75od,p75odme,p75o,p75ome,non-institutionalized residents,% of non-institutionalized residents 75 and over,sum_and_moe,percent_and_moe,"p75od,p75odme","p75od,p75odme,p75o,p75ome"

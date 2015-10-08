@@ -9,6 +9,8 @@ class UsersControllerTest < ActionController::TestCase
 
   test "show" do
     get :show, id: user.id
+    assert_response :success
+    assert_not_includes response.body, "token"
   end
 
   test "create" do
@@ -23,7 +25,8 @@ class UsersControllerTest < ActionController::TestCase
        }
       }
     }
-    assert_response :created
+    assert_response :created, response.body
+    # puts response.body
     token = JSON.parse(response.body)['data']['attributes']['token']
     assert token.length > 20, token
   end

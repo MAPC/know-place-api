@@ -38,21 +38,21 @@ topics:
     sort_order: 2
   -
     id: 10
-    itle: "Public Safety"
+    title: "Public Safety"
     sort_order: 1
   -
     id: 11
-    itle: "Technology"
+    title: "Technology"
     sort_order: 11
   -
     id: 12
-    itle: "Transportation"
+    title: "Transportation"
     sort_order: 3
   -
     id: 13
-    itle: "Geographic Boundaries"
+    title: "Geographic Boundaries"
     sort_order: nil
   -
     id: 14
-    itle: "Equity"
+    title: "Equity"
     sort_order: nil
