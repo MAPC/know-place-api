@@ -1,5 +1,5 @@
 class DataPointResource < JSONAPI::Resource
-  attribute :name
+  attribute :name, :units
 
   def evaluation
     { value: nil, margin: nil }

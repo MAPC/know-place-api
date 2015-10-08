@@ -7,6 +7,7 @@ total:
   fields: "pop25, pop25_me"
   tables: tabular.b15002_educational_attainment_acs_ct
   where:  acs_year = '2009-13'
+  units: residents
 
 bach:
   name: "Adults with Bachelor's Degree or Higher"
@@ -14,9 +15,11 @@ bach:
   fields: "bapl, bapl_me"
   tables: tabular.b15002_educational_attainment_acs_ct
   where:  acs_year = '2009-13'
+  units: degree holders
 
 percent:
   name: "Percent of Adults with Bachelor's Degree or Higher"
   aggregator: percent
   fields: "pop25, pop25_me, bapl, bapl_me"
   tables: tabular.b15002_educational_attainment_acs_ct
+  units: percent of adults

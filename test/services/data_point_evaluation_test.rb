@@ -55,7 +55,8 @@ class DataPointEvaluationTest < ActiveSupport::TestCase
         modifier:   "total",
         aggregator: "sum_and_moe",
         value: 2616.0,
-        margin: 134.54
+        margin: 134.54,
+        units: "residents"
       }
     }
     assert_equal expected, evaluation.perform

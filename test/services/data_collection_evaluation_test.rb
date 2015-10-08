@@ -47,11 +47,25 @@ class DataCollectionEvaluationTest < ActiveSupport::TestCase
           data: [
             {
               id: "36692321", type: "evaluated-data-point",
-              attributes: { title: "Total Population", modifier: "total", aggregator: "sum_and_moe", value: 2616.0, margin: 134.54 }
+              attributes: {
+                title: "Total Population",
+                modifier: "total",
+                aggregator: "sum_and_moe",
+                value: 2616.0,
+                margin: 134.54,
+                units: "residents"
+              }
             },
             {
               id: "885493904", type: "evaluated-data-point",
-              attributes: { title: "Adults with Bachelor's Degree or Higher", modifier: "total", aggregator: "sum_and_moe", value: 1442.0, margin: 211.34} # TODO bug in rounding
+              attributes: {
+                title: "Adults with Bachelor's Degree or Higher",
+                modifier: "total",
+                aggregator: "sum_and_moe",
+                value: 1442.0,
+                margin: 211.34,
+                units: "degree holders"
+              } # TODO bug in rounding
             }
           ]
         }

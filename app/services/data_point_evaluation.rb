@@ -36,7 +36,8 @@ class DataPointEvaluation
     attributes = {
       title:      data_point.name,
       modifier:   data_point.aggregator.modifier,
-      aggregator: data_point.aggregator.name
+      aggregator: data_point.aggregator.name,
+      units:      data_point.units
     }.merge(aggregation)
 
     data = {
