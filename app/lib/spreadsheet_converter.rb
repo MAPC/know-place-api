@@ -53,10 +53,6 @@ class SpreadsheetConverter
 
       name = row.fetch('Datapoint')
       table = row.fetch('Table')
-      fields = [
-        row['Subset Est'],   row['Subset MOE'],
-        row['Universe Est'], row['Universe MOE']
-      ].compact
 
       aggregator = Aggregator.find_by(name: agg_name)
 

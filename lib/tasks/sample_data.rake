@@ -34,10 +34,10 @@ end
 def files
   # Loaded in order so dependencies are in place at the right time.
   # FIx this so it runs on the thing
-  [File.expand_path("data_sources.yml",     "./db/sample_data/"),
-   File.expand_path("fields.yml",           "./db/sample_data/"),
-   File.expand_path("data_points.yml",      "./db/sample_data/"),
-   File.expand_path("data_collections.yml", "./db/sample_data/"),
+  [#File.expand_path("data_sources.yml",     "./db/sample_data/"),
+   #File.expand_path("fields.yml",           "./db/sample_data/"),
+   #File.expand_path("data_points.yml",      "./db/sample_data/"),
+   #File.expand_path("data_collections.yml", "./db/sample_data/"),
    File.expand_path("reports.yml",          "./db/sample_data/"),
    File.expand_path("places.yml",           "./db/sample_data/"),
    File.expand_path("profiles.yml",         "./db/sample_data/")]
