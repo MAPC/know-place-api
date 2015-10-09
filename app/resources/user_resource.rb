@@ -13,11 +13,7 @@ class UserResource < JSONAPI::Resource
   end
 
   def fetchable_fields
-    if context[:action] == "show"
-      super - [:password, :token]
-    else
-      super - [:password]
-    end
+    super - [:password]
   end
 
 end

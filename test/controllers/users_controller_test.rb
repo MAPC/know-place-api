@@ -26,7 +26,6 @@ class UsersControllerTest < ActionController::TestCase
       }
     }
     assert_response :created, response.body
-    # puts response.body
     token = JSON.parse(response.body)['data']['attributes']['token']
     assert token.length > 20, token
   end
