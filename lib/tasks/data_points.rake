@@ -12,7 +12,7 @@ namespace :data do
   desc "Check that tables are there."
   namespace :tables do
     desc "Check that all the expected tables are in."
-    task check: :environment do
+    task status: :environment do
       tables = DataPoint.find_each.map(&:tables).uniq!
 
       header
