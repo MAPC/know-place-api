@@ -34,6 +34,20 @@ Populate the database with the data that is necessary to the core of the applica
 rake db:seed
 ```
 
+We have a spreadsheet of data points with our expected tables in `db/fixtures/data_points.csv`. If you have these tables, or edit the spreadsheet for your own data points, run
+
+```
+rake data:points:load
+```
+
+To check if your tables are loaded and ready to be used, run
+
+```
+rake data:tables:check
+```
+
+It will let you know if the table is missing, and if it's present, will let you know if the `geoid` column is present and in the expected format.
+
 Optionally, you can then populate the database with sample data by running
 
 ```
