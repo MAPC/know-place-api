@@ -37,7 +37,8 @@ namespace :data do
       return "NO COLUMN 'GEOID'" unless geoid
       keys  = conn.execute "SELECT COUNT(*) FROM #{table} WHERE substring(geoid from '^.{7}') = '14000US';"
       count = conn.execute "SELECT COUNT(*) FROM #{table};"
-      keys == conn ? "WITH GOOD IDS" : "BUT BAD IDS"
+      nums  = [keys, count].map! {|result| result.first['count'].to_i }
+      nums.uniq.length == 1 ? "WITH GOOD IDS" : "BUT BAD IDS"
     end
 
     def header
