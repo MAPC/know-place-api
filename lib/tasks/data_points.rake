@@ -5,6 +5,7 @@ namespace :data do
     desc "Load data points and related records."
     task load: :environment do
       SpreadsheetConverter.new('db/fixtures/data_points.csv').perform!
+      puts "Loaded #{DataPoint.count} data points!"
     end
   end
 
@@ -32,6 +33,8 @@ namespace :data do
 
     def good_keys?(table)
       conn  = GeographicDatabase.connection
+      geoid = conn.column_exists?(table, 'geoid')
+      return "NO COLUMN 'GEOID'" unless geoid
       keys  = conn.execute "SELECT COUNT(*) FROM #{table} WHERE substring(geoid from '^.{7}') = '14000US';"
       count = conn.execute "SELECT COUNT(*) FROM #{table};"
       keys == conn ? "WITH GOOD IDS" : "BUT BAD IDS"
