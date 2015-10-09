@@ -1,4 +1,15 @@
 namespace :db do
+  desc "Update / sync primary key."
+  namespace :sample do
+    task keys: :environment do
+      %w( places reports profiles ).each { |table|
+        ActiveRecord::Base.connection.reset_pk_sequence! table
+      }
+    end
+  end
+end
+
+namespace :db do
 
   desc "Sample data tasks for the application."
   namespace :sample do
