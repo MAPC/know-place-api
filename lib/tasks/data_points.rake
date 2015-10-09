@@ -13,17 +13,39 @@ namespace :data do
     desc "Check that all the expected tables are in."
     task check: :environment do
       tables = DataPoint.find_each.map(&:tables).uniq!
+
+      header
       tables.map do |table|
-        puts "#{table_exists?(table)}\t\t#{table}"
+        status = table_status(table)
+        puts "#{status}#{table}"
+      end
+      footer
+    end
+
+    def table_status(table)
+      if GeographicDatabase.connection.table_exists? table
+        "EXISTS #{good_keys?(table)}\t"
+      else
+        "MISSING\t\t\t"
       end
     end
 
-    def table_exists?(table)
-      if GeographicDatabase.connection.table_exists? table
-        "      √"
-      else
-        "MISSING"
-      end
+    def good_keys?(table)
+      conn  = GeographicDatabase.connection
+      keys  = conn.execute "SELECT COUNT(*) FROM #{table} WHERE substring(geoid from '^.{7}') = '14000US';"
+      count = conn.execute "SELECT COUNT(*) FROM #{table};"
+      keys == conn ? "WITH GOOD IDS" : "BUT BAD IDS"
+    end
+
+    def header
+      puts "\n"
+      puts "STATUS / GEOIDS\t\tTABLE"
+      puts "---------------------------------------------------------"
+    end
+
+    def footer
+      # puts "========================================================="
+      puts "\n"
     end
 
   end
