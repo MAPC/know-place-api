@@ -18,3 +18,4 @@
 /log/*
 !/log/.keep
 /tmp
+*.lock*

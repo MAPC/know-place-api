@@ -2,10 +2,60 @@ namespace :data do
 
   desc "Data points, collections, etc. for aggregation."
   namespace :points do
+
+    # Before running this task, ensure the following keys are in:
+    #   Topic Area, Collection, Datapoint, Table, Subset Est,
+    #   Subset MOE, Universe Est, Universe MOE, Estimate Units,
+    #   Percent Units, Estimate Aggregator, Percent Aggregator,
+    #   Estimate Fields, Percent Fields
+    #
+    # Remove all the fields that don't have values for Table.
+    # Copy the file to data_points.csv.
+    # Delete all existing data points, collections, and reports,
+    #   but only in development.
+    # Run this task
+    #
     desc "Load data points and related records."
     task load: :environment do
+      points, collections = DataPoint.count, DataCollection.count
       SpreadsheetConverter.new('db/fixtures/data_points.csv').perform!
-      puts "Loaded #{DataPoint.count} data points!"
+      points_after, collections_after = DataPoint.count, DataCollection.count
+      diff_points = points_after - points
+      diff_collections = collections_after - collections
+      puts "Loaded #{diff_points} data points\nand #{diff_collections} collections!"
+    end
+  end
+
+  namespace :reports do
+    task load: :environment do
+      puts "Not yet implemented"
+      exit 1
+    end
+    task create_universe: :environment do
+      title = "All Available Data"
+      desc = "All available data points and collections."
+      tags = ['all', 'everything', 'universe', 'data']
+
+      report = Report.find_by(title: title)
+      if report
+        puts "Report '#{title}' already exists, exiting."
+        exit 0
+      end
+      new_report = Report.new(title: title, description: desc, tags: tags, official: true)
+      new_report.data_points = DataPoint.all
+      new_report.data_collections = DataCollection.all
+      if new_report.valid?
+        new_report.save!
+        points_count = new_report.data_points.count
+        collections_count = new_report.data_collections.count
+        puts "Created Report '#{title}' with #{points_count} data points and #{collections_count} collections."
+        exit 0
+      else
+        puts "New report #{new_report.inspect} was not valid:"
+        puts new_report.errors.full_messages
+        exit 1
+      end
+
     end
   end
 

@@ -79,8 +79,8 @@ class SpreadsheetConverter
 
     def ensure_related_records(row)
       collection, topic = related_records(row)
-      DataCollection.find_or_create_by(title: collection)
-      Topic.find_or_create_by(title: topic)
+      DataCollection.create(title: collection) unless DataCollection.find_by(title: collection).present?
+      Topic.create(title: topic) unless Topic.find_by(title: topic).present?
     end
 
     def associate_related_records(object, row)
