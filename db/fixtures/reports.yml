@@ -4,8 +4,7 @@
 reports:
   -
     name: "General Population Statistics" # Report name
-    description: >
-      "General statistics on the population of the selected area, by age, race, and ethnicity."
+    description: "General statistics on the population of the selected area, by age, race, and ethnicity."
     data_collections:
       - "Total Population"
       - "Population by age"
@@ -22,8 +21,7 @@ reports:
       - "Ages 65 and Over"
   -
     name: "Population Diversity"
-    description: >
-      "Detailed statistics on the race and ethnicity of the selected area, nativity, language spoken at home, and English proficiency."
+    description: "Detailed statistics on the race and ethnicity of the selected area, nativity, language spoken at home, and English proficiency."
     data_collections:
       - "Total Population"
       - "Population by race and ethnicity"
@@ -47,8 +45,7 @@ reports:
       - "People speaking other language"
   -
     name: "Youth"
-    description: >
-      "A breakdown of the school-age population in the selected area, by age, race, and ethnicity."
+    description: "A breakdown of the school-age population in the selected area, by age, race, and ethnicity."
     data_collections:
       - "Total Population"
       - "Population by Age"
@@ -82,8 +79,7 @@ reports:
       - "Ages 15-17 Multiracial"
   -
     name: "Housing"
-    description: >
-      "Statistics related to the income, tenure (rent/own), cost burden, and disability status of households in the selected area."
+    description: "Statistics related to the income, tenure (rent/own), cost burden, and disability status of households in the selected area."
     data_collections:
       - "Occupied housing units"
       - "Population under 18/over 65 with disability"
@@ -115,8 +111,7 @@ reports:
       - "Over 75 with disability"
   -
     name: "Transportation"
-    description: >
-      "Statistics about transportation behavior, including commute mode, vehicle ownership, and vehicle miles per household."
+    description: "Statistics about transportation behavior, including commute mode, vehicle ownership, and vehicle miles per household."
     data_collections:
       - "Occupied housing units"
       - "Transit time to work/commute times"
@@ -141,8 +136,7 @@ reports:
       - "Owner households with no vehicle"
   -
     name: "Measuring Prosperity"
-    description: >
-      "Statistics about economic status and opportunity, including educational attainment, employment, and income."
+    description: "Statistics about economic status and opportunity, including educational attainment, employment, and income."
     data_collections:
       - "Total Population"
       - "Population by Age"
