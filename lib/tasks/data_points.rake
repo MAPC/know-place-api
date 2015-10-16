@@ -64,6 +64,10 @@ namespace :data do
     desc "Check that all the expected tables are in."
     task status: :environment do
       tables = DataPoint.find_each.map(&:tables).uniq!
+      if Array(tables).empty?
+        puts "There are no required tables. Note: there are #{DataPoint.count} data points."
+        exit 1
+      end
 
       header
       tables.map do |table|
