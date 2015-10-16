@@ -14,6 +14,9 @@ class DataPointEvaluation
     @data_point && @place
   end
 
+  # This method is too long. The attributes and data hashes
+  # could easily be refactored into their own methods, as could
+  # the parsing of arguments.
   def perform
     result = GeographicDatabase.connection.execute(to_sql).first
     # puts "\n\n#{to_sql}\n\n"
@@ -45,6 +48,10 @@ class DataPointEvaluation
       type: 'evaluated-data-point',
       attributes: attributes
     }
+  rescue
+    # NO RESULT
+    # TODO: The better thing to would be to return data that
+    # can indicate an error to the client.
   end
 
 
