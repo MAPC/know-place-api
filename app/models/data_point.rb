@@ -22,7 +22,7 @@ class DataPoint < ActiveRecord::Base
         end
       end
       puts messages.inspect
-      messages.each { |message| errors.add(:fields, message) }
+      messages.compact.each { |message| errors.add(:fields, message) }
     end
 
 end
