@@ -17,7 +17,7 @@ class DataPoint < ActiveRecord::Base
     def all_fields_exist
       conn = GeographicDatabase.connection
       messages = field_array.map do |field|
-        if conn.column_exists?( self.tables, field )
+        if conn.column_exists?( "tabular.#{self.tables}", field )
           "field #{field} in table #{self.tables} does not exist"
         end
       end
