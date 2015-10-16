@@ -26,7 +26,3 @@ class DataPoint < ActiveRecord::Base
     end
 
 end
-
-
-
-fields: "totpop", tables: "census2010_p5_race_ethnicity_ct"
