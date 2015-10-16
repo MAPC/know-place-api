@@ -21,7 +21,6 @@ class DataPoint < ActiveRecord::Base
           "field #{field} in table #{self.tables} does not exist"
         end
       end
-      puts messages.inspect
       messages.compact.each { |message| errors.add(:fields, message) }
     end
 
