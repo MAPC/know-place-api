@@ -28,9 +28,28 @@ namespace :data do
 
   namespace :reports do
     task load: :environment do
-      puts "Not yet implemented"
-      exit 1
+      yml = YAML.load_file('db/fixtures/reports.yml')
+      reports = yml.fetch('reports') { raise ArgumentError, "No key 'reports' in reports.yml." }
+      reports.each do |r|
+        data = OpenStruct.new(r)
+        report = Report.new(title: data.name, description: data.description)
+        report.data_points = data.data_points.map {|name|
+          DataPoint.find_by(name: name)
+        }.compact
+        report.data_collections = data.data_collections.map {|name|
+          DataCollection.find_by(title: name)
+        }.compact
+
+        if report.valid?
+          report.save
+        else
+          puts "Invalid report:\n #{report.errors.full_messages}"
+          exit 1
+        end
+      end
+      exit 0
     end
+
     task create_universe: :environment do
       title = "All Available Data"
       desc = "All available data points and collections."
