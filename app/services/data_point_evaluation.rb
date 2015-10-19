@@ -57,6 +57,7 @@ class DataPointEvaluation
         margin: 0,
         units: "error",
         error: e.to_s,
+        backtrace: e.backtrace,
         message:  "Data point #{data_point.try(:name)} could not be evaluated.",
         sql: to_sql,
         data_point: data_point.try(:attributes)
