@@ -55,7 +55,7 @@ class DataPointEvaluation
       attributes: {
         value: 0,
         margin: 0,
-        units: "error"
+        units: "error",
         message:  "Data point #{data_point.try(:name)} could not be evaluated.",
         sql: to_sql,
         data_point: data_point.try(:attributes)
