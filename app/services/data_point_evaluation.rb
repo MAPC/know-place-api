@@ -48,7 +48,7 @@ class DataPointEvaluation
       type: 'evaluated-data-point',
       attributes: attributes
     }
-  rescue
+  rescue StandardError => e
     {
       id:   data_point.try(:id),
       type: "evaluated-data-point",
@@ -56,6 +56,7 @@ class DataPointEvaluation
         value: 0,
         margin: 0,
         units: "error",
+        error: e.to_s
         message:  "Data point #{data_point.try(:name)} could not be evaluated.",
         sql: to_sql,
         data_point: data_point.try(:attributes)
