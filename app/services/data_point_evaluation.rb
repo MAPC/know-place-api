@@ -50,7 +50,7 @@ class DataPointEvaluation
     }
   rescue
     {
-      id:   data_point.try(:id)
+      id:   data_point.try(:id),
       type: "error-evaluated-data-point",
       attributes: {
         message:  "Data point #{data_point.try(:name)} could not be evaluated.",
