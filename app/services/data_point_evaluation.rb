@@ -19,8 +19,7 @@ class DataPointEvaluation
   # the parsing of arguments.
   def perform
     result = GeographicDatabase.connection.execute(to_sql).first
-    # puts "\n\n#{to_sql}\n\n"
-    # puts "\n\n#{result}\n\n"
+    puts "result: #{result.inspect}"
     agg_variables = @data_point.field_array.map(&:to_sym)
 
     # Collect fields, ordered to send as arguments
@@ -35,7 +34,6 @@ class DataPointEvaluation
       @data_point.aggregator.name,
       *arguments
     )
-
     attributes = {
       title:      data_point.name,
       modifier:   data_point.aggregator.modifier,
@@ -57,7 +55,6 @@ class DataPointEvaluation
         margin: 0,
         units: "error",
         error: e.to_s,
-        backtrace: e.backtrace,
         message:  "Data point #{data_point.try(:name)} could not be evaluated.",
         sql: to_sql,
         data_point: data_point.try(:attributes)

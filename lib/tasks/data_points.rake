@@ -78,6 +78,34 @@ namespace :data do
     end
   end
 
+  desc "Check that the ACS years are correct"
+  namespace :tables do
+    task years: :environment do
+      include PgArrayParser
+      tables = DataPoint.find_each.map(&:tables).uniq!
+      if Array(tables).empty?
+        puts "There are no required tables. Note: there are #{DataPoint.count} data points."
+        exit 1
+      end
+      tables.map do |table|
+        status = table_years(table)
+        puts "#{status}\t\t\t#{table}"
+      end
+      exit 0
+    end
+
+    def table_years(table)
+      conn = GeographicDatabase.connection
+      if conn.table_exists?(table) && conn.column_exists?(table, 'acs_year')
+        result = conn.execute("SELECT array_agg(DISTINCT(acs_year)) FROM #{table}").first
+        years = parse_pg_array(result['array_agg'])
+        years.join(',')
+      else
+        "MISSING table #{table}\n\tor acs_year column."
+      end
+    end
+  end
+
   desc "Check that tables are there."
   namespace :tables do
     desc "Check that all the expected tables are in."
