@@ -127,3 +127,29 @@ namespace :data do
 
   end
 end
+
+
+def set_where_condition(options={})
+  sum     = Aggregator.find_by(name: 'sum_and_moe')
+  percent = Aggregator.find_by(name: 'percent_and_moe')
+  ids     = assert_aggregators_present(sum, percent)
+
+  where_clause = options.fetch(:clause) { "acs_year='2009-13'" }
+  ids.each do |agg_id|
+    data_points = DataPoint.where(aggregator_id: agg_id)
+    data_points.each {|d|
+      d.update_attributes(where: where_clause)
+    }
+    puts "Updated #{data_points.count} with WHERE clause #{where_clause}"
+  end
+end
+
+def assert_aggregators_present(sum, percent)
+  if [sum, percent].include?(nil)
+    puts "The necessary aggregators are not present."
+    puts "Sum\t#{sum}\nPercent\t#{percent}"
+    return
+  else
+    [sum.id, percent.id]
+  end
+end

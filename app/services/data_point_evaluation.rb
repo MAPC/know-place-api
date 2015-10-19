@@ -49,9 +49,15 @@ class DataPointEvaluation
       attributes: attributes
     }
   rescue
-    # NO RESULT
-    # TODO: The better thing to would be to return data that
-    # can indicate an error to the client.
+    {
+      id:   data_point.try(:id)
+      type: "error-evaluated-data-point",
+      attributes: {
+        message:  "Data point #{data_point.try(:name)} could not be evaluated.",
+        sql: to_sql,
+        data_point: data_point.try(:attributes)
+      }
+    }
   end
 
 

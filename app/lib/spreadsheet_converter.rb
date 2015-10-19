@@ -6,10 +6,12 @@ class SpreadsheetConverter
   attr_reader :file
 
   def initialize(spreadsheet_path)
+    @spreadsheet_path = spreadsheet_path
     @file = CSV.read spreadsheet_path, 'r', headers: true
   end
 
   def perform!
+    assert_required_fields_present
     # @file.loop_through_and_reject_bad_rows
     @file.each do |row|
       ensure_related_records(row)
@@ -18,6 +20,17 @@ class SpreadsheetConverter
   end
 
   private
+
+    def assert_required_fields_present
+      spreadsheet_fields = @file.first.to_h.keys
+      fields_still_needed = required_fields - spreadsheet_fields
+      if fields_still_needed.any?
+        raise IOError, """
+          The spreadsheet given is missing the following fields:
+          #{fields_still_needed.join(',')}.
+        """
+      end
+    end
 
     def create_data_points_from_row(row)
       units = [
@@ -88,5 +101,13 @@ class SpreadsheetConverter
       DataCollection.find_by(title: collection).data_points << object
       Topic.find_by(title: topic).data_points << object
     end
+
+    def required_fields
+      ['Topic Area', 'Collection', 'Datapoint', 'Table', 'Subset Est',
+       'Subset MOE', 'Universe Est', 'Universe MOE', 'Estimate Units',
+       'Percent Units', 'Estimate Aggregator', 'Percent Aggregator',
+       'Estimate Fields', 'Percent Fields']
+    end
+
 
 end

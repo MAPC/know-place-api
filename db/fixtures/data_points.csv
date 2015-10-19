@@ -1,5 +1,5 @@
 Topic Area,Collection,Datapoint,Table,Subset Est,Subset MOE,Universe Est,Universe MOE,Estimate Units,Percent Units,Estimate Aggregator,Percent Aggregator,Estimate Fields,Percent Fields
-Demographics,Total Population,Populaiton 2010,census2010_p5_race_ethnicity_ct,totpop,,,,residents,,sum,,totpop,
+Demographics,Total Population,Population 2010,census2010_p5_race_ethnicity_ct,totpop,,,,residents,,sum,,totpop,
 Demographics,Population by Age,Under 5,census2010_p12_pop_by_age_ct,pop_u5,,totpop,,residents,% of residents,sum,percent,pop_u5,"pop_u5,totpop"
 Demographics,Population by Age,Ages 5-9,census2010_p12_pop_by_age_ct,pop5_9,,totpop,,residents,% of residents,sum,percent,pop5_9,"pop5_9,totpop"
 Demographics,Population by Age,Ages 10-14,census2010_p12_pop_by_age_ct,pop10_14,,totpop,,residents,% of residents,sum,percent,pop10_14,"pop10_14,totpop"
