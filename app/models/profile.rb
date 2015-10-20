@@ -1,5 +1,10 @@
 class Profile < ActiveRecord::Base
   before_save :evaluate!
+  # TODO:
+  # The before hook should only re-evaluate if the profile has not
+  # yet been saved. There should be a safe #evaluate that won't save
+  # if there's an existing evaluation, and an #evaluate that forces
+  # the re-evaluation.
 
   belongs_to :place
   belongs_to :report

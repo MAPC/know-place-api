@@ -108,8 +108,8 @@ class Place < ActiveRecord::Base
       }.uniq
       self.assign_attributes(underlying_geometries: ugeo)
       self.assign_attributes(geoids: geoids)
-    rescue
-      # NOOP
+    rescue StandardError => e
+      errors.add(:geometry, "could not get underlying geometries because\n\t#{e}")
     ensure
       # NOOP
     end
