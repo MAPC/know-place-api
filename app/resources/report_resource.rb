@@ -3,6 +3,7 @@ class ReportResource < JSONAPI::Resource
 
   filters :search
 
+  # TODO: Update JR, move to new syntax.
   def self.apply_filter(records, filter, value, options)
     case filter
     when :search

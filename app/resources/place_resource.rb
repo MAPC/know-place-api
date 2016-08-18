@@ -11,6 +11,7 @@ class PlaceResource < JSONAPI::Resource
     context && context[:current_user]
   end
 
+  # TODO: Update JR, move to new syntax.
   def self.apply_filter(records, filter, value, options)
     case filter
     when :search

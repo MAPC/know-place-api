@@ -8,6 +8,7 @@ class Report < ActiveRecord::Base
   validates :title, presence: true, length: {
     minimum: 5, maximum: 70
   }
+
   validates :description, presence: true, length: {
     minimum: 20, maximum: 140
   }
@@ -19,9 +20,11 @@ class Report < ActiveRecord::Base
       tags:        'B',
       description: 'C'
     },
-    using: { tsearch: {
+    using: {
+      tsearch: {
       dictionary: "english",
       prefix: true
-    } }
+      }
+    }
   )
 end

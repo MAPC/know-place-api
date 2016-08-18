@@ -1,3 +1,5 @@
+# TODO: More documentation.
+
 class DataCollectionEvaluation
 
   attr_accessor :data_collection, :place

@@ -10,16 +10,17 @@ class User < ActiveRecord::Base
 
   private
 
-    def ensure_token
-      if token.blank?
-        self.token = generate_token
-      end
+  def ensure_token
+    if token.blank?
+      self.token = generate_token
     end
+  end
 
-    def generate_token
-      loop do
-        token = SecureRandom.base64
-        break token unless User.where(token: token).first
-      end
+  def generate_token
+    loop do
+      token = SecureRandom.base64
+      break token unless User.where(token: token).first
     end
+  end
+
 end

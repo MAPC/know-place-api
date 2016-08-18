@@ -58,6 +58,7 @@ class Place < ActiveRecord::Base
   VALID_AREA = 1.0
   alias_attribute :title, :name
 
+  # TODO: Require all query objects when autoloading.
   def area
     res = ::AreaQuery.new( geometry.to_json ).execute
     res ? res.first['st_area'].to_f : 0
@@ -72,8 +73,9 @@ class Place < ActiveRecord::Base
   end
 
   alias_attribute :underlying, :underlying_geometries
-  alias_attribute :ugeo, :underlying_geometries
+  alias_attribute :ugeo,       :underlying_geometries
 
+  # TODO: Require all query objects when autoloading.
   def geometry_query
     ::UnderlyingGeometryQuery.new( geometry.to_json )
   end
@@ -85,33 +87,35 @@ class Place < ActiveRecord::Base
       errors.add(:geometry, "area must be > 0 and <= #{VALID_AREA}, but was #{area}")
     end
   rescue PG::InternalError => e
-    errors.add(:geometry, e.to_s)
+    errors.add :geometry, e.message
   end
 
+  # TODO: What are the cases in which this is needed?
   def shift_geometry
     if geometry && geometry.has_key?("geometry")
       Rails.logger.debug "Shifted geometry on #{self.id}"
-      assign_attributes(geometry: geometry["geometry"])
+      assign_attributes geometry: geometry["geometry"]
     end
   end
 
+  # TODO: Do we need to write-in-place with the `!`?
   def uniq_geoids
     Array(geoids).uniq!
   end
 
-
+  # Refactor into a service object or something else.
   def get_underlying_geometries
     begin
-      ugeo = JSON.parse( geometry_query.execute.first['row_to_json'] )
+      ugeo = JSON.parse geometry_query.execute.first['row_to_json']
       geoids = ugeo['features'].collect{|feature|
         feature['properties']['geoid']
       }.uniq
-      self.assign_attributes(underlying_geometries: ugeo)
-      self.assign_attributes(geoids: geoids)
+      self.assign_attributes underlying_geometries: ugeo, geoids: geoids
     rescue StandardError => e
-      errors.add(:geometry, "could not get underlying geometries because\n\t#{e}")
+      errors.add :geometry, "could not get underlying geometries because\n#{e}"
     ensure
       # NOOP
+      # TODO: Is this ensure clause necessary?
     end
   end
 
