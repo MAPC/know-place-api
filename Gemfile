@@ -61,5 +61,6 @@ end
 
 
 group :production do
-  gem 'puma' # App server
+  gem 'puma'      # App server
+  gem 'scout_apm' # Track responses and memory bloat
 end

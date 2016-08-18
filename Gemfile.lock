@@ -163,6 +163,9 @@ GEM
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     ruby-progressbar (1.7.5)
+    rusage (0.2.0)
+    scout_apm (2.1.1)
+      rusage (~> 0.2.0)
     shellany (0.0.1)
     simplecov (0.10.0)
       docile (~> 1.1.0)
@@ -214,6 +217,7 @@ DEPENDENCIES
   rails-api
   rake
   rb-fsevent
+  scout_apm
   spring
   wannabe_bool
   warden
