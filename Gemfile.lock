@@ -83,7 +83,7 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
     json (1.8.3)
-    jsonapi-resources (0.5.7)
+    jsonapi-resources (0.7.0)
       rails (>= 4.0)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
