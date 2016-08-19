@@ -1,6 +1,6 @@
 require 'active_record/session_store'
 
-class ApplicationController < JSONAPI::ResourceController # ActionController::API
+class API::V1::APIController < JSONAPI::ResourceController
   include Pundit
   include ActionController::HttpAuthentication::Token
 

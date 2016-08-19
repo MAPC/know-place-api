@@ -2,8 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.5'
 
-gem 'rails', '4.2.3'
-gem 'rails-api'
+gem 'rails', '4.2.5.1'
 
 # Database
 gem 'pg'
@@ -12,7 +11,7 @@ gem 'pg_array_parser'
 
 # JSON API
 gem 'jsonapi-resources'
-# gem 'jsonapi-serializers' # Serialize with JSONAPI.org standard
+gem 'versionist'
 gem 'kaminari'            # Pagination
 gem 'api-pagination'      # Paginates API in headers
 gem 'rack-cors', require: 'rack/cors' # CORS Headers

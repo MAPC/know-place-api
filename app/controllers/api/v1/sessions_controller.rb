@@ -1,4 +1,4 @@
-class SessionsController < ActionController::API
+class API::V1::SessionsController < ActionController::API
   skip_before_action :authenticate!, only: [:create]
   def create
     # TODO Dry this out by using the Warden PasswordStrategy
