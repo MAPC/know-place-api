@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 ruby '2.1.5'
 
 gem 'rails', '4.2.5.1'
+gem 'rails-api', require: false
 
 # Database
 gem 'pg'
@@ -22,6 +23,10 @@ gem 'warden' # Authentication
 gem 'pundit' # Authorization
 gem 'activerecord-session_store' # ActiveRecord Sessions (not cookies)
 
+# Admin console
+
+gem 'administrate'
+gem 'bourbon'
 
 # Utilities
 gem 'foreman',      require: false

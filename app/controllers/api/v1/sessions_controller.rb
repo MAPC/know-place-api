@@ -1,3 +1,5 @@
+require 'rails-api'
+
 class API::V1::SessionsController < ActionController::API
   skip_before_action :authenticate!, only: [:create]
   def create
