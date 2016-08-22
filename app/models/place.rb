@@ -91,6 +91,7 @@ class Place < ActiveRecord::Base
   end
 
   # TODO: What are the cases in which this is needed?
+  # Oh, this is included when we call it above.
   def shift_geometry
     if geometry && geometry.has_key?("geometry")
       Rails.logger.debug "Shifted geometry on #{self.id}"

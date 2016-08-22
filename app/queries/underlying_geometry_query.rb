@@ -1,9 +1,11 @@
 class UnderlyingGeometryQuery
 
+  # TODO: This is duplicate logic, and should be factored out.
   def initialize(geojson)
     @geojson = geojson
   end
 
+  # TODO: This is duplicate logic, and should be factored out.
   def execute
     begin
       GeographicDatabase.connection.execute to_sql
@@ -16,6 +18,7 @@ class UnderlyingGeometryQuery
     end
   end
 
+  # Upgrade to Ruby 2.3, and use the squiggle heredoc.
   def to_sql
     "
       SELECT row_to_json(fc)

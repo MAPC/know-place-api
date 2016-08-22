@@ -22,8 +22,8 @@ class Report < ActiveRecord::Base
     },
     using: {
       tsearch: {
-      dictionary: "english",
-      prefix: true
+        dictionary: 'english',
+        prefix: true
       }
     }
   )
