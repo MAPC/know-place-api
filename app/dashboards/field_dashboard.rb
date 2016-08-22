@@ -57,7 +57,7 @@ class FieldDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how fields are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(field)
-  #   "Field ##{field.id}"
-  # end
+  def display_resource(field)
+    "#{field.name}"
+  end
 end

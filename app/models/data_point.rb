@@ -8,6 +8,8 @@ class DataPoint < ActiveRecord::Base
   validates :aggregator_id, presence: true
   validate :all_fields_exist
 
+  default_scope { order('updated_at DESC') }
+
   def field_array
     @field_arr ||= fields.split(',').map(&:strip)
   end

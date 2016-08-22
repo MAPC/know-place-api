@@ -1,0 +1,45 @@
+<%#
+# HasMany Form Partial
+
+This partial renders an input element for belongs_to relationships.
+By default, the input is a collection select box
+that displays all possible records to associate with.
+The collection select box supports multiple inputs,
+and is augmented with [Selectize].
+
+## Local variables:
+
+- `f`:
+  A Rails form generator, used to help create the appropriate input fields.
+- `field`:
+  An instance of [Administrate::Field::HasMany][1].
+  Contains helper methods for displaying a collection select box.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/HasMany
+[Selectize]: http://brianreavis.github.io/selectize.js
+%>
+
+<div class="field-unit__label">
+  <%= f.label field.attribute_key, field.attribute %>
+</div>
+<div class="field-unit__field">
+  <%= f.select(field.attribute_key, nil, {}, multiple: true) do %>
+    <%= options_for_select(field.associated_resource_options, field.selected_options) %>
+  <% end %>
+  <div class="ui pointing label">
+    Search for a <%= field.name.singularize %> by clicking the input field above. You can:
+    <ul class="ui list">
+      <li class="item">
+        Search for <%= field.name.pluralize %> by title or ID.
+      </li>
+      <li class="item">
+        <%= link_to(
+          "create a new #{field.name.titleize.downcase.singularize}",
+          [:new, namespace, field.name.singularize],
+          class: "",
+          target: "_blank"
+        ) %> (will open in a new window)
+      </li>
+    </ul>
+  </div>
+</div>

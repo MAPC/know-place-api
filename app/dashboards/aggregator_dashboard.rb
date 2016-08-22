@@ -54,7 +54,7 @@ class AggregatorDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how aggregators are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(aggregator)
-  #   "Aggregator ##{aggregator.id}"
-  # end
+  def display_resource(aggregator)
+    "#{aggregator.name.capitalize}: #{aggregator.description}"
+  end
 end

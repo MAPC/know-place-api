@@ -24,9 +24,9 @@ gem 'pundit' # Authorization
 gem 'activerecord-session_store' # ActiveRecord Sessions (not cookies)
 
 # Admin console
-
 gem 'administrate'
 gem 'bourbon'
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 
 # Utilities
 gem 'foreman',      require: false

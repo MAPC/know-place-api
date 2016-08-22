@@ -8,9 +8,9 @@ class ReportDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    profiles: Field::HasMany,
-    data_points: Field::HasMany,
-    data_collections: Field::HasMany,
+    # profiles: Field::HasMany,
+    data_points: Field::HasMany.with_options(limit: 100),
+    data_collections: Field::HasMany.with_options(limit: 100),
     id: Field::Number,
     title: Field::String,
     description: Field::String,
@@ -26,7 +26,8 @@ class ReportDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :profiles,
+    :title,
+    # :profiles,
     :data_points,
     :data_collections,
     :id,
@@ -35,14 +36,12 @@ class ReportDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :profiles,
-    :data_points,
-    :data_collections,
-    :id,
     :title,
     :description,
+    :data_points,
+    :data_collections,
     :official,
-    :tags,
+    # :profiles,
     :created_at,
     :updated_at,
   ].freeze
@@ -51,19 +50,17 @@ class ReportDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :profiles,
-    :data_points,
-    :data_collections,
     :title,
     :description,
     :official,
-    :tags,
+    :data_points,
+    :data_collections
   ].freeze
 
   # Overwrite this method to customize how reports are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(report)
-  #   "Report ##{report.id}"
-  # end
+  def display_resource(report)
+    "#{report.title}"
+  end
 end
