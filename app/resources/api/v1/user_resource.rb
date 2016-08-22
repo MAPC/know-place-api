@@ -7,17 +7,17 @@ module API
       has_many :places
       has_many :profiles
 
-      def self.creatable_fields(context)
-        super - [:token]
-      end
+      # def self.creatable_fields(context)
+      #   super - [:token]
+      # end
 
-      def self.updatable_fields(context)
-        super - [:token]
-      end
+      # def self.updatable_fields(context)
+      #   super - [:token]
+      # end
 
-      def fetchable_fields
-        super - [:password]
-      end
+      # def fetchable_fields
+      #   super - [:password]
+      # end
 
     end
   end
