@@ -9,12 +9,8 @@ class UnderlyingGeometryQuery
   def execute
     begin
       GeographicDatabase.connection.execute to_sql
-    rescue
-      # NO OP
-      # TODO: Why nothing -- at least log it?
-    ensure
-      # NO OP
-      # TODO: Why nothing?
+    rescue StandardError => e
+      Rails.logger.error "Error running UnderlyingGeometryQuery: #{e.message}"
     end
   end
 
