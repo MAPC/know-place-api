@@ -1,6 +1,6 @@
 require "test_helper"
 
-class UsersControllerTest < ActionController::TestCase
+class API::V1::UsersControllerTest < ActionController::TestCase
   include Common
 
   def user

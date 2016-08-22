@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SessionsControllerTest < ActionController::TestCase
+class API::V1::SessionsControllerTest < ActionController::TestCase
   include Common
 
   def setup
