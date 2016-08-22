@@ -1,4 +1,8 @@
+# TODO: Move to /lib
+
 class MarginSweeper
+
+  # TODO: Add documentation on inputs and outputs, with a robust example.
 
   def initialize(values, margins)
     @values  = values

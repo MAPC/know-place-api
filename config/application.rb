@@ -8,6 +8,11 @@ Bundler.require(*Rails.groups)
 
 module KnowPlaceApi
   class Application < Rails::Application
+    config.middleware.use ActionDispatch::Flash
+    config.middleware.use Rack::MethodOverride
+    config.middleware.use ActionDispatch::Cookies
+    #to fix CSRF protection error configure the default session store - cookie_store
+    config.middleware.use ActionDispatch::Session::CookieStore
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

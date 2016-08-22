@@ -9,8 +9,10 @@ class UnderlyingGeometryQuery
       GeographicDatabase.connection.execute to_sql
     rescue
       # NO OP
+      # TODO: Why nothing -- at least log it?
     ensure
       # NO OP
+      # TODO: Why nothing?
     end
   end
 

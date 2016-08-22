@@ -1,3 +1,5 @@
+# TODO: Move to /lib
+
 module AggregatorFunctions
 
   # Round to the number of digits

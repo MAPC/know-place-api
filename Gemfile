@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.1.5'
 
-gem 'rails', '4.2.3'
-gem 'rails-api'
+gem 'rails', '4.2.5.1'
+gem 'rails-api', require: false
 
 # Database
 gem 'pg'
@@ -12,7 +12,7 @@ gem 'pg_array_parser'
 
 # JSON API
 gem 'jsonapi-resources'
-# gem 'jsonapi-serializers' # Serialize with JSONAPI.org standard
+gem 'versionist'
 gem 'kaminari'            # Pagination
 gem 'api-pagination'      # Paginates API in headers
 gem 'rack-cors', require: 'rack/cors' # CORS Headers
@@ -23,6 +23,10 @@ gem 'warden' # Authentication
 gem 'pundit' # Authorization
 gem 'activerecord-session_store' # ActiveRecord Sessions (not cookies)
 
+# Admin console
+
+gem 'administrate'
+gem 'bourbon'
 
 # Utilities
 gem 'foreman',      require: false
@@ -61,5 +65,6 @@ end
 
 
 group :production do
-  gem 'puma' # App server
+  gem 'puma'      # App server
+  gem 'scout_apm' # Track responses and memory bloat
 end

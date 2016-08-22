@@ -1,3 +1,5 @@
+# TODO: More documentation.
+
 class ProfileEvaluation
 
   attr_accessor :profile

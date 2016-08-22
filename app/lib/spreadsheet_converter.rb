@@ -1,3 +1,5 @@
+# TODO: Move to /lib
+
 class SpreadsheetConverter
 
   COLLECTION_HEADER = 'Collection'
