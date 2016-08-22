@@ -15,9 +15,9 @@ module API
       #   super - [:token]
       # end
 
-      # def fetchable_fields
-      #   super - [:password]
-      # end
+      def fetchable_fields
+        super - [:token, :password]
+      end
 
     end
   end
