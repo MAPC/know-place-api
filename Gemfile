@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.1.5'
+ruby '2.3.1'
+
+gem 'bundler', '1.11.2'
 
 gem 'rails', '4.2.5.1'
 gem 'rails-api', require: false
@@ -11,20 +13,19 @@ gem 'pg_search'
 gem 'pg_array_parser'
 
 # JSON API
-gem 'jsonapi-resources'
-gem 'versionist'
+gem 'jsonapi-resources'   # Implements JSONAPI.org Spec
+gem 'versionist'          # Versioning API
 gem 'kaminari'            # Pagination
 gem 'api-pagination'      # Paginates API in headers
 gem 'rack-cors', require: 'rack/cors' # CORS Headers
 
 # Auth
 gem 'bcrypt' # Security
-gem 'warden' # Authentication
-gem 'pundit' # Authorization
+gem 'devise' # Authentication
+gem 'pundit' # Authorization / Access Control
 gem 'activerecord-session_store' # ActiveRecord Sessions (not cookies)
 
 # Admin console
-
 gem 'administrate'
 gem 'bourbon'
 
@@ -58,9 +59,7 @@ group :test do
 
   gem 'minitest-rails'     # Test library
   gem 'minitest-reporters' # For progress bar, etc.
-  # OSX Notification Center reporter
-  # NOTE: Doesn't run in TMUX, and freezes Guard.
-  # gem 'minitest-osx', require: RUBY_PLATFORM.include?('darwin') && 'minitest/osx'
+  gem 'minitest-focus'
 end
 
 
