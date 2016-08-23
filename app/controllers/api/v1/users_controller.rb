@@ -1,6 +1,6 @@
 module API
   module V1
-    class UsersController < API::V1::APIController
+    class UsersController < APIController
     end
   end
 end
