@@ -41,6 +41,7 @@ class ProfileEvaluation
 
   private
 
+  # TODO: Dry it up. This is duplicated elsewhere.
   def object_for(object_or_id, klass)
     case object_or_id
     when klass then object_or_id

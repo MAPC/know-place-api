@@ -1,2 +1,6 @@
-class API::V1::PlacesController < API::V1::APIController
+module API
+  module V1
+    class PlacesController < APIController
+    end
+  end
 end

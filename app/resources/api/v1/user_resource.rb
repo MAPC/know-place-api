@@ -7,6 +7,10 @@ module API
       has_many :places
       has_many :profiles
 
+      # after_create do
+      #   sign_in @model, store: false
+      # end
+
       def self.creatable_fields(context)
         super - [:token]
       end
@@ -16,7 +20,11 @@ module API
       end
 
       def fetchable_fields
-        super - [:password]
+        if (context[:current_user] == @model)
+          super - [:password]
+        else
+          super - [:password, :token]
+        end
       end
 
     end

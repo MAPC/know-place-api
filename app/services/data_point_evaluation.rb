@@ -43,12 +43,15 @@ class DataPointEvaluation
       units:      data_point.units
     }.merge(aggregation)
 
+    # TODO: Create a non-ActiveRecord model for DataPoint evaluations,
+    # and serialize them using a JSONAPI Resources wrapper.
     data = {
       id: data_point.id.to_s,
       type: 'evaluated-data-point',
       attributes: attributes
     }
   rescue StandardError => e
+    # Separate out as a method to call.
     {
       id:   data_point.try(:id),
       type: "evaluated-data-point",
@@ -77,6 +80,7 @@ class DataPointEvaluation
 
   private
 
+  # TODO: Dry it up. This is duplicated elsewhere.
   def object_for(object_or_id, klass)
     case object_or_id
     when klass then object_or_id

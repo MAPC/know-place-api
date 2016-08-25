@@ -23,6 +23,8 @@ class DataCollectionEvaluation
       ).perform
     end
 
+    # TODO: Create a non-ActiveRecord model for DataCollection evaluations,
+    # and serialize them using a JSONAPI Resources wrapper.
     {
       id: @data_collection.id.to_s,
       type: "evaluated-data-collection",
@@ -36,6 +38,7 @@ class DataCollectionEvaluation
 
   private
 
+  # TODO: Dry it up. This is duplicated elsewhere.
   def object_for(object_or_id, klass)
     case object_or_id
     when klass then object_or_id

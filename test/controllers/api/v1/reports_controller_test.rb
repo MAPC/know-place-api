@@ -1,8 +1,11 @@
 require "test_helper"
 
-class ReportsControllerTest < ActionController::TestCase
+class API::V1::ReportsControllerTest < ActionController::TestCase
+
   def test_index
     get :index
+    errors = JSON.parse(response.body)['errors']
+    puts errors
     assert_response :success
   end
 

@@ -17,7 +17,7 @@ class ReportTest < ActiveSupport::TestCase
   def test_requires_a_title_of_certain_length
     report.title = "a" * 71
     assert_not report.valid?
-    report.title = "a" * 6
+    report.title = "a" * 4
     assert_not report.valid?
   end
 

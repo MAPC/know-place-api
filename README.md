@@ -1,18 +1,26 @@
 # KnowPlace API
 
-The API for KnowPlace, the Neighborhood Drawing Tool.
+The geospatial API for KnowPlace, MAPC's neighborhood drawing and data tool.
 
 ## What is KnowPlace?
 
-KnowPlace [democratizes information][impl2], giving users the power to access essential statistics for custom geometries, without needing to use costly or time-consuming mapping software.
+KnowPlace provides data summaries for any geography. Open the map, select or draw an outline of your neighborhood, city, or town, and select the kind of data (e.g. basic demographics, public health, etc.) you'd like to see. KnowPlace gives you a custom report about the place you outlined, including information about [margins of error][moe] to help you understand how reliable the data is.
 
-When using KnowPlace
+KnowPlace [democratizes information][impl2] by giving users the power to access essential statistics for custom geometries, without needing to use costly or time-consuming mapping and statistics software.
+
+In a sense, KnowPlace is simplified GIS without needing to know GIS.
+
+> [What is GIS?][gis]
+
+[moe]: https://en.wikipedia.org/wiki/Margin_of_error
+[impl2]: http://www.mapc.org/sites/default/files/MF2_Information_11_21.pdf
+[gis]: https://www.quora.com/Geographic-Information-Systems-GIS/What-is-GIS-1
 
 #### What is the KnowPlace API?
 
-Most of the geometrical and mathematical work is done in the API, behind the scenes. When you draw a place, the API checks to see if it's a valid shape and finds all the underlying Census tracts. When build a new profile by combining a report and a place, it does all the calculations you need and sends you your custom data, in seconds.
+The KnowPlace API powers the geographical and mathematical work behind the [KnowPlace client][client] that users interact with.
 
-Among other things, the KnowPlace API:
+To summarize, the KnowPlace API:
 
 - checks to make sure the geometry you've drawn is valid
 - finds all the Census tracts intersecting with the drawn geometry
@@ -20,14 +28,25 @@ Among other things, the KnowPlace API:
 - stores all the places, reports, and profiles
 - authenticates and authorizes users
 
-In a sense, KnowPlace is simplified GIS without needing to know GIS.
+[client]: https://github.com/MAPC/neighborhood-drawing-tool-client
 
-> [What is GIS?][gis]
+The API is not currently accessible to anything but the KnowPlace client, but we plan to make it publicly accessible, so you could send it a GeoJSON geometry and get back census tracts and data. Please see the [Roadmap][#roadmap] for more.
 
-[gis]: https://www.quora.com/Geographic-Information-Systems-GIS/What-is-GIS-1
+#### How It Works
 
+The end result you see is called a __Place Profile__, or simply a __Profile__. A Profile provides detailed information about a place. The Profile shows a map of a place's boundary and the underlying Census Tract geometries used to summarize the data for that place. It lists all the data points, showing margins of error and color-coding them to indicate the degree of confidence it is safe to have in each piece of data.
 
-#### Basic Data Structure
+For more on margin of error and confidence in data, see the section __["On Confidence"](#on-confidence)__.
+
+This comes from combining a __Place__ with a __Report__.
+
+A __Place__ is any geometry, either provided by MAPC or drawn and contributed by KnowPlace users.
+
+> Some Places may be marked as "official" to indicate that they are official municipal boundaries provided by the Commonwealth of Massachusetts, or that they are the neighborhood boundaries used by official entities including the Boston Redevelopment Authority. Neighborhood boundaries are not always agreed-upon, so we intend the "official" tag to mean "provided by officials", as opposed to "correct" or "canonical".
+
+A __Report__ is a grouping of data to provide information about a certain subject.
+
+__DataPoints__ take one or more fields (database columns) and operate on them using __Aggregators__.
 
 We first combine fields (database columns) with summation operations (Aggregators) in order to get DataPoints. In other words, DataPoints consist of several columns that have been operated on over a given set of records (more on that shortly).
 
@@ -35,15 +54,21 @@ We first combine fields (database columns) with summation operations (Aggregator
 
 > In order to get a DataPoint called "Proportion of Adults with Bachelor's Degrees or Higher" We take the total number of adults (column `pop25`) and the number of adults with a bachelor's degree or higher (column `bapl`), and operate on those columns with an Aggregator that takes the sums of both columns, then divides to get the proportion.
 
-How do we know which records (rows) to take when we are summarizing? Well, first of all, each row is represented by either a single geographic point, or by a value assigned to a [Census Tract](https://en.wikipedia.org/wiki/Census_tract).
+A DataPoint can be classified under a topic. For example, DataPoints in the "Demographics" topic include:
 
-At the core, this application takes a defined geographic boundary ("Place") and combines it with a set of DataPoints, called a "Report", and creates what we call a "Place Profile", or simply a Profile.
+- Ages 5-9 Native American
+- Over 75 with disability
+- People speaking non-English language who do not speak English at all
 
-On its own, a Report doesn't have any numerical values -- it _needs_ a Place in order to figure out which points and tracks to query.
+A __DataCollection__ is a grouping of related DataPoints that should be displayed together. For example, the DataCollection "Population by race and ethnicity" includes the following DataPoints, among others:
 
-When a user creates a geography, we first query for all of the Census Tracts that touch the user-defined geographic boundary. Next, we run the queries for all the DataPoints in the user's current Report, limiting the query to only the rows associated with the Census Tracts in the user's Place.
+- Non-Latino White
+- Latino
+- Non-Latino Pacific Islander
 
-This produces the Profile, which is static unless someone changes the related Place or Report -- then the Profile is run again, in order to update its values.
+This ensures that the data user or consumer can access related information in the same place, and compare categories at a glance.
+
+A __Topic__ is a grouping of subject matter that MAPC uses across all its informational projects. Topics include Demographics, Civic Vitality & Governance, Environment & Energy, Public Health, and more.
 
 #### Aggregators
 
@@ -53,13 +78,9 @@ Aggregators sum up all the data for a given set of records, in a query something
 SELECT aggregator_name(column, column, etc) WHERE geoid IN ('list', 'of', 'geoids');
 ```
 
-#### API
+## On Confidence
 
-At the moment, the API is not CORS-enabled, meaning that only applications on the same domain are allowed to read from it. However, we plan to open it up once we rate-limit it.
-
-External services will be able to ask for a Place Profile by posting a GeoJSON polygon and a set of DataPoints or Report to the API endpoint, and get back the evaluated profile and the associated Census Tracts (and other underlying geographies, if any).
-
-[impl2]: http://www.mapc.org/sites/default/files/MF2_Information_11_21.pdf
+TODO
 
 ## Preparation
 
@@ -147,27 +168,7 @@ rake data:tables:years
 
 ## Testing
 
-We use a [test-driven development methodology][tdd] to ensure our code does what we expect it to.
-[tdd]: http://martinfowler.com/bliki/TestDrivenDevelopment.html
-
-You can run tests to check that everything is running.
-
-```sh
-# Run tests explicitly.
-rake test
-
-# Run tests, when 'test' is the default rake task.
-rake
-```
-
-To keep tests running continually in the background, we use Guard. You can start Guard in a Terminal pane or window with, simply,
-
-```
-guard
-
-# or if that doesn't quite work, try
-bundle exec guard
-```
+You can run tests to check that everything is running using `rake test`. Keep tests running in the background with `guard`.
 
 ## Running the application
 
@@ -182,6 +183,7 @@ foreman start
 ```
 
 #### Console and more
+
 Run the Rails console with
 
 ```sh
@@ -198,8 +200,18 @@ foreman run rake some_task
 
 ## Deployment
 
-If you don't have a preferred deployment service, or are willing to try out a self-hosted Platform as a Service, we recommend using [Dokku Alt](https://github.com/dokku-alt/dokku-alt) on servers running Ubuntu 14.04. [(See Dokku requirements.)](https://github.com/dokku-alt/dokku-alt#requirements)
+The KnowPlace API is a [Twelve-Factor app][12f], and will deploy on Heroku, Dokku, or similar cloud hosting services.
 
-Dokku is very similar to other cloud PaaSes, but is fairly straightforward to set up if you're comfortable with SSH, public/private keys, and navigating and installing things on Linux servers.
+[12f]: https://12factor.net/
 
+## Roadmap
 
+- __Public API__ so other applicaitons services will be able to ask for a Place Profile by posting a GeoJSON polygon and a set of DataPoints or Report to the API endpoint, and get back the evaluated profile and the associated Census Tracts (and other underlying geographies, if any).
+- __Simple charts and graphs__ to highlight key neighborhood indicators, and the ability to transpose data for multiple visualization tools' preferred data formats through an API call.
+- __Comparison__ to see the similarities and differences between two places.
+- __Support for multiple geometries__ including points, Census blocks and blockgroups, and non-Census geometries.
+
+## Client Roadmap
+- __Communicative interface__ that simplifies the process of profile creation, simplifies loading, and more.
+- __Improved information design__ that presents data in a clearer way.
+- __Export__ data to a spreadsheet format, or the profile with a map to PDF.

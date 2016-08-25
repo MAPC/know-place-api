@@ -14,7 +14,6 @@ Rails.application.routes.draw do
     resources :data_sources
     resources :fields
     resources :profiles
-    
 
     root to: "reports#index"
   end
@@ -26,13 +25,12 @@ Rails.application.routes.draw do
       jsonapi_resources :reports,  except: [:delete]
       jsonapi_resources :users,    only: [:show, :create]
 
+      devise_for :users, controllers: { sessions: 'api/v1/sessions' }
       post '/users/sign_in' => 'sessions#create'
     end
   end
 
   # TODO: Add a root path.
-
-  # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
 end

@@ -13,10 +13,12 @@ class Profile < ActiveRecord::Base
   def title
     # TODO - Be more deliberate about handling titles
     # when we know it's not completed.
+    # We could do this as a service object.
     "#{ report.try(:title) } in #{ place.try(:title) }"
   end
 
   def self.complete
+    # Is there a better way to write this?
     where('place_id IS NOT NULL AND report_id IS NOT NULL')
   end
 

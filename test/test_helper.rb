@@ -24,6 +24,10 @@ Minitest::Reporters.use!(
 # Awesome colorful output
 require "minitest/pride"
 
+class ActionController::TestCase
+  include Devise::TestHelpers
+end
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
