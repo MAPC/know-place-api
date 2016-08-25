@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ProfilesControllerTest < ActionController::TestCase
+class API::V1::ProfilesControllerTest < ActionController::TestCase
   include Common
 
   def profile

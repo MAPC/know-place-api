@@ -1,2 +1,6 @@
-class API::V1::ProfilesController < API::V1::APIController
+module API
+  module V1
+    class ProfilesController < APIController
+    end
+  end
 end

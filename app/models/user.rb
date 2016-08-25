@@ -4,19 +4,19 @@ class User < ActiveRecord::Base
   has_many :places
   has_many :profiles
 
-  before_save :ensure_token
+  before_save :ensure_authentication_token
 
   validates :email, presence: true, uniqueness: true
 
   private
 
-  def ensure_token
+  def ensure_authentication_token
     if token.blank?
-      self.token = generate_token
+      self.token = generate_authentication_token
     end
   end
 
-  def generate_token
+  def generate_authentication_token
     loop do
       token = SecureRandom.base64
       break token unless User.where(token: token).first

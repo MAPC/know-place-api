@@ -5,13 +5,8 @@ class Report < ActiveRecord::Base
   has_and_belongs_to_many :data_points
   has_and_belongs_to_many :data_collections
 
-  validates :title, presence: true, length: {
-    minimum: 5, maximum: 70
-  }
-
-  validates :description, presence: true, length: {
-    minimum: 20, maximum: 140
-  }
+  validates :title,       presence: true, length: { minimum:  5, maximum:  70 }
+  validates :description, presence: true, length: { minimum: 20, maximum: 140 }
 
   pg_search_scope(
     :search,
@@ -22,8 +17,8 @@ class Report < ActiveRecord::Base
     },
     using: {
       tsearch: {
-      dictionary: "english",
-      prefix: true
+        dictionary: 'english',
+        prefix: true
       }
     }
   )

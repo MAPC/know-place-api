@@ -3,6 +3,8 @@ require "test_helper"
 class DataCollectionEvaluationTest < ActiveSupport::TestCase
 
   def setup
+    # TODO: Can we stub this functionality instead of needing to save?
+    # Or, can we add a teardown that destroys them?
     Aggregator.find_each.map(&:save)
   end
 
@@ -24,6 +26,9 @@ class DataCollectionEvaluationTest < ActiveSupport::TestCase
   end
 
   def test_asserts_needs
+    # These are long lines. We can alias the thing under test.
+    # These aren't helpful tests, that is, I don't understand why these errors
+    #   need to be raised.
     assert_raises { DataCollectionEvaluation.new() }
     assert_raises { DataCollectionEvaluation.new place: places(:dudley) }
     assert_raises { DataCollectionEvaluation.new data_collection: data_collections(:adult_ed) }
@@ -37,6 +42,7 @@ class DataCollectionEvaluationTest < ActiveSupport::TestCase
   end
 
   def test_performs_and_returns_hash
+    # Open a JSON fixture file to simplify this.
     expected = {
       id: "274691428", type: "evaluated-data-collection",
       attributes: {

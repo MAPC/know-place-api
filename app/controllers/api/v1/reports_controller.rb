@@ -1,2 +1,6 @@
-class API::V1::ReportsController < API::V1::APIController
+module API
+  module V1
+    class ReportsController < APIController
+    end
+  end
 end

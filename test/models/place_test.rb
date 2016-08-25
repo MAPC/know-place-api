@@ -111,26 +111,28 @@ class PlaceTest < ActiveSupport::TestCase
   end
 
   def test_invalid_when_too_many_geoids
-    place.save
-    place.geoids = (0..101).to_a.map {|el| "GEOIDUS#{el}LOL" }
+    place.save!
+    place.geoids = (0..101).to_a.map {|i| "GEOIDUS#{i}LOL" }
     assert_not place.valid?, place.errors.full_messages
   end
 
   def test_makes_geoids_uniq_before_saving
-    place.save
+    skip 'No Census data in test database'
+    place.save!
     place.geoids = (0..101).to_a.map {|el| "GEOIDUS101LOL" }
     assert place.valid?, place.errors.full_messages
     assert_equal 1, place.geoids.count
   end
 
   def test_validates_geoid_elements_not_characters
-    place.save
+    skip 'No Census data in test database'
+    place.save!
     place.geoids = (0..98).to_a.collect { 'G' }
     assert place.valid?, place.errors.full_messages
   end
 
   def test_invalid_when_not_enough_geoids
-    place.save
+    place.save!
     place.geoids = []
     assert_not place.valid?, place.errors.full_messages
   end
@@ -161,13 +163,13 @@ class PlaceTest < ActiveSupport::TestCase
   end
 
   def test_saves_underlying_geometries
+    skip 'No Census data in test database'
     p = place.dup
-    p.save
+    p.save!
     assert p.reload.underlying_geometries
   end
 
   def test_underlying_geometries_without_geometry
-
     p = place.dup
     p.geometry = nil
     assert_not p.valid?
@@ -175,10 +177,10 @@ class PlaceTest < ActiveSupport::TestCase
   end
 
   def test_saves_geoids
-
+    skip 'No Census data in test database'
     p = place.dup
-    p.save
-    assert p.reload.geoids, "Turns out it's empty: #{p.geoids.inspect}, but should have been #{ JSON.parse( p.geometry_query.execute.first['row_to_json'] )['features'].collect{|f| f['properties']['geoid10']} }"
+    p.save!
+    assert p.reload.geoids, geoid_error(p)
   end
 
   def test_can_accept_feature
@@ -188,6 +190,17 @@ class PlaceTest < ActiveSupport::TestCase
     p.validate
     assert_not_equal g, p.geometry
   end
+
+  private
+
+  def geoid_error(p)
+    query_results = p.geometry_query.execute.first['row_to_json']
+    expected = JSON.parse(query_results)['features'].
+      collect { |f| f['properties']['geoid10'] }
+    actual = p.geoids.inspect
+    "Actual: #{actual}\nExpected #{expected}"
+  end
+
 
 
 
