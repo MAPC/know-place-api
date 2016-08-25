@@ -8,8 +8,8 @@ class DataCollectionDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    data_points: Field::HasMany,
-    reports: Field::HasMany,
+    data_points: Field::HasMany.with_options(limit: 100),
+    reports: Field::HasMany.with_options(limit: 100),
     id: Field::Number,
     title: Field::String,
     ordered_data_points: Field::String.with_options(searchable: false),
@@ -45,16 +45,15 @@ class DataCollectionDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :data_points,
-    :reports,
     :title,
+    :data_points,
     :ordered_data_points,
   ].freeze
 
   # Overwrite this method to customize how data collections are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(data_collection)
-  #   "DataCollection ##{data_collection.id}"
-  # end
+  def display_resource(data_collection)
+    "#{data_collection.title} (ID: #{data_collection.id})"
+  end
 end

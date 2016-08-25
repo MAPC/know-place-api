@@ -10,8 +10,8 @@ class DataPointDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     aggregator: Field::BelongsTo,
     topic: Field::BelongsTo,
-    data_collections: Field::HasMany,
-    reports: Field::HasMany,
+    data_collections: Field::HasMany.with_options(limit: 100),
+    reports: Field::HasMany.with_options(limit: 100),
     id: Field::Number,
     name: Field::String,
     created_at: Field::DateTime,
@@ -28,10 +28,12 @@ class DataPointDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :aggregator,
+    :id,
+    :name,
     :topic,
     :data_collections,
     :reports,
+    :updated_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -55,21 +57,26 @@ class DataPointDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :aggregator,
-    :topic,
-    :data_collections,
-    :reports,
     :name,
+    :topic,
+    :aggregator,
     :fields,
     :tables,
     :where,
+    
+    
+    :data_collections,
+    :reports,
+
+
+    
     :units,
   ].freeze
 
   # Overwrite this method to customize how data points are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(data_point)
-  #   "DataPoint ##{data_point.id}"
-  # end
+  def display_resource(data_point)
+    "#{data_point.name} (ID: #{data_point.id})"
+  end
 end

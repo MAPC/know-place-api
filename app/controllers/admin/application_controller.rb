@@ -12,6 +12,8 @@ module Admin
       # TODO Add authentication logic here.
     end
 
+
+    http_basic_authenticate_with name: ENV.fetch("ADMIN_NAME", 'admin'), password: ENV.fetch("ADMIN_PASSWORD", 'password')
     # Override this value to specify the number of elements to display at a time
     # on index pages. Defaults to 20.
     # def records_per_page

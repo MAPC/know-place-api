@@ -1,0 +1,50 @@
+<%#
+# String Form Partial
+
+This partial renders an input element for a string attribute.
+By default, the input is a text field.
+
+## Local variables:
+
+- `f`:
+  A Rails form generator, used to help create the appropriate input fields.
+- `field`:
+  An instance of [Administrate::Field::String][1].
+  A wrapper around the String pulled from the database.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/String
+%>
+
+<div class="field-unit__label">
+  <%= f.label field.attribute %>
+</div>
+<div class="field-unit__field">
+  <%= f.text_field field.attribute %>
+  <% if field.name == "where" %>
+    <div class="ui pointing red basic label">
+      <p>This is specifically the "WHERE" clause of a SQL (Structured Query Language) statement. It is directly interpreted by the database. Any syntax errors will result in errors.</p>
+      <p>The basic syntax for this clause is as follows: WHERE, followed by an unquoted column name, followed by a <em>single-quoted</em> string or integer.</p>
+      <p>Example: WHERE acs_year='2008-12'</p>
+    </div>
+  <% end %>
+  <% if field.name == "tables" %>
+    <div class="ui pointing label">
+      <p>This refers to the exact table name in the database.</p>
+    </div>
+  <% end %>
+  <% if field.name == "fields" %>
+    <div class="ui pointing label">
+      <p>What are the exact column names in the database table? If multiple, separate with commas.</p>
+    </div>
+  <% end %>
+  <% if field.name == "units" %>
+    <div class="ui pointing label">
+      <p>This specifies in the profiles the name of the units. Typically "households" or "people".</p>
+    </div>
+  <% end %>
+  <% if field.name == "units" %>
+    <div class="ui pointing label">
+      <p>A human-readable name for the data point.</p>
+    </div>
+  <% end %>
+</div>

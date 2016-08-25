@@ -8,7 +8,7 @@ class PlaceDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    profiles: Field::HasMany,
+    # profiles: Field::HasMany,
     user: Field::BelongsTo,
     id: Field::Number,
     name: Field::String,
@@ -29,7 +29,7 @@ class PlaceDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :profiles,
+    # :profiles,
     :user,
     :id,
     :name,
@@ -38,7 +38,7 @@ class PlaceDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
-    :profiles,
+    # :profiles,
     :user,
     :id,
     :name,
@@ -72,7 +72,7 @@ class PlaceDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how places are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(place)
-  #   "Place ##{place.id}"
-  # end
+  def display_resource(place)
+    "#{place.name}"
+  end
 end

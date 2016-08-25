@@ -4,18 +4,18 @@ require 'subdomain_constraint'
 Rails.application.routes.draw do
 
   namespace :admin do
-    resources :profiles
-    resources :places
     resources :reports
-    resources :users
-    resources :data_collections
-    resources :aggregators
     resources :data_points
+    resources :data_collections
+    resources :places
+    resources :users
+    resources :aggregators
+    resources :topics
     resources :data_sources
     resources :fields
-    resources :topics
+    resources :profiles
 
-    root to: "profiles#index"
+    root to: "reports#index"
   end
 
   namespace :api, constraints: SubdomainConstraint.new(/^api/), path: '' do
