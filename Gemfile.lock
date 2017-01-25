@@ -253,6 +253,8 @@ GEM
     tilt (2.0.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    uglifier (3.0.4)
+      execjs (>= 0.3.0, < 3)
     versionist (1.5.0)
       activesupport (>= 3)
       railties (>= 3)
@@ -298,6 +300,7 @@ DEPENDENCIES
   scout_apm
   semantic-ui-sass!
   spring
+  uglifier
   versionist
   wannabe_bool
 
